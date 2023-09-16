@@ -21,7 +21,13 @@ repositories {
 
 //Dependencies of the software
 dependencies {
+        testImplementation(platform("org.junit:junit-bom:5.10.0"))
+        testImplementation(platform("io.cucumber:cucumber-bom:7.14.0"))
 
+        testImplementation ("io.cucumber:cucumber-java:7.14.0")
+        testImplementation("io.cucumber:cucumber-junit:7.14.0")
+        testImplementation("org.junit.platform:junit-platform-suite")
+        testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 tasks {
@@ -37,4 +43,14 @@ tasks {
     processResources {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
     }
+
+
+
+}
+
+tasks.withType<Test> {
+        useJUnitPlatform()
+        // Work around. Gradle does not include enough information to disambiguate
+        // between different examples and scenarios.
+        systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
