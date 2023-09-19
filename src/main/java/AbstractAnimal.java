@@ -1,10 +1,4 @@
 public abstract class AbstractAnimal {
-    enum Direction {
-        UP,
-        DOWN,
-        LEFT,
-        RIGHT;
-    }
     private char icon;
     private static int count;
 
