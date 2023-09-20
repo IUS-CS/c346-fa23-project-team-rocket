@@ -31,8 +31,6 @@ Here are screenshots of what we did:
 
 ## Retro
 
-[What is a Sprint Retrospective](https://www.scrum.org/resources/what-is-a-sprint-retrospective)
-
 ### Good
 
 * Discord Meetings
