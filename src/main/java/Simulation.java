@@ -43,9 +43,9 @@ class Simulation implements Runnable {
     public void run() {
         grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
         final int DAYS_PER_RUN = 10; // The number of days in a run
-        secondsPerTimeStep = 1;
+        secondsPerTimeStep = 100;
 
-        // TODO: Output initial environment info
+        outputGrid();
 
         for (currentDay = 1; currentDay < DAYS_PER_RUN; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep < timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
@@ -71,7 +71,15 @@ class Simulation implements Runnable {
                 }
             }
 
-            // TODO: Output current environment info
+            outputGrid();
         }
+    }
+
+    void outputGrid() {
+        System.out.println("-------------------");
+        for (int i = 0; i < grid.length; i++) {
+
+        }
+        System.out.println("-------------------");
     }
 }
