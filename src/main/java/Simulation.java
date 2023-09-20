@@ -11,10 +11,17 @@ import java.lang.Runnable;
 class Simulation implements Runnable {
     AbstractAnimal[][] grid; // Grid that animals move throughout
     private static final int[] DEFAULT_GRID_DIMENSIONS = {10, 10}; // The default values for the width and height of the grid
+    private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
+    private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
     int currentDay; // The current day of the simulation
     int currentTimeStep; // The current time step within the current day of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
-    private int secondsPerTimeStep; // The number of real-world seconds that make up each time step
+    private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
+
+    public static void main(String[] args) {
+        Simulation simulation = new Simulation();
+        simulation.run();
+    }
 
     /**
      * Returns a new Simulation object with the given constraints.
@@ -27,7 +34,7 @@ class Simulation implements Runnable {
     Simulation(int gridWidth, int gridHeight, int timeStepsPerDay, int secondsPerTimeStep) {
         grid = new AbstractAnimal[gridWidth][gridHeight];
         this.timeStepsPerDay = timeStepsPerDay;
-        this.secondsPerTimeStep = secondsPerTimeStep;
+        this.millisecondsPerTimeStep = secondsPerTimeStep;
     }
 
     /**
@@ -35,6 +42,8 @@ class Simulation implements Runnable {
      */
     Simulation() {
         grid = new AbstractAnimal[DEFAULT_GRID_DIMENSIONS[0]][DEFAULT_GRID_DIMENSIONS[1]];
+        timeStepsPerDay = DEFAULT_TIME_STEPS_PER_DAY;
+        millisecondsPerTimeStep = DEFAULT_MILLISECONDS_PER_TIME_STEP;
     }
 
     /**
@@ -43,37 +52,92 @@ class Simulation implements Runnable {
     public void run() {
         grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
         final int DAYS_PER_RUN = 10; // The number of days in a run
-        secondsPerTimeStep = 100;
 
         outputGrid();
 
-        for (currentDay = 1; currentDay < DAYS_PER_RUN; currentDay++) { // Iterates through each day
-            for (currentTimeStep = 1; currentTimeStep < timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
+        for (currentDay = 1; currentDay <= DAYS_PER_RUN; currentDay++) { // Iterates through each day
+            for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 try {
-                    Thread.sleep(secondsPerTimeStep);
+                    Thread.sleep(millisecondsPerTimeStep);
                 } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+                    System.out.println("There was an unexpected issue with the simulation.");
+                    return;
                 }
 
                 for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
-                    for (int j = 0; j < grid[0].length; j++) { // Iterates through each entry in the current row of the grid
+                    for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
                         if (grid[i][j] != null) {
-                            grid[i][j].move();
+                            AbstractAnimal[] neighbors = new AbstractAnimal[4];
+                            if (i == 0) {
+                                neighbors[0] = new Rabbit();
+                            } else {
+                                neighbors[0] = grid[i-1][j];
+                            }
+
+                            if (i == grid.length - 1) {
+                                neighbors[1] = new Rabbit();
+                            } else {
+                                neighbors[1] = grid[i+1][j];
+                            }
+
+                            if (j == 0) {
+                                neighbors[2] = new Rabbit();
+                            } else {
+                                neighbors[2] = grid[i][j-1];
+                            }
+
+                            if (j == grid[0].length - 1) {
+                                neighbors[3] = new Rabbit();
+                            } else {
+                                neighbors[3] = grid[i][j+1];
+                            }
+
+                            moveAnimal(grid[i][j], neighbors, i, j);
                         }
                     }
                 }
-            }
-            for (int i = 0; i < grid.length; i++) {
-                for (int j = 0; j < grid[0].length; j++) {
-                    if (grid[i][j] != null) {
-                        grid[i][j].breed();
+            } // End of current day
+
+            AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
+            boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
+            boolean animalFound;               // Indicates if a rabbit is in the current grid space
+            boolean gridIsFull = false;        // Indicates if the grid is full
+            for (int i = 0; i < oldGrid.length; i++) {        // Iterates through each row of a copy of the grid
+                for (int j = 0; j < oldGrid[0].length; j++) { // Iterates through each column of a copy of the grid
+                    hasBred = false;
+                    animalFound = false;
+
+                    if (oldGrid[i][j] != null) {
+                        animalFound = true;
+
+                        for (int k = 0; k < grid.length; k++) {     // Iterates through each row of the grid
+                            for (int l = 0; l < grid.length; l++) { // Iterates through each column of the grid
+                                if (grid[k][l] == null) { // If the current grid space is empty
+                                    grid[k][l] = new Rabbit();
+                                    hasBred = true;
+                                }
+
+                                if (hasBred) {
+                                    break;
+                                }
+                            }
+
+                            if (hasBred) {
+                                break;
+                            }
+                        }
+                    }
+
+                    if (animalFound && !hasBred) { // Grid must be full
+                        System.out.println("The program has ended prematurely because there is no more space for animals.");
+                        return;
                     }
                 }
-            }
+            } // End of grid iteration
 
             outputGrid();
-        }
-    }
+        } // End of simulation
+    } // end run
 
     void outputGrid() {
 
@@ -84,7 +148,7 @@ class Simulation implements Runnable {
             System.out.print("|"); // Print left edge
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] != null) {
-                    System.out.print('R'); // Prints  an 'R' where an entity is present
+                    System.out.print(Rabbit.toIcon()); // Prints  an 'R' where an entity is present
                 } else {
                     System.out.print(" "); // Print an empty space if there's no animal
                 }
@@ -93,5 +157,32 @@ class Simulation implements Runnable {
         }
 
         System.out.println("-------------------");
+    }
+
+    void moveAnimal(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
+        Direction direction = animal.availableMovementSpace(neighbors);
+        if (direction == null) {
+            return;
+        }
+
+        if (direction == Direction.UP) {
+            grid[y][x] = null;
+            grid[y-1][x] = animal;
+        }
+
+        if (direction == Direction.DOWN) {
+            grid[y][x] = null;
+            grid[y+1][x] = animal;
+        }
+
+        if (direction == Direction.LEFT) {
+            grid[y][x] = null;
+            grid[y][x-1] = animal;
+        }
+
+        if (direction == Direction.RIGHT) {
+            grid[y][x] = null;
+            grid[y][x+1] = animal;
+        }
     }
 }

@@ -1,13 +1,13 @@
 import java.util.Random;
 public class Rabbit extends AbstractAnimal{
 
-    private char icon = 'R';
+    private static char icon = 'R';
     private static int count = 0;
 
     /**
      * @return Rabbit's icon as a character
      */
-    public char toIcon(){
+    public static char toIcon(){
         return icon;
     };
 
