@@ -21,8 +21,8 @@ public class Rabbit extends AbstractAnimal{
         int freeSpaceCount = 0; //stores number of free adjacent spaces
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
 
-        for(AbstractAnimal neighbor : neighbors){
-            if(neighbor == null){
+        for(i = 0; i < 4; i++){
+            if(neighbors[i] == null){
                 switch (i) { //identifies which direction is being evaluated
                     case 0 -> {
                         freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
@@ -42,8 +42,8 @@ public class Rabbit extends AbstractAnimal{
                     }
                 }
             }
-            i++; //increments loop count
         }
+
         if(freeSpaceCount==0){ //returns null in case of no free spaces
             return null;
         }
@@ -51,7 +51,7 @@ public class Rabbit extends AbstractAnimal{
             return freeSpaces[0];
         }
         else{
-            return freeSpaces[new Random().nextInt(0,freeSpaceCount-1)]; //randomly picks and returns a free space
+            return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
     };
 
