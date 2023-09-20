@@ -53,9 +53,10 @@ class Simulation implements Runnable {
         grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
         final int DAYS_PER_RUN = 10; // The number of days in a run
 
+        currentDay = 1;
         outputGrid();
 
-        for (currentDay = 1; currentDay <= DAYS_PER_RUN; currentDay++) { // Iterates through each day
+        for (currentDay = 2; currentDay <= DAYS_PER_RUN; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 try {
                     Thread.sleep(millisecondsPerTimeStep);
@@ -98,6 +99,7 @@ class Simulation implements Runnable {
                 }
             } // End of current day
 
+            /* Breeding section */
             AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
             boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
             boolean animalFound;               // Indicates if a rabbit is in the current grid space
@@ -126,11 +128,13 @@ class Simulation implements Runnable {
                                 break;
                             }
                         }
-                    }
 
-                    if (animalFound && !hasBred) { // Grid must be full
-                        System.out.println("The program has ended prematurely because there is no more space for animals.");
-                        return;
+                        if (animalFound && !hasBred) { // Grid must be full
+                            outputGrid();
+
+                            System.out.println("The program has ended prematurely because there is no more space for animals.");
+                            return;
+                        }
                     }
                 }
             } // End of grid iteration
