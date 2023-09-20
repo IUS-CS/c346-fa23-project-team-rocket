@@ -1,21 +1,29 @@
 # Sprint Ceremony Minutes
   
-Date: 2020-09-21
+Date: 2023-09-20
 
 Members present:
 
-* Chris Sexton
-* Bones Sexton
-* Parsnip Sexton
-* Schnitzel Sexton
+* Xavier Beatrice
+* Dale Morris
+* Jonathon Roberts
+* Ryan Hurst
   
 ## Demo
 
 This sprint, we completed:
 
-* X
-* Y
-* Z
+* Created a .gitignore
+* Added a project board to the repo
+* Created an AUTHORS file
+* Added a LICENSE file
+* Created an Animal Abstract Class
+* Created a Rabbit Child Class
+* Implemented Unit Testing mechanisms
+* Added a proposal.md file
+* Added a organization.md file
+* Implemented Gradle Build tool
+* Added a README.md file
 
 Here are screenshots of what we did:
 
@@ -27,21 +35,33 @@ Here are screenshots of what we did:
 
 ### Good
 
-* Sexton is amazing
-* I love working on X
+* Discord Meetings
+* Good teamwork on last day
+* Good division of labor
+* Good use of github
 
 ### Bad
 
-* This thing went poorly because X
-* So and so is mean
+* Delayed work to last minute
+* waited till last day
+* Getting to far ahead on some of the features
+* Too much time in meetings
+* Poorly defined features
+* More work is needed in defining dev. contracts and goals per backlog item
 
 ### Actionable Commitments
 
-* As a team, we will...
+As a team we will...
+
+* Preplan meeting topics in a document on github
+* Pre-define feature interfaces before developing them
+* Continue using feature branches, github projects, PR reviews
+* Estimate time remaining for dev. work in Spreadsheet
+* Continue having meetings in discord
 
 ## Planning
 
-(This section can and should be completed in your GitHub projects, but please summarize here)
+
 
 Points | Story
 -------|--------
