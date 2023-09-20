@@ -54,3 +54,9 @@ tasks.withType<Test> {
         // between different examples and scenarios.
         systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
+
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "Simulation"
+    }
+}
