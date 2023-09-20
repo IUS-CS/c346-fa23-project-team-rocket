@@ -1,11 +1,13 @@
 public abstract class AbstractAnimal {
-    private char icon;
+    private static char icon = 'A';
     private static int count;
 
     /**
      * @return animal's icon as a character
      */
-    public abstract char toIcon();
+    public static char toIcon() {
+        return icon;
+    }
 
     /**
      * Takes array of an animal's neighbors, randomly chooses an available space, and returns corresponding direction
