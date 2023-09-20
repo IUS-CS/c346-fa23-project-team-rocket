@@ -76,10 +76,22 @@ class Simulation implements Runnable {
     }
 
     void outputGrid() {
-        System.out.println("-------------------");
-        for (int i = 0; i < grid.length; i++) {
 
+        System.out.println("Day " + currentDay);
+        System.out.println("-------------------");
+
+        for (int i = 0; i < grid.length; i++) {
+            System.out.print("|"); // Print left edge
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] != null) {
+                    System.out.print('R'); // Prints  an 'R' where an entity is present
+                } else {
+                    System.out.print(" "); // Print an empty space if there's no animal
+                }
+            }
+            System.out.println("|"); // Print right edge
         }
+
         System.out.println("-------------------");
     }
 }
