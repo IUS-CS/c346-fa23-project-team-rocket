@@ -5,7 +5,7 @@ public abstract class AbstractAnimal {
     /**
      * @return animal's icon as a character
      */
-    public abstract char toIcon(); //returns animal icon
+    public abstract char toIcon();
 
     /**
      * Takes array of an animal's neighbors, randomly chooses an available space, and returns corresponding direction
