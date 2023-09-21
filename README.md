@@ -4,12 +4,12 @@ Life Simulator is an interactive ecosystem simulation of the complex relationshi
 
 ## Installation
 
-Run ~~~ ./gradlew build ~~~ from the project root directory to build it. the jar can be found in the build/libs directory.
+Run ~~~ ./gradlew build ~~~ from the project root directory to build it. The jar can be found in the build/libs directory.
 
 ## Usage
 
 
-This command should build and run the jar from the intellij :
+This command will build and run the jar from the intellij :
 
 ''' 
 ./gradlew build && java -jar build/libs/animal-simulation-project-prototype.jar
