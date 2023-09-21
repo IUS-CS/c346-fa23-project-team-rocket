@@ -8,7 +8,9 @@ Coming Soon
 
 ## Usage
 
-Coming Soon
+
+This command should build and run the jar
+*./gradlew build && java -jar build/libs/animal-simulation-project-prototype.jar *
 
 ## License
 
