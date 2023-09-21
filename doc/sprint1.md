@@ -63,5 +63,13 @@ As a team we will...
 
 Points | Story
 -------|--------
-5      | As a user, I want...
-8      | As an administrator, I want... so I can ...
+3      | As a developer, I want to write the architecture.md file
+3      | As a developer I would like to reduce cucumber testing to one command, I would also like to restrict branch merge's based upon code coverage being >90% and passing all unit tests
+2      | As a developer, I want the Simulation to contain the Map instead of internally representing it.
+5      | As a developer, I want to simplify the Simulation and defer animal-related logic to animal classes.
+2      | As a user, I want rabbit breeding to depend on how much food they've eaten
+2      | As a user, if Animals don't eat I want them to die
+2      | As a developer, I want an abstract class to streamline the development of organisms.
+2      | As a user, I would like rabbits to have to eat grass.
+2      | As a user, I would like foxes to have to hunt rabbits.
+4      | As a user, I want to be able to configure the program.
