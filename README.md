@@ -9,8 +9,8 @@ Coming Soon
 ## Usage
 
 
-This command should build and run the jar
-*./gradlew build && java -jar build/libs/animal-simulation-project-prototype.jar *
+This command should build and run the jar:
+'''./gradlew build && java -jar build/libs/animal-simulation-project-prototype.jar'''
 
 ## License
 
