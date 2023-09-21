@@ -15,6 +15,8 @@ This command will build and run the jar from the intellij :
 ./gradlew build && java -jar build/libs/animal-simulation-project-prototype.jar
 '''
 
+Run it from the projects root directory.
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)
