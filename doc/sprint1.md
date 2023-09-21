@@ -73,3 +73,4 @@ Points | Story
 2      | As a user, I would like rabbits to have to eat grass.
 2      | As a user, I would like foxes to have to hunt rabbits.
 4      | As a user, I want to be able to configure the program.
+2      | As a developer, I would like to document the end of the previous sprint and the beginning of the new one.
