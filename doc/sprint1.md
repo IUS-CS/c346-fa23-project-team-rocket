@@ -27,7 +27,13 @@ This sprint, we completed:
 
 Here are screenshots of what we did:
 
-![Thing](/docs/images/screenshot1.png?raw=true)
+![Terminal running Simulation](/doc/s1pics/RunningSimulationProgramS1.png)
+![.gitignore picture](/doc/s1pics/GitignorePictureS1.png)
+![Gradlebuild picture](/doc/s1pics/GradleBuildPictureS1.png)
+![Proposal picture](/doc/s1pics/ProposalPictureS1.png)
+![README picture](/doc/s1pics/ReadmePictureS1.png)
+
+
 
 ## Retro
 
