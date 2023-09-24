@@ -75,7 +75,7 @@ task("cucumber") {
             classpath = cucumberRuntime + sourceSets.main.get().output + sourceSets.test.get().output
             // Change glue for your project package where the step definitions are.
             // And where the feature files are.
-            args = listOf("--plugin", "pretty", "--glue", "com.example.feature", "src/test/resources")
+            args = listOf("--plugin", "pretty", "--glue", "stepdefinitions", "src/test/resources")
             // Configure jacoco agent for the test coverage.
             val jacocoAgent = zipTree(configurations.jacocoAgent.get().singleFile)
                     .filter { it.name == "jacocoagent.jar" }
