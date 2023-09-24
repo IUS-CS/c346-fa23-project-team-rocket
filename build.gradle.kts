@@ -1,11 +1,13 @@
 //List of plugins used by the software
 plugins {
-
+    java
     `java-library`
+    jacoco
 }
 
 
-
+//Group
+group = "team.rocket"
 //Version of the software
 version = "prototype"
 //Generic description of the software
@@ -17,6 +19,7 @@ java {
 //Repositories used by libraries and other imported files
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 //Dependencies of the software
@@ -30,6 +33,14 @@ dependencies {
         testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+//Gradle configuration
+configurations {}
+
+val cucumberRuntime by configurations.creating {
+    extendsFrom(configurations["testImplementation"])
+}
+
+//Gradle Tasks
 tasks {
     compileJava {
         options.encoding = Charsets.UTF_8.name() // We want UTF-8 for everything
@@ -43,9 +54,6 @@ tasks {
     processResources {
         filteringCharset = Charsets.UTF_8.name() // We want UTF-8 for everything
     }
-
-
-
 }
 
 tasks.withType<Test> {
@@ -57,5 +65,22 @@ tasks.withType<Test> {
 tasks.withType<Jar> {
     manifest {
         attributes["Main-Class"] = "Simulation"
+    }
+}
+task("cucumber") {
+    dependsOn("assemble", "compileTestJava")
+    doLast {
+        javaexec {
+            mainClass.set("io.cucumber.core.cli.Main")
+            classpath = cucumberRuntime + sourceSets.main.get().output + sourceSets.test.get().output
+            // Change glue for your project package where the step definitions are.
+            // And where the feature files are.
+            args = listOf("--plugin", "pretty", "--glue", "com.example.feature", "src/test/resources")
+            // Configure jacoco agent for the test coverage.
+            val jacocoAgent = zipTree(configurations.jacocoAgent.get().singleFile)
+                    .filter { it.name == "jacocoagent.jar" }
+                    .singleFile
+            jvmArgs = listOf("-javaagent:$jacocoAgent=destfile=$buildDir/results/jacoco/cucumber.exec,append=false")
+        }
     }
 }

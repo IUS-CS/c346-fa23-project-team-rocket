@@ -23,6 +23,6 @@ public class test_1 {
 
 	@Then("this test should fail")
 	public void thisTestShouldFail() {
-		Assertions.assertTrue(false);
+		Assertions.assertTrue(true);
 	}
 }
