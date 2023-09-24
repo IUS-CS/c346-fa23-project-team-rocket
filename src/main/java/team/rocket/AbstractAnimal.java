@@ -1,3 +1,5 @@
+package team.rocket;
+
 public abstract class AbstractAnimal {
     private static char icon = 'A';
     private static int count;
