@@ -4,17 +4,17 @@ import java.lang.Runnable;
  * Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
- * @author thatdaleguy03
- * @version Prototype
- * @since Alpha V1.0.0
+ * @author Dale Morris, Jon Roberts
+ * @version Sprint2
+ * @since Prototype
  */
-class Simulation implements Runnable {
+public class Simulation implements Runnable {
     AbstractAnimal[][] grid; // Grid that animals move throughout
     private static final int[] DEFAULT_GRID_DIMENSIONS = {5, 5}; // The default values for the width and height of the grid
     private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
     private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
-    int currentDay; // The current day of the simulation
-    int currentTimeStep; // The current time step within the current day of the simulation
+    private int currentDay; // The current day of the simulation
+    private int currentTimeStep; // The current time step within the current day of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
 
@@ -146,7 +146,7 @@ class Simulation implements Runnable {
         } // End of simulation
     } // end run
 
-    void outputGrid() {
+    public void outputGrid() {
         System.out.println("Day " + currentDay);
 
         // Print upper edge
@@ -176,7 +176,7 @@ class Simulation implements Runnable {
         System.out.println();
     }
 
-    void moveAnimal(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
+    private void moveAnimal(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
         if (direction == null) {
