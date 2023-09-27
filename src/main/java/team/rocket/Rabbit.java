@@ -1,3 +1,5 @@
+package team.rocket;
+
 import java.util.Random;
 public class Rabbit extends AbstractAnimal{
 
@@ -5,14 +7,14 @@ public class Rabbit extends AbstractAnimal{
     private static int count = 0;
 
     /**
-     * @return Rabbit's icon as a character
+     * @return team.rocket.Rabbit's icon as a character
      */
     public static char toIcon(){
         return icon;
     };
 
     /**
-     * Takes array of a Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
