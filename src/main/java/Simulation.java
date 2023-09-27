@@ -18,11 +18,6 @@ public class Simulation implements Runnable {
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
 
-    public static void main(String[] args) {
-        Simulation simulation = new Simulation();
-        simulation.run();
-    }
-
     /**
      * Returns a new Simulation object with the given constraints.
      *
