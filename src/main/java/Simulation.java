@@ -45,6 +45,14 @@ public class Simulation implements Runnable {
      * Simulates how the environment changes over time based on initial conditions and interactions among animals.
      */
     public void run() {
+        dayIterator();
+
+    }
+
+    /**
+     * Iterates through the days and makes calls to breeding, moveAnimal, and outputGrid every day that occurs
+     */
+    void dayIterator() {
         grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
         final int DAYS_PER_RUN = 10; // The number of days in a run
 
@@ -59,88 +67,69 @@ public class Simulation implements Runnable {
                     System.out.println("There was an unexpected issue with the simulation.");
                     return;
                 }
-
-                for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
-                    for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
-                        if (grid[i][j] != null) {
-                            AbstractAnimal[] neighbors = new AbstractAnimal[4];
-                            if (i == 0) {
-                                neighbors[0] = new Rabbit();
-                            } else {
-                                neighbors[0] = grid[i-1][j];
-                            }
-
-                            if (i == grid.length - 1) {
-                                neighbors[1] = new Rabbit();
-                            } else {
-                                neighbors[1] = grid[i+1][j];
-                            }
-
-                            if (j == 0) {
-                                neighbors[2] = new Rabbit();
-                            } else {
-                                neighbors[2] = grid[i][j-1];
-                            }
-
-                            if (j == grid[0].length - 1) {
-                                neighbors[3] = new Rabbit();
-                            } else {
-                                neighbors[3] = grid[i][j+1];
-                            }
-
-                            moveAnimal(grid[i][j], neighbors, i, j);
-                        }
-                    }
-                }
+                moveAnimal();
             } // End of current day
 
-            /* Breeding section */
-            int rabbitsBred = 0;
-            double expectedBreeds = Math.pow(2, currentDay-1);
-            AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
-            boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
-            boolean animalFound;               // Indicates if a rabbit is in the current grid space
-            boolean gridIsFull = false;        // Indicates if the grid is full
-            for (int i = 0; i < oldGrid.length; i++) {        // Iterates through each row of a copy of the grid
-                hasBred = false;
-                for (int j = 0; j < oldGrid[0].length; j++) { // Iterates through each column of a copy of the grid
-                    animalFound = false;
+            breeding();
+            outputGrid();
+        } // End of simulation
 
-                    if (oldGrid[i][j] != null) { // Found an animal
-                        animalFound = true;
+    }
 
-                        for (int k = 0; k < grid.length; k++) {     // Iterates through each row of the grid
-                            for (int l = 0; l < grid.length; l++) { // Iterates through each column of the grid
-                                if (grid[k][l] == null) { // If the current grid space is empty
-                                    grid[k][l] = new Rabbit();
-                                    rabbitsBred++;
-                                    hasBred = true;
-                                }
+    /**
+     * Simulates breeding among the animals and creates a new entitys when breeding occurs
+     */
+    void breeding() {
 
-                                if (rabbitsBred > expectedBreeds || hasBred) {
-                                    break;
-                                }
+        /* Breeding section */
+        int rabbitsBred = 0;
+        double expectedBreeds = Math.pow(2, currentDay-1);
+        AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
+        boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
+        boolean animalFound;               // Indicates if a rabbit is in the current grid space
+        boolean gridIsFull = false;        // Indicates if the grid is full
+        for (int i = 0; i < oldGrid.length; i++) {        // Iterates through each row of a copy of the grid
+            hasBred = false;
+            for (int j = 0; j < oldGrid[0].length; j++) { // Iterates through each column of a copy of the grid
+                animalFound = false;
+
+
+                if (oldGrid[i][j] != null) { // Found an animal
+                    animalFound = true;
+
+                    for (int k = 0; k < grid.length; k++) {     // Iterates through each row of the grid
+                        for (int l = 0; l < grid.length; l++) { // Iterates through each column of the grid
+                            if (grid[k][l] == null) { // If the current grid space is empty
+                                grid[k][l] = new Rabbit();
+                                rabbitsBred++;
+                                hasBred = true;
                             }
 
                             if (rabbitsBred > expectedBreeds || hasBred) {
                                 break;
                             }
                         }
-                    }
 
-                    if (animalFound && !hasBred) { // Grid must be full
-                        outputGrid();
-
-                        System.out.println("The program has ended prematurely because there is no more space for animals.");
-                        return;
+                        if (rabbitsBred > expectedBreeds || hasBred) {
+                            break;
+                        }
                     }
                 }
-            } // End of grid iteration
 
-            outputGrid();
-        } // End of simulation
-    } // end run
+                if (animalFound && !hasBred) { // Grid must be full
+                    outputGrid();
 
+                    System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    return;
+                }
+            }
+        } // End of grid iteration
+
+    }
+
+    /**
+     * Outputs the current Grid with boundaries and letter representations for the animals
+     */
     public void outputGrid() {
         System.out.println("Day " + currentDay);
 
@@ -171,7 +160,53 @@ public class Simulation implements Runnable {
         System.out.println();
     }
 
-    private void moveAnimal(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
+    /**
+     * Handles animal movement as the days progress
+     */
+    void moveAnimal() {
+        for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
+            for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
+                if (grid[i][j] != null) {
+                    AbstractAnimal[] neighbors = new AbstractAnimal[4];
+                    if (i == 0) {
+                        neighbors[0] = new Rabbit();
+                    } else {
+                        neighbors[0] = grid[i-1][j];
+                    }
+
+                    if (i == grid.length - 1) {
+                        neighbors[1] = new Rabbit();
+                    } else {
+                        neighbors[1] = grid[i+1][j];
+                    }
+
+                    if (j == 0) {
+                        neighbors[2] = new Rabbit();
+                    } else {
+                        neighbors[2] = grid[i][j-1];
+                    }
+
+                    if (j == grid[0].length - 1) {
+                        neighbors[3] = new Rabbit();
+                    } else {
+                        neighbors[3] = grid[i][j+1];
+                    }
+
+                    moveDirection(grid[i][j], neighbors, i, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * Determines the movement positions of animals up or dowm and left or right
+     *
+     * @param animal    The animal being moved
+     * @param neighbors The surrounding animals
+     * @param y         the vertical movement of the grid
+     * @param x         the horizontal movement of the grid
+     */
+    private void moveDirection(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
         if (direction == null) {
