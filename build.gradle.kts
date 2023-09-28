@@ -64,7 +64,7 @@ tasks.withType<Test> {
 }
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "Simulation"
+        attributes["Main-Class"] = "team/rocket/Simulation"
     }
 }
 task("cucumber") {
