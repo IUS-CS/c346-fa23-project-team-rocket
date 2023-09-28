@@ -1,3 +1,5 @@
+package team.rocket;
+
 public abstract class AbstractAnimal extends AbstractOrganism {
     private static char icon;
     private static int count;
