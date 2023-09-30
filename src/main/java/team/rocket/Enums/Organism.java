@@ -16,6 +16,11 @@ public enum Organism {
 	private String OrganismId;
 	private AbstractOrganism OrganismClassReference;
 
+	/**
+	 * Creates an Organism Entry
+	 * @param organismId String ID of organism
+	 * @param abstractOrganism Organism Class Reference
+	 */
 	private Organism(String organismId, AbstractOrganism abstractOrganism){
 		this.OrganismId = organismId;
 		this.OrganismClassReference = abstractOrganism;

@@ -3,5 +3,8 @@ Feature: Organism Enum Test
 
     Scenario: The Enum is passed "Rabbit"
         Given "Rabbit" is passed to the Enum Class
-        When "Rabbit" is a valid class
-        Then The "Rabbit" class instance should be returned
+        Then The Rabbit class instance should be returned
+
+    Scenario: The Enum is passed "Unexistium"
+        Given "Unexistium" is passed to the Enum Class
+        Then Class Reference "Unexistium" throws IllegalArgumentException
