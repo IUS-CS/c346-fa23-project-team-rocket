@@ -1,5 +1,7 @@
 package team.rocket;
 
+import team.rocket.Enums.Direction;
+
 import java.util.Random;
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
