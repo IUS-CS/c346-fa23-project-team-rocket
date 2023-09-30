@@ -1,12 +1,22 @@
 package team.rocket.Handlers.Terminal;
 
-import team.rocket.Simulation;
+
+import team.rocket.Map;
 
 public class TerminalFlagRequest {
-	private Simulation simulation;
-	private String terminalCommand;
+	final private Map map;
+	final private String terminalCommand;
 
-	public TerminalFlagRequest(String command, Simulation sim){
+	public TerminalFlagRequest(String command, Map map){
+		this.map = map;
+		this.terminalCommand = command;
+	}
 
+	public Map getMap() {
+		return this.map;
+	}
+
+	public String getTerminalCommand() {
+		return this.terminalCommand;
 	}
 }
