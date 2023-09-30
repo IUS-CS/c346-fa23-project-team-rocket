@@ -1,3 +1,5 @@
+package team.rocket;
+
 import java.lang.Thread;
 import java.util.Scanner;
 

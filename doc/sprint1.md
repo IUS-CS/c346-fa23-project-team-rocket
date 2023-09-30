@@ -71,7 +71,7 @@ Points | Story
 -------|--------
 3      | As a developer, I want to write the architecture.md file
 3      | As a developer I would like to reduce cucumber testing to one command, I would also like to restrict branch merge's based upon code coverage being >90% and passing all unit tests
-2      | As a developer, I want the Simulation to contain the Map instead of internally representing it.
+2      | As a developer, I want the Simulation to contain the team.rocket.Map instead of internally representing it.
 5      | As a developer, I want to simplify the Simulation and defer animal-related logic to animal classes.
 2      | As a user, I want rabbit breeding to depend on how much food they've eaten
 2      | As a user, if Animals don't eat I want them to die

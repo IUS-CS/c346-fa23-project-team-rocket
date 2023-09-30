@@ -1,7 +1,13 @@
 Feature: Map
-      This is filler text
+      I need to validate that Cucumber is working properly
 
-      Scenario: A map should have the specified width and height
-            Given: A map is created
-            When: Its width and height are checked
-            Then: They should be equal to the specified width and height
+      Scenario: Is Cucumber not working
+            Given ungabunga
+            When whoop whoop
+            Then crabs
+
+
+      Scenario: This test should not fail
+            Given Cucumber is working
+            When Cucumber is installed
+            Then Pluto is not a planet
