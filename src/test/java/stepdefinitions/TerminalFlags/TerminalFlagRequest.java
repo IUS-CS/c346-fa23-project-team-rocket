@@ -2,6 +2,7 @@ package stepdefinitions.TerminalFlags;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+
 import org.junit.jupiter.api.Assertions;
 import team.rocket.Map;
 
@@ -10,7 +11,9 @@ public class TerminalFlagRequest {
 
 	@Then("A TerminalFlagRequest exists")
 	public void aTerminalFlagRequestExists() {
+
 		Assertions.assertNotNull(request);
+
 	}
 
 	@Given("A TerminalFlagRequest is Created")
@@ -24,5 +27,6 @@ public class TerminalFlagRequest {
 
 	@Then("I should have a TerminalFlagRequest which gives me an {} by {} map with a {string} command")
 	public void iShouldHaveATerminalFlagRequestWhichGivesMeAnByMapWithACommand(String arg0, String arg1, String arg2, String arg3) {
+
 	}
 }
