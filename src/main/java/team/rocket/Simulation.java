@@ -1,5 +1,7 @@
 package team.rocket;
 
+import team.rocket.Enums.Direction;
+
 import java.lang.Runnable;
 
 /**
