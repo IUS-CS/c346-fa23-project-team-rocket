@@ -2,7 +2,7 @@ Feature: Map
     I need to make sure Map works properly
 
     Scenario: A 5 by 10 map should have a width of 5 and a height of 10
-        Given a 5 by 5 map is created
+        Given a 5 by 10 map is created
         Then the map should be 5 by 10
         And the grid should not be null
 
