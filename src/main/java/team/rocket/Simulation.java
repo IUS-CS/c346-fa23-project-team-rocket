@@ -1,7 +1,9 @@
+package team.rocket;
+
 import java.lang.Runnable;
 
 /**
- * Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
+ * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
@@ -19,7 +21,7 @@ public class Simulation implements Runnable {
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
 
     /**
-     * Returns a new Simulation object with the given constraints.
+     * Returns a new team.rocket.Simulation object with the given constraints.
      *
      * @param gridWidth          the number of columns of the simulated grid
      * @param gridHeight         the number of rows of the simulated grid
@@ -33,7 +35,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Returns a new Simulation object with default constraints.
+     * Returns a new team.rocket.Simulation object with default constraints.
      */
     Simulation() {
         grid = new AbstractAnimal[DEFAULT_GRID_DIMENSIONS[0]][DEFAULT_GRID_DIMENSIONS[1]];

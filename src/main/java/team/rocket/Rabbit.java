@@ -1,18 +1,35 @@
+package team.rocket;
+
 import java.util.Random;
 public class Rabbit extends AbstractAnimal{
-
-    private static char icon = 'R';
+    private static final char icon = 'R';
     private static int count = 0;
 
+    public Rabbit(){
+        count++;
+    }
+
     /**
-     * @return Rabbit's icon as a character
+     * @return team.rocket.Rabbit's icon as a character
      */
     public static char toIcon(){
         return icon;
-    };
+    }
 
     /**
-     * Takes array of a Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
+     * @return current Rabbit count
+     */
+    public static int getCount(){
+        return count;
+    }
+
+    /**
+     * Creates new Rabbit
+     */
+    public void reproduce(){} //not yet implemented
+
+    /**
+     * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
@@ -53,14 +70,5 @@ public class Rabbit extends AbstractAnimal{
         else{
             return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
-    };
-
-    //public abstract void reproduce(); //creates new animal
-
-    /**
-     * @return total number of living Rabbits
-     */
-    public int total(){
-        return count;
-    };
+    }
 }
