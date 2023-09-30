@@ -31,7 +31,7 @@ public enum Organism {
 	 * @param s OrganismId to get the class reference of
 	 * @return The class reference of the Organism
 	 */
-	static public AbstractOrganism getOrganism(String s){
+	static public AbstractOrganism getOrganism(String s) throws IllegalArgumentException{
 		return Organism.valueOf(s.toUpperCase()).OrganismClassReference;
 	}
 

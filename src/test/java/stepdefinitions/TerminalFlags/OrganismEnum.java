@@ -1,4 +1,4 @@
-package stepdefinitions;
+package stepdefinitions.TerminalFlags;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

@@ -1,4 +1,4 @@
-Feature: Organism Enum Test
+Feature: Organism Enum
     I need to validate that the Organism Enum. is working appropriately
 
     Scenario: The Enum is passed "Rabbit"
