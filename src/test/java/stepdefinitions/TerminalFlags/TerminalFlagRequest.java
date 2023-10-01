@@ -3,6 +3,7 @@ package stepdefinitions.TerminalFlags;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
+import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import team.rocket.Map;
 
@@ -34,6 +35,8 @@ public class TerminalFlagRequest {
 	}
 
 
-
-
+	@When("I set the map to Size {}, {}")
+	public void iSetTheMapToSize(String arg0, String arg1) {
+		request.setMap(new Map(Integer.parseInt(arg0), Integer.parseInt(arg1)));
+	}
 }

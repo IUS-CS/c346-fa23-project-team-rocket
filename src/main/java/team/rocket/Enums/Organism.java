@@ -13,7 +13,13 @@ public enum Organism {
 		new Rabbit()
 		);
 
+	/**
+	 * ID of the Organism, typically the organism name
+	 */
 	private String OrganismId;
+	/**
+	 * Returns an AbstractOrganism object
+	 */
 	private AbstractOrganism OrganismClassReference;
 
 	/**
