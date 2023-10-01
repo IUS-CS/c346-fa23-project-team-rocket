@@ -15,5 +15,5 @@ Some patterns that may be helpful are:
 
 ## Module Design Plans
 
-
+For future design plans we'll likely be referring more often to websites like (OODesign.com)[https://www.oodesign.com/].
 
