@@ -4,7 +4,7 @@ This file is intended to show which design patterns we're currently using, which
 
 ## Patterns Currently in Use
 
-There are no OOP design patterns being used in our program currently.
+There are no OOP design patterns being used in our program currently. Although we are using the Chain of Responsibility pattern in one of the features currently being developed.
 
 ## Possibly Helpful Patterns
 
@@ -15,5 +15,5 @@ Some patterns that may be helpful are:
 
 ## Module Design Plans
 
-For future design plans we'll likely be referring more often to websites like (OODesign.com)[https://www.oodesign.com/].
+During our module design process we'll be referring to proper pattern design and java references. We'll also take advantage of class and sequence diagrams to plan behavior before it's being implemented. Furthermore, we're implementing test-driven development into our processes.
 
