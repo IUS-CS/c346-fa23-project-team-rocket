@@ -7,4 +7,4 @@ Feature: Organism Enum
 
     Scenario: The Enum is passed "Unexistium"
         Given "Unexistium" is passed to the Enum Class
-        Then Class Reference "Unexistium" throws IllegalArgumentException
+        Then Class Reference "Unexistium" returns null

@@ -12,13 +12,8 @@ public class OrganismEnum {
 	AbstractOrganism test_value;
 	@Given("{string} is passed to the Enum Class")
 	public void isPassedToTheEnumClass(String arg0) {
-		try {
+
 			test_value = Organism.getOrganism(arg0);
-			Assertions.assertNotNull(test_value);
-		}
-		catch(IllegalArgumentException e){
-			throwsIllegalArgumentException(arg0);
-		}
 	}
 
 	@Then("The Rabbit class instance should be returned")
@@ -34,6 +29,11 @@ public class OrganismEnum {
 	public void throwsIllegalArgumentException(String arg0) {
 		Assertions.assertThrows(IllegalArgumentException.class,
 			() -> Organism.getOrganism(arg0)
-			);
+		);
+	}
+
+	@Then("Class Reference {string} returns null")
+	public void classReferenceReturnsNull(String arg0) {
+		Assertions.assertNull(Organism.getOrganism(arg0));
 	}
 }
