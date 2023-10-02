@@ -31,11 +31,12 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 			if(matchFound){
 				//splitting on " " and "_"
 				String[] subflags = flag.split("[ _]");
+				AbstractOrganism organism = Organism.getOrganism(subflags[0]);
 				//subflag[0] organism exists
-				if(Organism.getOrganism(subflags[0])!=null) {
+				if(organism!=null) {
 					Map editedMap = new Map(tFRequest.getMap().getWidth(), tFRequest.getMap().getHeight());
 					AbstractOrganism[][] grid = editedMap.getGrid();
-					AbstractOrganism organism = Organism.getOrganism(subflags[0]);
+					organism.reduceCount();
 					Random rand = new Random();
 
 					//Fixes weird issue where number strings had additional "
@@ -52,7 +53,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 							int randY = rand.nextInt(editedMap.getHeight());
 							//Is space empty?
 							if(grid[randY][randX]!=null){
-								grid[randY][randX] = organism;
+								grid[randY][randX] = organism.getNewObjectFromExistingObject();
 								spaceNotFound = false;
 							}
 						}
@@ -62,7 +63,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 							for(int k = 0; k < tFRequest.getMap().getWidth(); k++){
 								for(int j = 0; j < tFRequest.getMap().getHeight(); j++){
 									if(grid[j][k] != null){
-										grid[j][k] = organism;
+										grid[j][k] = organism.getNewObjectFromExistingObject();
 									}
 								}
 							}

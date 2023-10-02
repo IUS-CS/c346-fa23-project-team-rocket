@@ -37,7 +37,7 @@ public enum Organism {
 	/**
 	 *  Returns the class reference to an Organism
 	 * @param s OrganismId to get the class reference of
-	 * @return The class reference of the Organism or null
+	 * @return A new instance of the Organism or null
 	 */
 	static public AbstractOrganism getOrganism(String s){
 		try {
