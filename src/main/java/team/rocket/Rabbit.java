@@ -18,11 +18,23 @@ public class Rabbit extends AbstractAnimal{
         return icon;
     }
 
+
+
     /**
      * @return current Rabbit count
      */
     public static int getCount(){
         return count;
+    }
+
+    @Override
+    public void reduceCount() {
+        count--;
+    }
+
+    @Override
+    public AbstractOrganism getNewObjectFromExistingObject() {
+        return new Rabbit();
     }
 
     /**

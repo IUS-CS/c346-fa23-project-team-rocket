@@ -37,17 +37,22 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 					AbstractOrganism[][] grid = editedMap.getGrid();
 					AbstractOrganism organism = Organism.getOrganism(subflags[0]);
 					Random rand = new Random();
+
+					//Fixes weird issue where number strings had additional "
+					subflags[2] = subflags[2].split("\"")[0];
+
 					//Perform operation Integer.parseInt(subflags[2]) times
 					for(int i = Integer.parseInt(subflags[2]); i>0; i--){
 						boolean spaceNotFound = true;
 						int iterationCount = 0;
 						//Looks for a random space within map
-						while(spaceNotFound&&iterationCount > editedMap.getHeight()* editedMap.getWidth()+1) {
+						while(spaceNotFound && iterationCount < editedMap.getHeight()* editedMap.getWidth()+1) {
 							iterationCount++;
 							int randX = rand.nextInt(editedMap.getWidth());
 							int randY = rand.nextInt(editedMap.getHeight());
-							if(grid[randX][randY]!=null){
-								grid[randX][randY] = organism;
+							//Is space empty?
+							if(grid[randY][randX]!=null){
+								grid[randY][randX] = organism;
 								spaceNotFound = false;
 							}
 						}
@@ -56,8 +61,8 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 						if(spaceNotFound){
 							for(int k = 0; k < tFRequest.getMap().getWidth(); k++){
 								for(int j = 0; j < tFRequest.getMap().getHeight(); j++){
-									if(grid[i][j] != null){
-										grid[i][j] = organism;
+									if(grid[j][k] != null){
+										grid[j][k] = organism;
 									}
 								}
 							}
@@ -65,13 +70,17 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 						//No space available so there's no work left to do
 						//No space means no space to put new organisms without overwriting other organisms
 						else {
+							super.handleRequest(tFRequest);
 							break;
 						}
+						//Transfer the data changes out via changing the request
+						editedMap = new Map(grid);
+						tFRequest.setMap(editedMap);
 					}
-				} else {
-					// go to next flag
-					continue;
 				}
+			} else {
+				// go to next flag
+				continue;
 			}
 		}
 		super.handleRequest(tFRequest);

@@ -36,4 +36,9 @@ public class OrganismEnum {
 	public void classReferenceReturnsNull(String arg0) {
 		Assertions.assertNull(Organism.getOrganism(arg0));
 	}
+
+	@Then("The Rabbit class count should be {int}")
+	public void theRabbitClassCountShouldBe(int arg0) {
+		Assertions.assertEquals(arg0, Rabbit.getCount());
+	}
 }

@@ -30,6 +30,8 @@ public enum Organism {
 	private Organism(String organismId, AbstractOrganism abstractOrganism){
 		this.OrganismId = organismId;
 		this.OrganismClassReference = abstractOrganism;
+		//not actually part of the simulation
+		this.OrganismClassReference.reduceCount();
 	}
 
 	/**
@@ -39,7 +41,7 @@ public enum Organism {
 	 */
 	static public AbstractOrganism getOrganism(String s){
 		try {
-			return Organism.valueOf(s.toUpperCase()).OrganismClassReference;
+			return Organism.valueOf(s.toUpperCase()).OrganismClassReference.getNewObjectFromExistingObject();
 		} catch (IllegalArgumentException e){
 			//returns null if illegal argument passed
 			return null;
