@@ -18,6 +18,12 @@ public abstract class AbstractOrganism {
         return count;
     }
 
+    /**
+     * Sets the count of animals
+     * @param i the number count is being set too
+     */
+    public abstract void setCount(int i);
+
 
     /**
      * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the total number of Organisms

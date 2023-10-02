@@ -28,6 +28,12 @@ public class Rabbit extends AbstractAnimal{
     }
 
     @Override
+    public void setCount(int i) {
+        count = i;
+    }
+
+
+    @Override
     public void reduceCount() {
         count--;
     }
