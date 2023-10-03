@@ -24,7 +24,7 @@ public class OrganismFactory {
 
 	/**
 	 *  Registers an organism to the internal Hashmap
-	 *  reduces organism count by 1
+	 *  reduces organism count to 0
 	 * @param OrganismName String name of the organism
 	 * @param organism A new object of the organism
 	 */

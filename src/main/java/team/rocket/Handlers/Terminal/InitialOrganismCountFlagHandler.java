@@ -19,71 +19,49 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 	 */
 	@Override
 	public void handleRequest(TerminalFlagRequest tFRequest) {
-
+		String Organism;
+		int Organism_Amount;
 		//Need to identify strings that follow the pattern "<string>_count 6"
 		//Split at "--" to identify each flag relevant to this request Handler
 		String[] flags = tFRequest.getTerminalCommand().split("--");
 		Pattern pattern = Pattern.compile("[a-zA-Z]+_count [0-9]{1,10}");
 		Matcher matcher;
-		for(String flag: flags){
+		Map editedMap = new Map(tFRequest.getMap().getWidth(), tFRequest.getMap().getHeight());
+		AbstractOrganism[][] grid = editedMap.getGrid();
+		for(String flag:flags){
 			matcher = pattern.matcher(flag);
 			boolean matchFound = matcher.find();
 			if(matchFound){
-				//splitting on " " and "_"
-				String[] subflags = flag.split("[ _]");
-				AbstractOrganism organism = OrganismFactory.getInstance().createOrganism(subflags[0]);
-				//subflag[0] organism exists
-				if(organism!=null) {
-					Map editedMap = new Map(tFRequest.getMap().getWidth(), tFRequest.getMap().getHeight());
-					AbstractOrganism[][] grid = editedMap.getGrid();
+				//Gets the organism name
+				Organism = flag.split("[_]")[0];
+				//Gets the count of that organism
+				//Splits on the space to get the string number to parse into an int
+				Organism_Amount = Integer.parseInt(flag.split(" ")[1]);
+				OrganismFactory factory = OrganismFactory.getInstance();
+				AbstractOrganism organism = factory.createOrganism(Organism);
+				if(organism==null){
+					continue;
+				} else {
+					System.out.println(Organism + Organism_Amount);
 					organism.reduceCount();
-					Random rand = new Random();
 
-					//Fixes weird issue where number strings had additional "
-					subflags[2] = subflags[2].split("\"")[0];
-
-					//Perform operation Integer.parseInt(subflags[2]) times
-					for(int i = Integer.parseInt(subflags[2]); i>0; i--){
-						boolean spaceNotFound = true;
-						int iterationCount = 0;
-						//Looks for a random space within map
-						while(spaceNotFound && iterationCount < editedMap.getHeight()* editedMap.getWidth()+1) {
-							iterationCount++;
-							int randX = rand.nextInt(editedMap.getWidth());
-							int randY = rand.nextInt(editedMap.getHeight());
-							//Is space empty?
-							if(grid[randY][randX]!=null){
-								grid[randY][randX] = OrganismFactory.getInstance().createOrganism(subflags[0]);
-								spaceNotFound = false;
+					//Places the Organisms one after another in the grid as long as theres an empty space
+					for(int y = 0; y < grid.length; y++){
+						for(int x = 0; x < grid[y].length; x++){
+							if(grid[y][x] == null){
+								grid[y][x] = OrganismFactory.getInstance().createOrganism(Organism);
 							}
 						}
-						//Catch for if the random space randomly returned the same space every iteration and failed
-						//Sticks in the first open space
-						if(spaceNotFound){
-							for(int k = 0; k < tFRequest.getMap().getWidth(); k++){
-								for(int j = 0; j < tFRequest.getMap().getHeight(); j++){
-									if(grid[j][k] != null){
-										grid[j][k] = OrganismFactory.getInstance().createOrganism(subflags[0]);
-									}
-								}
-							}
-						}
-						//No space available so there's no work left to do
-						//No space means no space to put new organisms without overwriting other organisms
-						else {
-							super.handleRequest(tFRequest);
-							break;
-						}
-						//Transfer the data changes out via changing the request
-						editedMap = new Map(grid);
-						tFRequest.setMap(editedMap);
 					}
+
 				}
-			} else {
-				// go to next flag
-				continue;
+
 			}
+
 		}
+		editedMap = new Map(grid);
+		tFRequest.setMap(editedMap);
 		super.handleRequest(tFRequest);
+
 	}
 }
