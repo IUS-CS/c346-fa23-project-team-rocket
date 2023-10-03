@@ -1,53 +1,25 @@
 package team.rocket;
 
-import team.rocket.Enums.Direction;
-import team.rocket.Handlers.Terminal.FlagHandler;
-import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
-import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
-import team.rocket.Handlers.Terminal.TerminalFlagRequest;
-
 import java.lang.Runnable;
+import team.rocket.Enums.Direction;
 
 /**
  * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
- * @author thatdaleguy03
- * @version Prototype
- * @since Alpha V1.0.0
+ * @author Dale Morris, Jon Roberts
+ * @version Sprint2
+ * @since Prototype
  */
 public class Simulation implements Runnable {
-    AbstractAnimal[][] grid; // Grid that animals move throughout //TODO: Will need to change this to AbstractOrganism[][]
+    AbstractAnimal[][] grid; // Grid that animals move throughout
     private static final int[] DEFAULT_GRID_DIMENSIONS = {5, 5}; // The default values for the width and height of the grid
     private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
     private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
-    int currentDay; // The current day of the simulation
-    int currentTimeStep; // The current time step within the current day of the simulation
+    private int currentDay; // The current day of the simulation
+    private int currentTimeStep; // The current time step within the current day of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
-
-
-
-
-    public static void main(String[] args) {
-        if(args.length == 1) {
-            TerminalFlagRequest request = new TerminalFlagRequest(args[0], new Map(DEFAULT_GRID_DIMENSIONS[0], DEFAULT_GRID_DIMENSIONS[1]));
-            FlagHandler initialHandler = new GridSizeFlagHandler();
-            initialHandler.setSuccessor(new InitialOrganismCountFlagHandler());
-            //Register the Rabbit class into the factory
-            OrganismFactory.getInstance().registerOrganism("Rabbit", new Rabbit());
-
-            initialHandler.handleRequest(request);
-            Simulation simulation = new Simulation(request.getMap());
-        } else {
-            Simulation simulation = new Simulation();
-            simulation.run();
-        }
-
-
-
-
-    }
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -64,16 +36,6 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Creates a simulation with some default constraints but a grid defined by a map
-     * @param map
-     */
-    public Simulation(Map map) {
-        grid = (AbstractAnimal[][]) map.getGrid(); //TODO: will need to remove cast AbstractAnimal[][]
-        this.timeStepsPerDay = DEFAULT_TIME_STEPS_PER_DAY;
-        this.millisecondsPerTimeStep = DEFAULT_MILLISECONDS_PER_TIME_STEP;
-    }
-
-    /**
      * Returns a new team.rocket.Simulation object with default constraints.
      */
     Simulation() {
@@ -86,6 +48,14 @@ public class Simulation implements Runnable {
      * Simulates how the environment changes over time based on initial conditions and interactions among animals.
      */
     public void run() {
+        dayIterator();
+
+    }
+
+    /**
+     * Iterates through the days and makes calls to breeding, moveAnimal, and outputGrid every day that occurs
+     */
+    void dayIterator() {
         grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
         final int DAYS_PER_RUN = 10; // The number of days in a run
 
@@ -100,89 +70,70 @@ public class Simulation implements Runnable {
                     System.out.println("There was an unexpected issue with the simulation.");
                     return;
                 }
-
-                for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
-                    for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
-                        if (grid[i][j] != null) {
-                            AbstractAnimal[] neighbors = new AbstractAnimal[4];
-                            if (i == 0) {
-                                neighbors[0] = new Rabbit();
-                            } else {
-                                neighbors[0] = grid[i-1][j];
-                            }
-
-                            if (i == grid.length - 1) {
-                                neighbors[1] = new Rabbit();
-                            } else {
-                                neighbors[1] = grid[i+1][j];
-                            }
-
-                            if (j == 0) {
-                                neighbors[2] = new Rabbit();
-                            } else {
-                                neighbors[2] = grid[i][j-1];
-                            }
-
-                            if (j == grid[0].length - 1) {
-                                neighbors[3] = new Rabbit();
-                            } else {
-                                neighbors[3] = grid[i][j+1];
-                            }
-
-                            moveAnimal(grid[i][j], neighbors, i, j);
-                        }
-                    }
-                }
+                moveAnimal();
             } // End of current day
 
-            /* Breeding section */
-            int rabbitsBred = 0;
-            double expectedBreeds = Math.pow(2, currentDay-1);
-            AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
-            boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
-            boolean animalFound;               // Indicates if a rabbit is in the current grid space
-            boolean gridIsFull = false;        // Indicates if the grid is full
-            for (int i = 0; i < oldGrid.length; i++) {        // Iterates through each row of a copy of the grid
-                hasBred = false;
-                for (int j = 0; j < oldGrid[0].length; j++) { // Iterates through each column of a copy of the grid
-                    animalFound = false;
+            breeding();
+            outputGrid();
+        } // End of simulation
 
-                    if (oldGrid[i][j] != null) { // Found an animal
-                        animalFound = true;
+    }
 
-                        for (int k = 0; k < grid.length; k++) {     // Iterates through each row of the grid
-                            for (int l = 0; l < grid.length; l++) { // Iterates through each column of the grid
-                                if (grid[k][l] == null) { // If the current grid space is empty
-                                    grid[k][l] = new Rabbit();
-                                    rabbitsBred++;
-                                    hasBred = true;
-                                }
+    /**
+     * Simulates breeding among the animals and creates a new entitys when breeding occurs
+     */
+    void breeding() {
 
-                                if (rabbitsBred > expectedBreeds || hasBred) {
-                                    break;
-                                }
+        /* Breeding section */
+        int rabbitsBred = 0;
+        double expectedBreeds = Math.pow(2, currentDay-1);
+        AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
+        boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
+        boolean animalFound;               // Indicates if a rabbit is in the current grid space
+        boolean gridIsFull = false;        // Indicates if the grid is full
+        for (int i = 0; i < oldGrid.length; i++) {        // Iterates through each row of a copy of the grid
+            hasBred = false;
+            for (int j = 0; j < oldGrid[0].length; j++) { // Iterates through each column of a copy of the grid
+                animalFound = false;
+
+
+                if (oldGrid[i][j] != null) { // Found an animal
+                    animalFound = true;
+
+                    for (int k = 0; k < grid.length; k++) {     // Iterates through each row of the grid
+                        for (int l = 0; l < grid.length; l++) { // Iterates through each column of the grid
+                            if (grid[k][l] == null) { // If the current grid space is empty
+                                grid[k][l] = new Rabbit();
+                                rabbitsBred++;
+                                hasBred = true;
                             }
 
                             if (rabbitsBred > expectedBreeds || hasBred) {
                                 break;
                             }
                         }
-                    }
 
-                    if (animalFound && !hasBred) { // Grid must be full
-                        outputGrid();
-
-                        System.out.println("The program has ended prematurely because there is no more space for animals.");
-                        return;
+                        if (rabbitsBred > expectedBreeds || hasBred) {
+                            break;
+                        }
                     }
                 }
-            } // End of grid iteration
 
-            outputGrid();
-        } // End of simulation
-    } // end run
+                if (animalFound && !hasBred) { // Grid must be full
+                    outputGrid();
 
-    void outputGrid() {
+                    System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    return;
+                }
+            }
+        } // End of grid iteration
+
+    }
+
+    /**
+     * Outputs the current Grid with boundaries and letter representations for the animals
+     */
+    public void outputGrid() {
         System.out.println("Day " + currentDay);
 
         // Print upper edge
@@ -212,7 +163,53 @@ public class Simulation implements Runnable {
         System.out.println();
     }
 
-    void moveAnimal(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
+    /**
+     * Handles animal movement as the days progress
+     */
+    void moveAnimal() {
+        for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
+            for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
+                if (grid[i][j] != null) {
+                    AbstractAnimal[] neighbors = new AbstractAnimal[4];
+                    if (i == 0) {
+                        neighbors[0] = new Rabbit();
+                    } else {
+                        neighbors[0] = grid[i-1][j];
+                    }
+
+                    if (i == grid.length - 1) {
+                        neighbors[1] = new Rabbit();
+                    } else {
+                        neighbors[1] = grid[i+1][j];
+                    }
+
+                    if (j == 0) {
+                        neighbors[2] = new Rabbit();
+                    } else {
+                        neighbors[2] = grid[i][j-1];
+                    }
+
+                    if (j == grid[0].length - 1) {
+                        neighbors[3] = new Rabbit();
+                    } else {
+                        neighbors[3] = grid[i][j+1];
+                    }
+
+                    moveDirection(grid[i][j], neighbors, i, j);
+                }
+            }
+        }
+    }
+
+    /**
+     * Determines the movement positions of animals up or dowm and left or right
+     *
+     * @param animal    The animal being moved
+     * @param neighbors The surrounding animals
+     * @param y         the vertical movement of the grid
+     * @param x         the horizontal movement of the grid
+     */
+    private void moveDirection(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
         if (direction == null) {
