@@ -34,6 +34,8 @@ public class Simulation implements Runnable {
             TerminalFlagRequest request = new TerminalFlagRequest(args[0], new Map(DEFAULT_GRID_DIMENSIONS[0], DEFAULT_GRID_DIMENSIONS[1]));
             FlagHandler initialHandler = new GridSizeFlagHandler();
             initialHandler.setSuccessor(new InitialOrganismCountFlagHandler());
+            //Register the Rabbit class into the factory
+            OrganismFactory.getInstance().registerOrganism("Rabbit", new Rabbit());
 
             initialHandler.handleRequest(request);
             Simulation simulation = new Simulation(request.getMap());
