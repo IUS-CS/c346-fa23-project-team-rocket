@@ -15,3 +15,4 @@ public class UI {
         simulationThread.start();
     }
 }
+
