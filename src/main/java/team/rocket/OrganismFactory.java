@@ -29,6 +29,7 @@ public class OrganismFactory {
 	 * @param organism A new object of the organism
 	 */
 	public void registerOrganism (String OrganismName, AbstractOrganism organism){
+		OrganismName = OrganismName.toLowerCase();
 		if(!m_RegisteredOrganisms.containsKey(OrganismName)){
 			m_RegisteredOrganisms.put(OrganismName, organism);
 			organism.setCount(0);
@@ -41,6 +42,7 @@ public class OrganismFactory {
 	 * @return null if organism doesn't exist/wasn't registered, otherwise an object of AbstractOrganism type
 	 */
 	public AbstractOrganism createOrganism (String OrganismName){
+		OrganismName = OrganismName.toLowerCase();
 		if(!m_RegisteredOrganisms.containsKey(OrganismName)){
 			return null;
 		}

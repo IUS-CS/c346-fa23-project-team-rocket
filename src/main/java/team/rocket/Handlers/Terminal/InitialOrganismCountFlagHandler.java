@@ -1,11 +1,10 @@
 package team.rocket.Handlers.Terminal;
 
 import team.rocket.AbstractOrganism;
-import team.rocket.Enums.Organism;
 import team.rocket.Map;
+import team.rocket.OrganismFactory;
 
 import java.util.Random;
-import java.util.random.RandomGenerator;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
@@ -20,6 +19,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 	 */
 	@Override
 	public void handleRequest(TerminalFlagRequest tFRequest) {
+
 		//Need to identify strings that follow the pattern "<string>_count 6"
 		//Split at "--" to identify each flag relevant to this request Handler
 		String[] flags = tFRequest.getTerminalCommand().split("--");
@@ -31,7 +31,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 			if(matchFound){
 				//splitting on " " and "_"
 				String[] subflags = flag.split("[ _]");
-				AbstractOrganism organism = Organism.getOrganism(subflags[0]);
+				AbstractOrganism organism = OrganismFactory.getInstance().createOrganism(subflags[0]);
 				//subflag[0] organism exists
 				if(organism!=null) {
 					Map editedMap = new Map(tFRequest.getMap().getWidth(), tFRequest.getMap().getHeight());
@@ -53,7 +53,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 							int randY = rand.nextInt(editedMap.getHeight());
 							//Is space empty?
 							if(grid[randY][randX]!=null){
-								grid[randY][randX] = organism.getNewObjectFromExistingObject();
+								grid[randY][randX] = OrganismFactory.getInstance().createOrganism(subflags[0]);
 								spaceNotFound = false;
 							}
 						}
@@ -63,7 +63,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 							for(int k = 0; k < tFRequest.getMap().getWidth(); k++){
 								for(int j = 0; j < tFRequest.getMap().getHeight(); j++){
 									if(grid[j][k] != null){
-										grid[j][k] = organism.getNewObjectFromExistingObject();
+										grid[j][k] = OrganismFactory.getInstance().createOrganism(subflags[0]);
 									}
 								}
 							}
