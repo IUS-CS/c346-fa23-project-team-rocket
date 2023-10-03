@@ -2,11 +2,10 @@
 
 This file is intended to show which design patterns we're currently using, which patterns may be helpful, and how we 
 plan to continue designing modules.
-
 ## Patterns Currently in Use
 
-There are no OOP design patterns being used in our program currently. Although we are using the Chain of Responsibility 
-pattern in one of the features currently being developed.
+We are currently using the factory pattern to assist with AbstractOrganism creation. It allows us to simply register a string and an instance of an object to the factory and then produce more of them by calling a method with that same string.
+We also use the singleton for our factory so there's only one factory at a time. The final pattern we're currently using is the Chain of Responsibility which is used for our Terminal Flag Handlers.
 
 ## Possibly Helpful Patterns
 
@@ -21,3 +20,4 @@ the director more control over the product via a builder interface.
 ## Module Design Plans
 
 During our module design process we'll be referring to proper pattern design and java references. We'll also take advantage of class and sequence diagrams to plan behavior before it's being implemented. Furthermore, we're implementing test-driven development into our processes.
+
