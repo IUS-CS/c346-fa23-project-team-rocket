@@ -1,14 +1,14 @@
 package team.rocket;
 
 /**
- * A team.rocket.Map contains the information about the arrangement of a set of simulated animals.
+ * A team.rocket.Map contains the information about the arrangement of a set of simulated organisms.
  *
  * @author Dale Morris
  * @version Sprint2
  * @since Sprint2
  */
 public class Map {
-    private AbstractOrganism[][] grid; // The 2D array containing all of the organisms on the map
+    private AbstractOrganism[][] grid; // The 2D array containing all the organisms on the map
     private int width; // The width of the map
     private int height; // The height of the map
 
@@ -28,7 +28,7 @@ public class Map {
     /**
      * Returns the grid of the team.rocket.Map.
      *
-     * @return A 2D array containing the simulated AbstractAnimals
+     * @return A 2D array containing the simulated AbstractOrganisms
      */
     public AbstractOrganism[][] getGrid() {
         return grid;
