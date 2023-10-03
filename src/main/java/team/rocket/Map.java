@@ -1,20 +1,20 @@
 package team.rocket;
 
 /**
- * A team.rocket.Map contains the information about the arrangement of a set of simulated animals.
+ * A team.rocket.Map contains the information about the arrangement of a set of simulated organisms.
  *
  * @author Dale Morris
  * @version Sprint2
  * @since Sprint2
  */
 public class Map {
-    private AbstractOrganism[][] grid; // The 2D array containing all of the organisms on the map
+    private AbstractOrganism[][] grid; // The 2D array containing all the organisms on the map
     private int width; // The width of the map
     private int height; // The height of the map
 
     /**
-     * A constructor for the team.rocket.Map class which sets the grid to an empty 2D array of AbstractOrganisms with a given width
-     * and height.
+     * A constructor for the team.rocket.Map class that sets the grid to an empty 2D array of AbstractOrganisms with a
+     * given width and height.
      *
      * @param width The desired width (number of columns) of the grid
      * @param height The desired height (number of rows) of the grid
@@ -25,24 +25,18 @@ public class Map {
         } else {
             grid = new AbstractOrganism[height][width];
         }
-
         this.width = width;
         this.height = height;
     }
 
     /**
-     * A constructor for the team.rocket.Map class which sets the grid to the given grid and width and height to the
-     * width and height of the given grid
+     * A constructor for the team.rocket.Map class that sets the grid to the given grid and sets the width and height
+     * to the width and height of the grid.
      *
-     * @param grid The desired grid for the map
+     * @param grid A 2D array of AbstractOrganisms for the map to set its grid to
      */
     public Map(AbstractOrganism[][] grid) {
-        if (grid.length == 0 || grid[0].length == 0) {
-            this.grid = null;
-        } else {
-            this.grid = grid;
-        }
-
+        this.grid = grid;
         width = grid[0].length;
         height = grid.length;
     }
@@ -50,7 +44,7 @@ public class Map {
     /**
      * Returns the grid of the team.rocket.Map.
      *
-     * @return A 2D array containing the simulated AbstractAnimals
+     * @return A 2D array containing the simulated AbstractOrganisms
      */
     public AbstractOrganism[][] getGrid() {
         return grid;
@@ -86,7 +80,28 @@ public class Map {
     }
 
     /**
-     * Returns a boolean telling whether or not the map is empty
+     * Adds an organism to the specified location
+     *
+     * @param organism the organism that is to be added to the map
+     * @param row the row that the organism will be in
+     * @param column the column that the organism will be in
+     */
+    public void addOrganism(AbstractOrganism organism, int row, int column) {
+        grid[row][column] = organism;
+    }
+
+    /**
+     * Removes the organism at the specified location
+     *
+     * @param row the row of the organism that is to be removed from the map
+     * @param column the column of the organism that is to be removed from the map
+     */
+    public void removeOrganism(int row, int column) {
+        grid[row][column] = null;
+    }
+
+    /**
+     * Returns a boolean telling whether the map is empty
      *
      * @return true if the map is empty, false otherwise
      */
@@ -103,7 +118,7 @@ public class Map {
     }
 
     /**
-     * Returns a boolean telling whether or not the map is full
+     * Returns a boolean telling whether the map is full
      *
      * @return true if the map is full, false otherwise
      */
