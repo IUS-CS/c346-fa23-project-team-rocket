@@ -99,4 +99,38 @@ public class Map {
     public void removeOrganism(int row, int column) {
         grid[row][column] = null;
     }
+
+    /**
+     * Returns a boolean telling whether the map is empty
+     *
+     * @return true if the map is empty, false otherwise
+     */
+    public boolean isEmpty() {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] != null) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns a boolean telling whether the map is full
+     *
+     * @return true if the map is full, false otherwise
+     */
+    public boolean isFull() {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                if (grid[i][j] == null) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 }
