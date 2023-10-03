@@ -3,6 +3,7 @@ package stepdefinitions;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import team.rocket.AbstractOrganism;
 
 import java.util.Arrays;
@@ -10,6 +11,8 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class Map {
+    /* Constructor-related tests*/
+
     @Given("a {int} by {int} map is created")
     public void aByMapIsCreated(int arg0, int arg1) {
         team.rocket.Map map = new team.rocket.Map(arg0, arg1);
@@ -37,6 +40,26 @@ public class Map {
         team.rocket.Map map = new team.rocket.Map(1, 1);
         assertNotNull(map.getGrid());
     }
+
+    @Given("a map is created with a grid")
+    public void aMapIsCreatedWithAGrid() {
+        team.rocket.AbstractOrganism[][] grid = new team.rocket.AbstractOrganism[2][2];
+        team.rocket.Map map = new team.rocket.Map(grid);
+
+        assertNotNull(map);
+    }
+
+    @Then("the map should have the given dimensions and given contents")
+    public void theMapShouldHaveTheGivenDimensionsAndGivenContents() {
+        team.rocket.AbstractOrganism[][] grid = new team.rocket.AbstractOrganism[2][2];
+        team.rocket.Map map = new team.rocket.Map(grid);
+
+        assertTrue(Arrays.deepEquals(grid, map.getGrid()));
+        assertEquals(grid[0].length, map.getWidth());
+        assertEquals(grid.length, map.getHeight());
+    }
+
+    /* Empty/full-related tests */
 
     @Given("an empty map is created")
     public void anEmptyMapIsCreated() {
@@ -102,21 +125,53 @@ public class Map {
         assertFalse(map.isFull());
     }
 
-    @Given("a map is created with a grid")
-    public void aMapIsCreatedWithAGrid() {
-        team.rocket.AbstractOrganism[][] grid = new team.rocket.AbstractOrganism[2][2];
-        team.rocket.Map map = new team.rocket.Map(grid);
+    /* Add/remove organism-related tests */
 
-        assertNotNull(map);
+    @Given("a space has no organism")
+    public void aSpaceHasNoOrganism() {
+        team.rocket.Map map = new team.rocket.Map(2, 2);
+
+        assertNull(map.getGrid()[1][1]);
     }
 
-    @Then("the map should have the given dimensions and given contents")
-    public void theMapShouldHaveTheGivenDimensionsAndGivenContents() {
-        team.rocket.AbstractOrganism[][] grid = new team.rocket.AbstractOrganism[2][2];
-        team.rocket.Map map = new team.rocket.Map(grid);
+    @When("an organism is added to the space")
+    public void anOrganismIsAddedToTheSpace() {
+        team.rocket.Map map = new team.rocket.Map(2, 2);
+        team.rocket.AbstractOrganism rabbit = new team.rocket.Rabbit();
+        map.addOrganism(rabbit, 1, 1);
+    }
 
-        assertTrue(Arrays.deepEquals(grid, map.getGrid()));
-        assertEquals(grid[0].length, map.getWidth());
-        assertEquals(grid.length, map.getHeight());
+    @Then("the space should have the given organism")
+    public void theSpaceShouldHaveTheGivenOrganism() {
+        team.rocket.Map map = new team.rocket.Map(2, 2);
+        team.rocket.AbstractOrganism rabbit = new team.rocket.Rabbit();
+        map.addOrganism(rabbit, 1, 1);
+
+        assertEquals(rabbit, map.getGrid()[1][1]);
+    }
+
+    @Given("a space has an organism")
+    public void aSpaceHasAnOrganism() {
+        team.rocket.Map map = new team.rocket.Map(2, 2);
+        team.rocket.AbstractOrganism rabbit = new team.rocket.Rabbit();
+        map.addOrganism(rabbit, 1, 1);
+    }
+
+    @When("an organism is removed from the space")
+    public void anOrganismIsRemovedFromTheSpace() {
+        team.rocket.Map map = new team.rocket.Map(2, 2);
+        team.rocket.AbstractOrganism rabbit = new team.rocket.Rabbit();
+        map.addOrganism(rabbit, 1, 1);
+        map.removeOrganism(1, 1);
+    }
+
+    @Then("the space should be empty")
+    public void theSpaceShouldBeEmpty() {
+        team.rocket.Map map = new team.rocket.Map(2, 2);
+        team.rocket.AbstractOrganism rabbit = new team.rocket.Rabbit();
+        map.addOrganism(rabbit, 1, 1);
+        map.removeOrganism(1, 1);
+
+        assertNull(map.getGrid()[1][1]);
     }
 }

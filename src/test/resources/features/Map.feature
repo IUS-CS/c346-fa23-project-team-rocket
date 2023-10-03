@@ -38,3 +38,23 @@ Feature: Map
     Scenario: A map created with a grid should have the same dimensions and same contents
         Given a map is created with a grid
         Then the map should have the given dimensions and given contents
+
+    Scenario: An added organism should overwrite an empty space
+        Given a space has no organism
+        When an organism is added to the space
+        Then the space should have the given organism
+
+    Scenario: An added organism should overwrite another organism
+        Given a space has an organism
+        When an organism is added to the space
+        Then the space should have the given organism
+
+    Scenario: A removed organism should no longer be on the map
+        Given a space has an organism
+        When an organism is removed from the space
+        Then the space should be empty
+
+    Scenario: A space should still be empty after attempting to remove an organism from the empty space
+        Given a space has an organism
+        When an organism is removed from the space
+        Then the space should be empty
