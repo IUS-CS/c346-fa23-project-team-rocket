@@ -1,6 +1,10 @@
 package team.rocket;
 
 import team.rocket.Enums.Direction;
+import team.rocket.Handlers.Terminal.FlagHandler;
+import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
+import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
+import team.rocket.Handlers.Terminal.TerminalFlagRequest;
 
 import java.lang.Runnable;
 
@@ -13,7 +17,7 @@ import java.lang.Runnable;
  * @since Alpha V1.0.0
  */
 public class Simulation implements Runnable {
-    AbstractAnimal[][] grid; // Grid that animals move throughout
+    AbstractAnimal[][] grid; // Grid that animals move throughout //TODO: Will need to change this to AbstractOrganism[][]
     private static final int[] DEFAULT_GRID_DIMENSIONS = {5, 5}; // The default values for the width and height of the grid
     private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
     private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
@@ -22,9 +26,25 @@ public class Simulation implements Runnable {
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
 
+
+
+
     public static void main(String[] args) {
-        Simulation simulation = new Simulation();
-        simulation.run();
+        if(args.length == 1) {
+            TerminalFlagRequest request = new TerminalFlagRequest(args[0], new Map(DEFAULT_GRID_DIMENSIONS[0], DEFAULT_GRID_DIMENSIONS[1]));
+            FlagHandler initialHandler = new GridSizeFlagHandler();
+            initialHandler.setSuccessor(new InitialOrganismCountFlagHandler());
+
+            initialHandler.handleRequest(request);
+            Simulation simulation = new Simulation(request.getMap());
+        } else {
+            Simulation simulation = new Simulation();
+            simulation.run();
+        }
+
+
+
+
     }
 
     /**
@@ -39,6 +59,16 @@ public class Simulation implements Runnable {
         grid = new AbstractAnimal[gridWidth][gridHeight];
         this.timeStepsPerDay = timeStepsPerDay;
         this.millisecondsPerTimeStep = secondsPerTimeStep;
+    }
+
+    /**
+     * Creates a simulation with some default constraints but a grid defined by a map
+     * @param map
+     */
+    public Simulation(Map map) {
+        grid = (AbstractAnimal[][]) map.getGrid(); //TODO: will need to remove cast AbstractAnimal[][]
+        this.timeStepsPerDay = DEFAULT_TIME_STEPS_PER_DAY;
+        this.millisecondsPerTimeStep = DEFAULT_MILLISECONDS_PER_TIME_STEP;
     }
 
     /**
