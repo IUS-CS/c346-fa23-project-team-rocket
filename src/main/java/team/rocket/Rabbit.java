@@ -6,6 +6,7 @@ import java.util.Random;
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;
+    private boolean hasMoved;
 
     public Rabbit(){
         count++;
@@ -49,6 +50,13 @@ public class Rabbit extends AbstractAnimal{
     public void reproduce(){} //not yet implemented
 
     /**
+     * Resets hasMoved to false, meant to be used to reset movement each day
+     */
+    public void resetMove(){
+        this.hasMoved = false;
+    }
+
+    /**
      * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
@@ -90,5 +98,45 @@ public class Rabbit extends AbstractAnimal{
         else{
             return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
+    }
+
+    /**
+     * Moves Rabbit in grid based on current position, available movement space, and past movement
+     * @param grid 2D array holding all Organisms in simulation
+     * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
+     * @param y - y position of Rabbit in grid
+     * @param x - x position of Rabbit in grid
+     */
+    public void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x) {
+        if (hasMoved) {
+            return;
+        }
+
+        Direction direction = this.availableMovementSpace(neighbors);
+
+        if (direction == null) {
+            return;
+        }
+
+        if (direction == Direction.UP) {
+            grid[y][x] = null;
+            grid[y-1][x] = this;
+        }
+
+        if (direction == Direction.DOWN) {
+            grid[y][x] = null;
+            grid[y+1][x] = this;
+        }
+
+        if (direction == Direction.LEFT) {
+            grid[y][x] = null;
+            grid[y][x-1] = this;
+        }
+
+        if (direction == Direction.RIGHT) {
+            grid[y][x] = null;
+            grid[y][x+1] = this;
+        }
+        hasMoved = true;
     }
 }
