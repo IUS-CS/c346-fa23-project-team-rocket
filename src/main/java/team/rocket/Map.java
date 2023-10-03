@@ -13,16 +13,32 @@ public class Map {
     private int height; // The height of the map
 
     /**
-     * A constructor for the team.rocket.Map class which sets the grid to an empty 2D array of AbstractOrganisms with a
+     * A constructor for the team.rocket.Map class that sets the grid to an empty 2D array of AbstractOrganisms with a
      * given width and height.
      *
      * @param width The desired width (number of columns) of the grid
      * @param height The desired height (number of rows) of the grid
      */
     public Map(int width, int height) {
+        if (width == 0 || height == 0) {
+            grid = null;
+        } else {
+            grid = new AbstractOrganism[height][width];
+        }
         this.width = width;
         this.height = height;
-        grid = new AbstractOrganism[height][width];
+    }
+
+    /**
+     * A constructor for the team.rocket.Map class that sets the grid to the given grid and sets the width and height
+     * to the width and height of the grid.
+     *
+     * @param grid A 2D array of AbstractOrganisms for the map to set its grid to
+     */
+    public Map(AbstractOrganism[][] grid) {
+        this.grid = grid;
+        width = grid[0].length;
+        height = grid.length;
     }
 
     /**
