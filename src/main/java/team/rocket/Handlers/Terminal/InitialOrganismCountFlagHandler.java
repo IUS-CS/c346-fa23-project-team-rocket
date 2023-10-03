@@ -42,17 +42,18 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 				if(organism==null){
 					continue;
 				} else {
-					System.out.println(Organism + Organism_Amount);
 					organism.reduceCount();
 
 					//Places the Organisms one after another in the grid as long as theres an empty space
-					for(int y = 0; y < grid.length; y++){
-						for(int x = 0; x < grid[y].length; x++){
-							if(grid[y][x] == null){
+					for (int y = 0; y < grid.length; y++) {
+						for (int x = 0; x < grid[y].length; x++) {
+							if (grid[y][x] == null && Organism_Amount > 0) { //Checks whether there's organisms left
 								grid[y][x] = OrganismFactory.getInstance().createOrganism(Organism);
+								Organism_Amount--; //Made an organism
 							}
 						}
 					}
+
 
 				}
 

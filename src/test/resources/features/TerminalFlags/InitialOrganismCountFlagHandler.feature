@@ -18,3 +18,8 @@ Feature: Flag Handler for initial Organism Count
         And There are <rabbit_count> Rabbits in the TerminalFlagRequest.
 
         Examples:
+            | int1 | int2 | string              | rabbit_count |
+            | 3    | 3    | "--Rabbit_count 43" | 9            |
+            | 1    | 1    | "--Rabbit_count 1"  | 1            |
+            | 4    | 4    | "--rabbit_count 3"  | 3            |
+            | 10   | 19   | "--rabbit_count 36" | 36           |
