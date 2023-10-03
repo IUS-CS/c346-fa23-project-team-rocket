@@ -3,6 +3,7 @@ package team.rocket;
 public abstract class AbstractAnimal extends AbstractOrganism {
     private static char icon;
     private static int count;
+    private boolean hasMoved;
 
     /**
      * @return Animal's icon as a character
@@ -19,6 +20,13 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     }
 
     /**
+     * Resets hasMoved to false, meant to be used to reset movement each day
+     */
+    public void resetMove(){
+        this.hasMoved = false;
+    }
+
+    /**
      * Creates new Animal
      */
     public abstract void reproduce();
@@ -30,5 +38,12 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      */
     public abstract Direction availableMovementSpace(AbstractAnimal[] neighbors);
 
+    /**
+     * Moves Animal in grid based on current position, available movement space, and past movement
+     * @param grid 2D array holding all Organisms in simulation
+     * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
+     * @param y - y position of Rabbit in grid
+     * @param x - x position of Rabbit in grid
+     */
     public abstract void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x);
 }

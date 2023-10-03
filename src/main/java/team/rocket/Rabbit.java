@@ -29,6 +29,9 @@ public class Rabbit extends AbstractAnimal{
      */
     public void reproduce(){} //not yet implemented
 
+    /**
+     * Resets hasMoved to false, meant to be used to reset movement each day
+     */
     public void resetMove(){
         this.hasMoved = false;
     }
@@ -77,11 +80,19 @@ public class Rabbit extends AbstractAnimal{
         }
     }
 
+    /**
+     * Moves Rabbit in grid based on current position, available movement space, and past movement
+     * @param grid 2D array holding all Organisms in simulation
+     * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
+     * @param y - y position of Rabbit in grid
+     * @param x - x position of Rabbit in grid
+     */
     public void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x) {
-        Direction direction = this.availableMovementSpace(neighbors);
         if (hasMoved) {
             return;
         }
+
+        Direction direction = this.availableMovementSpace(neighbors);
 
         if (direction == null) {
             return;

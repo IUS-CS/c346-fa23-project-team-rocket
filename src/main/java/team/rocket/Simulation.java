@@ -94,7 +94,8 @@ public class Simulation implements Runnable {
                             } else {
                                 neighbors[3] = grid[i][j+1];
                             }
-                            grid[i][j].move(grid, neighbors, i, j);
+
+                            moveAnimal(grid[i][j], neighbors, i, j);
                         }
                     }
                 }
@@ -177,4 +178,31 @@ public class Simulation implements Runnable {
         System.out.println();
     }
 
+    void moveAnimal(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
+        Direction direction = animal.availableMovementSpace(neighbors);
+
+        if (direction == null) {
+            return;
+        }
+
+        if (direction == Direction.UP) {
+            grid[y][x] = null;
+            grid[y-1][x] = animal;
+        }
+
+        if (direction == Direction.DOWN) {
+            grid[y][x] = null;
+            grid[y+1][x] = animal;
+        }
+
+        if (direction == Direction.LEFT) {
+            grid[y][x] = null;
+            grid[y][x-1] = animal;
+        }
+
+        if (direction == Direction.RIGHT) {
+            grid[y][x] = null;
+            grid[y][x+1] = animal;
+        }
+    }
 }
