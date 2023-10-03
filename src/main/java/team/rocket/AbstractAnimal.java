@@ -29,4 +29,6 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      * @return randomly determined direction based on available spaces
      */
     public abstract Direction availableMovementSpace(AbstractAnimal[] neighbors);
+
+    public abstract void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x);
 }

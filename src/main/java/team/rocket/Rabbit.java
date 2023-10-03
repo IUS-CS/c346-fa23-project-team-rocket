@@ -4,6 +4,7 @@ import java.util.Random;
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;
+    private boolean hasMoved;
 
     public Rabbit(){
         count++;
@@ -27,6 +28,10 @@ public class Rabbit extends AbstractAnimal{
      * Creates new Rabbit
      */
     public void reproduce(){} //not yet implemented
+
+    public void resetMove(){
+        this.hasMoved = false;
+    }
 
     /**
      * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
@@ -70,5 +75,37 @@ public class Rabbit extends AbstractAnimal{
         else{
             return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
+    }
+
+    public void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x) {
+        Direction direction = this.availableMovementSpace(neighbors);
+        if (hasMoved) {
+            return;
+        }
+
+        if (direction == null) {
+            return;
+        }
+
+        if (direction == Direction.UP) {
+            grid[y][x] = null;
+            grid[y-1][x] = this;
+        }
+
+        if (direction == Direction.DOWN) {
+            grid[y][x] = null;
+            grid[y+1][x] = this;
+        }
+
+        if (direction == Direction.LEFT) {
+            grid[y][x] = null;
+            grid[y][x-1] = this;
+        }
+
+        if (direction == Direction.RIGHT) {
+            grid[y][x] = null;
+            grid[y][x+1] = this;
+        }
+        hasMoved = true;
     }
 }
