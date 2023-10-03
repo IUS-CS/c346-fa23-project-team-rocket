@@ -1,4 +1,4 @@
-package team.rocket;
+package team.rocket.Enums;
 
 public enum Direction {
         UP,

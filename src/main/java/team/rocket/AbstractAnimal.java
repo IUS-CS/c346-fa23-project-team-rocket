@@ -1,5 +1,7 @@
 package team.rocket;
 
+import team.rocket.Enums.Direction;
+
 public abstract class AbstractAnimal extends AbstractOrganism {
     private static char icon;
     private static int count;

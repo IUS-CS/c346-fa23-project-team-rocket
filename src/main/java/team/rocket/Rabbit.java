@@ -1,5 +1,7 @@
 package team.rocket;
 
+import team.rocket.Enums.Direction;
+
 import java.util.Random;
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
@@ -16,11 +18,29 @@ public class Rabbit extends AbstractAnimal{
         return icon;
     }
 
+
+
     /**
      * @return current Rabbit count
      */
     public static int getCount(){
         return count;
+    }
+
+    @Override
+    public void setCount(int i) {
+        count = i;
+    }
+
+
+    @Override
+    public void reduceCount() {
+        count--;
+    }
+
+    @Override
+    public AbstractOrganism getNewObjectFromExistingObject() {
+        return new Rabbit();
     }
 
     /**
