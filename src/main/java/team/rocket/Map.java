@@ -8,13 +8,13 @@ package team.rocket;
  * @since Sprint2
  */
 public class Map {
-    private AbstractAnimal[][] grid; // The 2D array containing all of the animals on the map
+    private AbstractOrganism[][] grid; // The 2D array containing all of the organisms on the map
     private int width; // The width of the map
     private int height; // The height of the map
 
     /**
-     * A constructor for the team.rocket.Map class which sets the grid to an empty 2D array of AbstractAnimals with a given width
-     * and height.
+     * A constructor for the team.rocket.Map class which sets the grid to an empty 2D array of AbstractOrganisms with a
+     * given width and height.
      *
      * @param width The desired width (number of columns) of the grid
      * @param height The desired height (number of rows) of the grid
@@ -22,7 +22,7 @@ public class Map {
     public Map(int width, int height) {
         this.width = width;
         this.height = height;
-        grid = new AbstractAnimal[height][width];
+        grid = new AbstractOrganism[height][width];
     }
 
     /**
@@ -30,7 +30,7 @@ public class Map {
      *
      * @return A 2D array containing the simulated AbstractAnimals
      */
-    public AbstractAnimal[][] getGrid() {
+    public AbstractOrganism[][] getGrid() {
         return grid;
     }
 
@@ -39,7 +39,7 @@ public class Map {
      *
      * @param grid The desired grid of the team.rocket.Map.
      */
-    public void setGrid(AbstractAnimal[][] grid) {
+    public void setGrid(AbstractOrganism[][] grid) {
         this.grid = grid;
         width = grid[0].length;
         height = grid.length;
@@ -61,5 +61,26 @@ public class Map {
      */
     public int getHeight() {
         return height;
+    }
+
+    /**
+     * Adds an organism to the specified location
+     *
+     * @param organism the organism that is to be added to the map
+     * @param row the row that the organism will be in
+     * @param column the column that the organism will be in
+     */
+    public void addOrganism(AbstractOrganism organism, int row, int column) {
+        grid[row][column] = organism;
+    }
+
+    /**
+     * Removes the organism at the specified location
+     *
+     * @param row the row of the organism that is to be removed from the map
+     * @param column the column of the organism that is to be removed from the map
+     */
+    public void removeOrganism(int row, int column) {
+        grid[row][column] = null;
     }
 }
