@@ -17,7 +17,7 @@ This command will build and run the jar from the intellij :
 
 Run it from the projects root directory.
 
-###Terminal Flags and Using them
+### Terminal Flags and Using them
 
 Since terminal flags are a very soon to be implemented feature we'll detail how to use them with this program.
 Terminal Flags are run in this program by string, as such they should be attached to the end of the run command like so:
