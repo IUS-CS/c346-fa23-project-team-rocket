@@ -3,10 +3,12 @@ package team.rocket;
 import java.lang.Runnable;
 
 import team.rocket.Enums.Direction;
+/*
 import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
 import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
 import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+ */
 
 /**
  * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
@@ -26,7 +28,7 @@ public class Simulation implements Runnable {
     private int daysPerRun; // The number of days that make up each run of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
-    private FlagHandler flagHandler = new GridSizeFlagHandler();
+    // private FlagHandler flagHandler = new GridSizeFlagHandler();
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -35,7 +37,7 @@ public class Simulation implements Runnable {
      * @param mapWidth      the number of columns of the simulated grid
      * @param mapHeight     the number of rows of the simulated grid
      */
-    Simulation(String terminalFlags, int mapWidth, int mapHeight) {
+    /* Simulation(String terminalFlags, int mapWidth, int mapHeight) {
         flagHandler.setSuccessor(new InitialOrganismCountFlagHandler());
         OrganismFactory.getInstance().registerOrganism("rabbit", new Rabbit());
         OrganismFactory.getInstance().registerOrganism("grass", new Grass());
@@ -43,15 +45,33 @@ public class Simulation implements Runnable {
         flagHandler.handleRequest(request);
 
         map = request.getMap();
+    } */
+
+    /**
+     * Returns a new team.rocket.Simulation object with the given constraints.
+     *
+     * @param mapWidth      the number of columns of the simulated grid
+     * @param mapHeight     the number of rows of the simulated grid
+     */
+    public Simulation(int mapWidth, int mapHeight) {
+        map = new Map(mapWidth, mapHeight);
     }
+
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
      *
      * @param terminalFlags the flags entered into the terminal
      */
-    Simulation(String terminalFlags) {
+    /* Simulation(String terminalFlags) {
         new Simulation(terminalFlags, Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
+    } */
+
+    /**
+     * Returns a new team.rocket.Simulation object with default constraints.
+     */
+    Simulation() {
+        new Simulation(Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
     }
 
     /**
@@ -62,7 +82,6 @@ public class Simulation implements Runnable {
         map.addOrganism(OrganismFactory.getInstance().createOrganism("rabbit"), 0, 0); // Adds a rabbit to the grid
 
         currentDay = 1;
-        outputGrid(); // TODO: Move to UI
 
         for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
@@ -76,7 +95,7 @@ public class Simulation implements Runnable {
             } // End of current day
 
             breed();
-            outputGrid(); // TODO: Move to UI
+            outputGrid();
         } // End of simulation
     }
 
@@ -246,5 +265,13 @@ public class Simulation implements Runnable {
 
     public void setMillisecondsPerTimeStep(int millisecondsPerTimeStep) {
         this.millisecondsPerTimeStep = millisecondsPerTimeStep;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    public int getCurrentTimeStep() {
+        return currentTimeStep;
     }
 }
