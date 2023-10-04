@@ -92,6 +92,16 @@ public class Map {
     }
 
     /**
+     * Gets the organism at the specified location
+     *
+     * @param row the row that the organism is in
+     * @param column the column that the organism is in
+     */
+    public AbstractOrganism getOrganism(int row, int column) {
+        return grid[row][column];
+    }
+
+    /**
      * Adds an organism to the specified location
      *
      * @param organism the organism that is to be added to the map
