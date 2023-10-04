@@ -7,7 +7,6 @@ public abstract class AbstractPlant extends AbstractOrganism{
     private static int count;
     private boolean hasGrown;
 
-    public abstract void die(AbstractOrganism grid[][], int y, int x);
 
     /**
      * @return Plant's icon as a character

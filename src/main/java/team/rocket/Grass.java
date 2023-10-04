@@ -18,14 +18,10 @@ public class Grass extends AbstractPlant {
     }
 
     /**
-     * Removes grass from grid and reduces count
-     * @param grid, grid holding all organisms
-     * @param y, y position of grass on grid
-     * @param x, x position of grass on grid
+     * @returns boolean indication if grass has grown this cycle
      */
-    public void die(AbstractOrganism grid[][], int y, int x){
-        grid[y][x] = null;
-        count--;
+    public boolean growthStatus(){
+        return this.hasGrown;
     }
 
     /**
