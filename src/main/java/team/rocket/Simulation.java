@@ -15,8 +15,8 @@ import team.rocket.Handlers.Terminal.TerminalFlagRequest;
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version Sprint2
- * @since Prototype
+ * @version 0.2.0
+ * @since 0.1.0
  */
 public class Simulation implements Runnable {
     private Map map; // Grid that organisms can exist in
@@ -29,6 +29,7 @@ public class Simulation implements Runnable {
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
     // private FlagHandler flagHandler = new GridSizeFlagHandler();
+    private boolean mapIsFull = false;
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -71,7 +72,7 @@ public class Simulation implements Runnable {
      * Returns a new team.rocket.Simulation object with default constraints.
      */
     Simulation() {
-        new Simulation(Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
+        map = new Map();
     }
 
     /**
@@ -79,9 +80,10 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("rabbit"), 0, 0); // Adds a rabbit to the grid
+        map.addOrganism(new Rabbit(), 0, 0); // Adds a rabbit to the grid
 
         currentDay = 1;
+        outputGrid();
 
         for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
@@ -95,12 +97,15 @@ public class Simulation implements Runnable {
             } // End of current day
 
             breed();
+            if (mapIsFull) {
+                return;
+            }
             outputGrid();
         } // End of simulation
     }
 
     /**
-     * Simulates breeding among the animals and creates a new entitys when breeding occurs
+     * Simulates breeding among the animals and creates a new entity when breeding occurs
      */
     private void breed() {
         int rabbitsBred = 0;
@@ -117,8 +122,8 @@ public class Simulation implements Runnable {
                     /* Looks for an empty space to put a new organism */
                     for (int k = 0; k < map.getHeight(); k++) {     // Iterates through each row of the grid
                         for (int l = 0; l < map.getWidth(); l++) {  // Iterates through each column of the grid
-                            if (map.getOrganism(i, j) == null) {    // If the current grid space is empty
-                                map.addOrganism(OrganismFactory.getInstance().createOrganism("rabbit"), i, j);
+                            if (map.getOrganism(k, l) == null) {    // If the current grid space is empty
+                                map.addOrganism(new Rabbit(), k, l);
                                 rabbitsBred++;
                                 hasBred = true;
                             }
@@ -135,6 +140,7 @@ public class Simulation implements Runnable {
                 }
 
                 if (map.isFull()) {
+                    mapIsFull = true;
                     outputGrid();
 
                     System.out.println("The program has ended prematurely because there is no more space for animals.");
@@ -142,10 +148,6 @@ public class Simulation implements Runnable {
                 }
             }
         } // End of grid iteration
-    }
-
-    public void breedHelper() {
-
     }
 
     /**
