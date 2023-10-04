@@ -2,6 +2,10 @@ package team.rocket;
 
 import java.lang.Runnable;
 import team.rocket.Enums.Direction;
+import team.rocket.Handlers.Terminal.FlagHandler;
+import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
+import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
+import team.rocket.Handlers.Terminal.TerminalFlagRequest;
 
 /**
  * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
@@ -12,36 +16,41 @@ import team.rocket.Enums.Direction;
  * @since Prototype
  */
 public class Simulation implements Runnable {
-    AbstractAnimal[][] grid; // Grid that animals move throughout
-    private static final int[] DEFAULT_GRID_DIMENSIONS = {5, 5}; // The default values for the width and height of the grid
+    private Map map; // Grid that organisms can exist in
+    private static final int DEFAULT_DAYS_PER_RUN = 10; // The default number of days in each run
     private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
     private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
+    private int daysPerRun; // The number of days that make up each run of the simulation
     private int currentDay; // The current day of the simulation
     private int currentTimeStep; // The current time step within the current day of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
+    private FlagHandler flagHandler = new GridSizeFlagHandler();
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
      *
-     * @param gridWidth          the number of columns of the simulated grid
-     * @param gridHeight         the number of rows of the simulated grid
-     * @param timeStepsPerDay    the number of time steps that make up each day
-     * @param secondsPerTimeStep the number of real-world seconds that make up each time step
+     * @param terminalFlags the flags entered into the terminal
+     * @param mapWidth      the number of columns of the simulated grid
+     * @param mapHeight     the number of rows of the simulated grid
      */
-    Simulation(int gridWidth, int gridHeight, int timeStepsPerDay, int secondsPerTimeStep) {
-        grid = new AbstractAnimal[gridWidth][gridHeight];
-        this.timeStepsPerDay = timeStepsPerDay;
-        this.millisecondsPerTimeStep = secondsPerTimeStep;
+    Simulation(String terminalFlags, int mapWidth, int mapHeight) {
+        flagHandler.setSuccessor(new InitialOrganismCountFlagHandler());
+        OrganismFactory.getInstance().registerOrganism("rabbit", new Rabbit());
+        OrganismFactory.getInstance().registerOrganism("grass", new Grass());
+        TerminalFlagRequest request = new TerminalFlagRequest(terminalFlags, new Map());
+        flagHandler.handleRequest(request);
+
+        map = request.getMap();
     }
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
+     *
+     * @param terminalFlags the flags entered into the terminal
      */
-    Simulation() {
-        grid = new AbstractAnimal[DEFAULT_GRID_DIMENSIONS[0]][DEFAULT_GRID_DIMENSIONS[1]];
-        timeStepsPerDay = DEFAULT_TIME_STEPS_PER_DAY;
-        millisecondsPerTimeStep = DEFAULT_MILLISECONDS_PER_TIME_STEP;
+    Simulation(String terminalFlags) {
+        new Simulation(terminalFlags, Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
     }
 
     /**
@@ -49,13 +58,12 @@ public class Simulation implements Runnable {
      */
     public void run() {
         dayIterator();
-
     }
 
     /**
      * Iterates through the days and makes calls to breeding, moveAnimal, and outputGrid every day that occurs
      */
-    void dayIterator() {
+    private void dayIterator() {
         grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
         final int DAYS_PER_RUN = 10; // The number of days in a run
 
@@ -82,7 +90,7 @@ public class Simulation implements Runnable {
     /**
      * Simulates breeding among the animals and creates a new entitys when breeding occurs
      */
-    void breeding() {
+    private void breeding() {
 
         /* Breeding section */
         int rabbitsBred = 0;
@@ -166,7 +174,7 @@ public class Simulation implements Runnable {
     /**
      * Handles animal movement as the days progress
      */
-    void moveAnimal() {
+    private void moveAnimal() {
         for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
             for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
                 if (grid[i][j] != null) {

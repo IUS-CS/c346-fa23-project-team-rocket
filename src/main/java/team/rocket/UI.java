@@ -10,7 +10,7 @@ public class UI {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Simulation simulation = new Simulation();
+        Simulation simulation = new Simulation(args[0]);
         Thread simulationThread = new Thread(simulation);
         simulationThread.start();
     }

@@ -11,6 +11,18 @@ public class Map {
     private AbstractOrganism[][] grid; // The 2D array containing all the organisms on the map
     private int width; // The width of the map
     private int height; // The height of the map
+    public static final int DEFAULT_WIDTH = 5; // The default value for the width of the grid
+    public static final int DEFAULT_HEIGHT = 5; // The default value for the height of the grid
+
+    /**
+     * A constructor for the team.rocket.Map class that sets the grid to an empty grid of default size and sets the
+     * width and height to their default values
+     */
+    public Map() {
+        grid = new AbstractOrganism[DEFAULT_HEIGHT][DEFAULT_WIDTH];
+        width = DEFAULT_WIDTH;
+        height = DEFAULT_HEIGHT;
+    }
 
     /**
      * A constructor for the team.rocket.Map class that sets the grid to an empty 2D array of AbstractOrganisms with a
