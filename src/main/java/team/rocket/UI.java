@@ -8,10 +8,18 @@ import java.util.Scanner;
  */
 public class UI {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
         Simulation simulation = new Simulation(args[0]);
+        simulation.setDaysPerRun(Simulation.DEFAULT_DAYS_PER_RUN);
+        simulation.setTimeStepsPerDay(Simulation.DEFAULT_TIME_STEPS_PER_DAY);
+        simulation.setMillisecondsPerTimeStep(Simulation.DEFAULT_MILLISECONDS_PER_TIME_STEP);
+
         Thread simulationThread = new Thread(simulation);
         simulationThread.start();
+    }
+
+    private void printMap(Simulation simulation) {
+        System.out.println();
     }
 }

@@ -1,6 +1,7 @@
 package team.rocket;
 
 import java.lang.Runnable;
+
 import team.rocket.Enums.Direction;
 import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
@@ -17,9 +18,9 @@ import team.rocket.Handlers.Terminal.TerminalFlagRequest;
  */
 public class Simulation implements Runnable {
     private Map map; // Grid that organisms can exist in
-    private static final int DEFAULT_DAYS_PER_RUN = 10; // The default number of days in each run
-    private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
-    private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
+    public static final int DEFAULT_DAYS_PER_RUN = 10; // The default number of days in each run
+    public static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
+    public static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
     private int currentDay; // The current day of the simulation
     private int currentTimeStep; // The current time step within the current day of the simulation
     private int daysPerRun; // The number of days that make up each run of the simulation
@@ -78,8 +79,6 @@ public class Simulation implements Runnable {
             outputGrid(); // TODO: Move to UI
         } // End of simulation
     }
-
-
 
     /**
      * Simulates breeding among the animals and creates a new entitys when breeding occurs
@@ -245,7 +244,7 @@ public class Simulation implements Runnable {
         this.timeStepsPerDay = timeStepsPerDay;
     }
 
-    public void setMillisecondsPerTimeStep() {
+    public void setMillisecondsPerTimeStep(int millisecondsPerTimeStep) {
         this.millisecondsPerTimeStep = millisecondsPerTimeStep;
     }
 }
