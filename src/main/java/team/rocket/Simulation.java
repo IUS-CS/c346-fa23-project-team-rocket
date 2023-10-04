@@ -1,68 +1,91 @@
 package team.rocket;
 
 import java.lang.Runnable;
+
 import team.rocket.Enums.Direction;
+/*
+import team.rocket.Handlers.Terminal.FlagHandler;
+import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
+import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
+import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+ */
 
 /**
  * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version Sprint2
- * @since Prototype
+ * @version 0.2.0
+ * @since 0.1.0
  */
 public class Simulation implements Runnable {
-    AbstractAnimal[][] grid; // Grid that animals move throughout
-    private static final int[] DEFAULT_GRID_DIMENSIONS = {5, 5}; // The default values for the width and height of the grid
-    private static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
-    private static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
+    private Map map; // Grid that organisms can exist in
+    public static final int DEFAULT_DAYS_PER_RUN = 10; // The default number of days in each run
+    public static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
+    public static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
     private int currentDay; // The current day of the simulation
     private int currentTimeStep; // The current time step within the current day of the simulation
+    private int daysPerRun; // The number of days that make up each run of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
+    // private FlagHandler flagHandler = new GridSizeFlagHandler();
+    private boolean mapIsFull = false;
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
      *
-     * @param gridWidth          the number of columns of the simulated grid
-     * @param gridHeight         the number of rows of the simulated grid
-     * @param timeStepsPerDay    the number of time steps that make up each day
-     * @param secondsPerTimeStep the number of real-world seconds that make up each time step
+     * @param terminalFlags the flags entered into the terminal
+     * @param mapWidth      the number of columns of the simulated grid
+     * @param mapHeight     the number of rows of the simulated grid
      */
-    Simulation(int gridWidth, int gridHeight, int timeStepsPerDay, int secondsPerTimeStep) {
-        grid = new AbstractAnimal[gridWidth][gridHeight];
-        this.timeStepsPerDay = timeStepsPerDay;
-        this.millisecondsPerTimeStep = secondsPerTimeStep;
+    /* Simulation(String terminalFlags, int mapWidth, int mapHeight) {
+        flagHandler.setSuccessor(new InitialOrganismCountFlagHandler());
+        OrganismFactory.getInstance().registerOrganism("rabbit", new Rabbit());
+        OrganismFactory.getInstance().registerOrganism("grass", new Grass());
+        TerminalFlagRequest request = new TerminalFlagRequest(terminalFlags, new Map());
+        flagHandler.handleRequest(request);
+
+        map = request.getMap();
+    } */
+
+    /**
+     * Returns a new team.rocket.Simulation object with the given constraints.
+     *
+     * @param mapWidth      the number of columns of the simulated grid
+     * @param mapHeight     the number of rows of the simulated grid
+     */
+    public Simulation(int mapWidth, int mapHeight) {
+        map = new Map(mapWidth, mapHeight);
     }
+
+
+    /**
+     * Returns a new team.rocket.Simulation object with default constraints.
+     *
+     * @param terminalFlags the flags entered into the terminal
+     */
+    /* Simulation(String terminalFlags) {
+        new Simulation(terminalFlags, Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
+    } */
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
      */
     Simulation() {
-        grid = new AbstractAnimal[DEFAULT_GRID_DIMENSIONS[0]][DEFAULT_GRID_DIMENSIONS[1]];
-        timeStepsPerDay = DEFAULT_TIME_STEPS_PER_DAY;
-        millisecondsPerTimeStep = DEFAULT_MILLISECONDS_PER_TIME_STEP;
+        map = new Map();
     }
 
     /**
      * Simulates how the environment changes over time based on initial conditions and interactions among animals.
      */
+    @Override
     public void run() {
-        dayIterator();
-
-    }
-
-    /**
-     * Iterates through the days and makes calls to breeding, moveAnimal, and outputGrid every day that occurs
-     */
-    void dayIterator() {
-        grid[0][0] = new Rabbit(); // Adds a rabbit to the grid
-        final int DAYS_PER_RUN = 10; // The number of days in a run
+        map.addOrganism(new Rabbit(), 0, 0); // Adds a rabbit to the grid
 
         currentDay = 1;
         outputGrid();
 
-        for (currentDay = 2; currentDay <= DAYS_PER_RUN; currentDay++) { // Iterates through each day
+        for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 try {
                     Thread.sleep(millisecondsPerTimeStep);
@@ -73,37 +96,34 @@ public class Simulation implements Runnable {
                 moveAnimal();
             } // End of current day
 
-            breeding();
+            breed();
+            if (mapIsFull) {
+                return;
+            }
             outputGrid();
         } // End of simulation
-
     }
 
     /**
-     * Simulates breeding among the animals and creates a new entitys when breeding occurs
+     * Simulates breeding among the animals and creates a new entity when breeding occurs
      */
-    void breeding() {
-
-        /* Breeding section */
+    private void breed() {
         int rabbitsBred = 0;
-        double expectedBreeds = Math.pow(2, currentDay-1);
-        AbstractAnimal[][] oldGrid = grid; // A copy of the current grid
-        boolean hasBred;                   // Indicates if the animal in the current grid space has bred yet
-        boolean animalFound;               // Indicates if a rabbit is in the current grid space
-        boolean gridIsFull = false;        // Indicates if the grid is full
-        for (int i = 0; i < oldGrid.length; i++) {        // Iterates through each row of a copy of the grid
+        int expectedBreeds = (int) Math.pow(2, currentDay-1);
+        Map oldMap = map;    // A copy of the current map
+        boolean hasBred;     // Indicates if the animal in the current grid space has bred yet
+
+        /* Looks for an organism to breed */
+        for (int i = 0; i < oldMap.getHeight(); i++) { // Iterates through each row of a copy of the grid
             hasBred = false;
-            for (int j = 0; j < oldGrid[0].length; j++) { // Iterates through each column of a copy of the grid
-                animalFound = false;
+            for (int j = 0; j < oldMap.getWidth(); j++) { // Iterates through each column of a copy of the grid
+                if (map.getOrganism(i, j) != null) { // Found an animal
 
-
-                if (oldGrid[i][j] != null) { // Found an animal
-                    animalFound = true;
-
-                    for (int k = 0; k < grid.length; k++) {     // Iterates through each row of the grid
-                        for (int l = 0; l < grid.length; l++) { // Iterates through each column of the grid
-                            if (grid[k][l] == null) { // If the current grid space is empty
-                                grid[k][l] = new Rabbit();
+                    /* Looks for an empty space to put a new organism */
+                    for (int k = 0; k < map.getHeight(); k++) {     // Iterates through each row of the grid
+                        for (int l = 0; l < map.getWidth(); l++) {  // Iterates through each column of the grid
+                            if (map.getOrganism(k, l) == null) {    // If the current grid space is empty
+                                map.addOrganism(new Rabbit(), k, l);
                                 rabbitsBred++;
                                 hasBred = true;
                             }
@@ -119,7 +139,8 @@ public class Simulation implements Runnable {
                     }
                 }
 
-                if (animalFound && !hasBred) { // Grid must be full
+                if (map.isFull()) {
+                    mapIsFull = true;
                     outputGrid();
 
                     System.out.println("The program has ended prematurely because there is no more space for animals.");
@@ -127,7 +148,6 @@ public class Simulation implements Runnable {
                 }
             }
         } // End of grid iteration
-
     }
 
     /**
@@ -138,15 +158,15 @@ public class Simulation implements Runnable {
 
         // Print upper edge
         System.out.print("-");
-        for (int i = 1; i < grid[0].length + 2; i++) {
+        for (int i = 1; i < map.getWidth() + 2; i++) {
             System.out.print("--");
         }
         System.out.println();
 
-        for (int i = 0; i < grid.length; i++) {
+        for (int i = 0; i < map.getHeight(); i++) {
             System.out.print("| "); // Print left edge
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != null) {
+            for (int j = 0; j < map.getWidth(); j++) {
+                if (map.getOrganism(i, j) != null) {
                     System.out.print(Rabbit.toIcon() + " "); // Prints an 'R' where an entity is present
                 } else {
                     System.out.print("  "); // Print an empty space if there's no animal
@@ -157,7 +177,7 @@ public class Simulation implements Runnable {
 
         // Print lower edge
         System.out.print("-");
-        for (int i = 1; i < grid[0].length + 2; i++) {
+        for (int i = 1; i < map.getWidth() + 2; i++) {
             System.out.print("--");
         }
         System.out.println();
@@ -166,36 +186,36 @@ public class Simulation implements Runnable {
     /**
      * Handles animal movement as the days progress
      */
-    void moveAnimal() {
-        for (int i = 0; i < grid.length; i++) { // Iterates through each row of the grid
-            for (int j = 0; j < grid[0].length; j++) { // Iterates through each column of the grid
-                if (grid[i][j] != null) {
-                    AbstractAnimal[] neighbors = new AbstractAnimal[4];
+    private void moveAnimal() {
+        for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
+            for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
+                if (map.getOrganism(i, j) != null) {
+                    AbstractOrganism[] neighbors = new AbstractOrganism[4];
                     if (i == 0) {
                         neighbors[0] = new Rabbit();
                     } else {
-                        neighbors[0] = grid[i-1][j];
+                        neighbors[0] = map.getOrganism(i-1, j);
                     }
 
-                    if (i == grid.length - 1) {
+                    if (i == map.getHeight() - 1) {
                         neighbors[1] = new Rabbit();
                     } else {
-                        neighbors[1] = grid[i+1][j];
+                        neighbors[1] = map.getOrganism(i+1, j);
                     }
 
                     if (j == 0) {
                         neighbors[2] = new Rabbit();
                     } else {
-                        neighbors[2] = grid[i][j-1];
+                        neighbors[2] = map.getOrganism(i, j-1);
                     }
 
-                    if (j == grid[0].length - 1) {
+                    if (j == map.getWidth() - 1) {
                         neighbors[3] = new Rabbit();
                     } else {
-                        neighbors[3] = grid[i][j+1];
+                        neighbors[3] = map.getOrganism(i, j+1);
                     }
 
-                    moveDirection(grid[i][j], neighbors, i, j);
+                    moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
                 }
             }
         }
@@ -209,7 +229,7 @@ public class Simulation implements Runnable {
      * @param y         the vertical movement of the grid
      * @param x         the horizontal movement of the grid
      */
-    private void moveDirection(AbstractAnimal animal, AbstractAnimal[] neighbors, int y, int x) {
+    private void moveDirection(AbstractAnimal animal, AbstractOrganism[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
         if (direction == null) {
@@ -217,23 +237,43 @@ public class Simulation implements Runnable {
         }
 
         if (direction == Direction.UP) {
-            grid[y][x] = null;
-            grid[y-1][x] = animal;
+            map.removeOrganism(y, x);
+            map.addOrganism(animal, y-1, x);
         }
 
         if (direction == Direction.DOWN) {
-            grid[y][x] = null;
-            grid[y+1][x] = animal;
+            map.removeOrganism(y, x);
+            map.addOrganism(animal, y+1, x);
         }
 
         if (direction == Direction.LEFT) {
-            grid[y][x] = null;
-            grid[y][x-1] = animal;
+            map.removeOrganism(y, x);
+            map.addOrganism(animal, y, x-1);
         }
 
         if (direction == Direction.RIGHT) {
-            grid[y][x] = null;
-            grid[y][x+1] = animal;
+            map.removeOrganism(y, x);
+            map.addOrganism(animal, y, x+1);
         }
+    }
+
+    public void setDaysPerRun(int daysPerRun) {
+        this.daysPerRun = daysPerRun;
+    }
+
+    public void setTimeStepsPerDay(int timeStepsPerDay) {
+        this.timeStepsPerDay = timeStepsPerDay;
+    }
+
+    public void setMillisecondsPerTimeStep(int millisecondsPerTimeStep) {
+        this.millisecondsPerTimeStep = millisecondsPerTimeStep;
+    }
+
+    public int getCurrentDay() {
+        return currentDay;
+    }
+
+    public int getCurrentTimeStep() {
+        return currentTimeStep;
     }
 }

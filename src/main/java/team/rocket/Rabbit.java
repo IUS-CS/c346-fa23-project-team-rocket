@@ -7,6 +7,9 @@ public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;
     private boolean hasMoved;
+    private int food;
+    private static int deathFood = 0;
+    private static int foodIncrement = 1;
 
     public Rabbit(){
         count++;
@@ -59,7 +62,7 @@ public class Rabbit extends AbstractAnimal{
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
-    public Direction availableMovementSpace(AbstractAnimal[] neighbors){
+    public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
         int freeSpaceCount = 0; //stores number of free adjacent spaces
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
@@ -105,7 +108,7 @@ public class Rabbit extends AbstractAnimal{
      * @param y - y position of Rabbit in grid
      * @param x - x position of Rabbit in grid
      */
-    public void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x) {
+    public void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x) {
         if (hasMoved) {
             return;
         }
@@ -136,5 +139,14 @@ public class Rabbit extends AbstractAnimal{
             grid[y][x+1] = this;
         }
         hasMoved = true;
+    }
+
+    public boolean isStarving() {
+        return food < deathFood;
+    }
+
+    public void eat(Map map, int row, int column) {
+        map.removeOrganism(row, column);
+        food += foodIncrement;
     }
 }

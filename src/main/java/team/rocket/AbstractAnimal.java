@@ -38,7 +38,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
-    public abstract Direction availableMovementSpace(AbstractAnimal[] neighbors);
+    public abstract Direction availableMovementSpace(AbstractOrganism[] neighbors);
 
     /**
      * Moves Animal in grid based on current position, available movement space, and past movement
@@ -47,5 +47,5 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      * @param y - y position of Rabbit in grid
      * @param x - x position of Rabbit in grid
      */
-    public abstract void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x);
+    public abstract void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x);
 }

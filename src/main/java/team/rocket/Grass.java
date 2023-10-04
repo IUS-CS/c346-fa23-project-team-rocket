@@ -1,7 +1,6 @@
 package team.rocket;
 
 import team.rocket.Enums.Direction;
-
 import java.util.Random;
 
 public class Grass extends AbstractPlant {
@@ -147,5 +146,4 @@ public class Grass extends AbstractPlant {
         }
         hasGrown = true;
     }
-
 }
