@@ -7,6 +7,9 @@ public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;
     private boolean hasMoved;
+    private int food;
+    private static int deathFood = 0;
+    private static int foodIncrement = 1;
 
     public Rabbit(){
         count++;
@@ -18,8 +21,6 @@ public class Rabbit extends AbstractAnimal{
     public static char toIcon(){
         return icon;
     }
-
-
 
     /**
      * @return current Rabbit count
@@ -138,5 +139,14 @@ public class Rabbit extends AbstractAnimal{
             grid[y][x+1] = this;
         }
         hasMoved = true;
+    }
+
+    public boolean isStarving() {
+        return food < deathFood;
+    }
+
+    public void eat(Map map, int row, int column) {
+        map.removeOrganism(row, column);
+        food += foodIncrement;
     }
 }
