@@ -25,6 +25,7 @@ This sprint, we completed:
 * Adding the base for the UI component
 
 Here are screenshots of what we did:
+
 ![Terminal running tests](/doc/s2pics/OneCommandTestsS2.png)
 ![Map Class](/doc/s2pics/MapS2.png)
 ![Abstract Terminal Flag Handler](/doc/s2pics/TerminalFlagHandlerS2.png)
