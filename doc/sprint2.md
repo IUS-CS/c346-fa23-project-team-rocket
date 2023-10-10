@@ -23,11 +23,12 @@ This sprint, we completed:
 * Added AbstractOrganism, AbstractPlant
 * Some important simulation changes
 * Adding the base for the UI component
-* 
-* 
 
 Here are screenshots of what we did:
-
+![Terminal running tests](/doc/s2pics/OneCommandTestsS2.png)
+![Map Class](/doc/s2pics/MapS2.png)
+![Abstract Terminal Flag Handler](/doc/s2pics/TerminalFlagHandlerS2.png)
+![Terminal Flag Handler README](/doc/s2pics/TerminalFlagReadmeS2.png)
 
 
 
