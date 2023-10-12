@@ -70,9 +70,16 @@ public class Simulation implements Runnable {
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
+     * Contains one rabbit in the corner by default
      */
     Simulation() {
         map = new Map();
+        //adds one rabbit in the top left corner by default
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
+    }
+
+    public Simulation(Map m){
+        map = m;
     }
 
     /**
@@ -80,7 +87,6 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        map.addOrganism(new Rabbit(), 0, 0); // Adds a rabbit to the grid
 
         currentDay = 1;
         outputGrid();
