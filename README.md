@@ -52,6 +52,7 @@ This flag sets the initial grid height for the simulation, the the value is capp
 
 The TerminalFlagHandler depends on the Organism Factory to properly create organisms within the grid for it's initialOrganismCountFlagHandler. It is an abstract class but there are currently 2 concrete instances of it.
 These concrete instances are the grid size handler and the initial organism count handler which do as the name implies, they work by taking the internal map of the request and modifying it to make and save the changes. They use regex to pick out the flags and know when and how they're supposed to make those changes.
+
 This component is based upon the Chain of Responsibility design pattern from [oodesign.com](https://www.oodesign.com/chain-of-responsibility-pattern)
 
 ### OrganismFactory
@@ -59,6 +60,7 @@ This component is based upon the Chain of Responsibility design pattern from [oo
 ![OrganismFactory diagram](./doc/UMLdiagrams/OrganismFactory.png)
 
 The OrganismFactory is a singleton which registers products, organisms, into itself via an instance and a string. It then creates a new object from the internal instance when asked to create one with the required string ID. 
+
 It is based upon the Factory-pattern design pattern from [oodesign.com](https://www.oodesign.com/factory-pattern)
 ## License
 
