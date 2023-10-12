@@ -44,6 +44,13 @@ This flag sets the initial grid width for the simulation, the value is capped to
 Example of Usage: --grid_height 63
 This flag sets the initial grid height for the simulation, the the value is capped to 9999999. Negative values don't work.
 
+## Program Structure
+
+### TerminalFlagHandler
+
+This section contains information on how the TerminalFlagHandler works internally and how to implement it into a program.
+
+![TerminalFlagHandler diagram](./doc/UMLdiagrams/TerminalFlagHandler.png)
 
 ## License
 
