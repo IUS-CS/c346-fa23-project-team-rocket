@@ -52,6 +52,12 @@ This section contains information on how the TerminalFlagHandler works internall
 
 ![TerminalFlagHandler diagram](./doc/UMLdiagrams/TerminalFlagHandler.png)
 
+The TerminalFlagHandler depends on the Organism Factory to properly create organisms within the grid for it's initialOrganismCountFlagHandler.
+
+### OrganismFactory
+
+
+
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

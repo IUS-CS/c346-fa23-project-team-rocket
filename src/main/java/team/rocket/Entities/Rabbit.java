@@ -1,30 +1,23 @@
-package team.rocket;
+package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
+import team.rocket.Map;
+
 import java.util.Random;
+public class Rabbit extends AbstractAnimal{
+    private static final char icon = 'R';
+    private static int count = 0;
+    private boolean hasMoved;
+    private int food;
+    private static int deathFood = 0;
+    private static int foodIncrement = 1;
 
-public class Grass extends AbstractPlant {
-    private static char icon = 'G';
-    private static int count;
-    private boolean hasGrown;
-
-    /**
-     * Creates new grass, not ready to grow
-     */
-    public Grass(){
+    public Rabbit(){
         count++;
-        hasGrown = true;
     }
 
     /**
-     * @return boolean indication if grass has grown this cycle
-     */
-    public boolean growthStatus(){
-        return this.hasGrown;
-    }
-
-    /**
-     * @return Grass's icon as a character
+     * @return team.rocket.Entities.Rabbit's icon as a character
      */
     public static char toIcon(){
         return icon;
@@ -37,48 +30,46 @@ public class Grass extends AbstractPlant {
     public char instancedToIcon(){return icon;}
 
     /**
-     * @return current Grass count
+     * @return current Rabbit count
      */
     public static int getCount(){
         return count;
     }
 
-    /**
-     * Sets the count of Grass
-     * @param i the number count is being set too
-     */
+    @Override
     public void setCount(int i) {
         count = i;
     }
 
-    /**
-     * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the total number of Organisms
-     */
+
+    @Override
     public void reduceCount() {
         count--;
     }
 
-    /**
-     * Takes the instance of an object and creates a brand new one and returns that new object
-     * @return a fresh new not-copied AbstractOrganism
-     */
-    public AbstractOrganism getNewObjectFromExistingObject(){
-        return new Grass();
+    @Override
+    public AbstractOrganism getNewObjectFromExistingObject() {
+        return new Rabbit();
     }
 
     /**
-     * Resets hasGrown to false, meant to be used to reset growth each day
+     * Creates new Rabbit
      */
-    public void resetGrown(){
-        this.hasGrown = false;
+    public void reproduce(){} //not yet implemented
+
+    /**
+     * Resets hasMoved to false, meant to be used to reset movement each day
+     */
+    public void resetMove(){
+        this.hasMoved = false;
     }
 
     /**
-     * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of a team.rocket.Entities.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
-    public Direction availableSpace(AbstractOrganism[] neighbors){
+    public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
         int freeSpaceCount = 0; //stores number of free adjacent spaces
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
@@ -118,38 +109,51 @@ public class Grass extends AbstractPlant {
     }
 
     /**
-     * Creates new Grass in free adjacent slot
+     * Moves Rabbit in grid based on current position, available movement space, and past movement
      * @param grid 2D array holding all Organisms in simulation
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
-     * @param y - y position of Grass in grid
-     * @param x - x position of Grass in grid
+     * @param y - y position of Rabbit in grid
+     * @param x - x position of Rabbit in grid
      */
-    public void grow(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x) {
-        if (hasGrown) {
+    public void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x) {
+        if (hasMoved) {
             return;
         }
 
-        Direction direction = this.availableSpace(neighbors);
+        Direction direction = this.availableMovementSpace(neighbors);
 
         if (direction == null) {
             return;
         }
 
         if (direction == Direction.UP) {
-            grid[y-1][x] = getNewObjectFromExistingObject();
+            grid[y][x] = null;
+            grid[y-1][x] = this;
         }
 
         if (direction == Direction.DOWN) {
-            grid[y+1][x] = getNewObjectFromExistingObject();
+            grid[y][x] = null;
+            grid[y+1][x] = this;
         }
 
         if (direction == Direction.LEFT) {
-            grid[y][x-1] = getNewObjectFromExistingObject();
+            grid[y][x] = null;
+            grid[y][x-1] = this;
         }
 
         if (direction == Direction.RIGHT) {
-            grid[y][x+1] = getNewObjectFromExistingObject();
+            grid[y][x] = null;
+            grid[y][x+1] = this;
         }
-        hasGrown = true;
+        hasMoved = true;
+    }
+
+    public boolean isStarving() {
+        return food < deathFood;
+    }
+
+    public void eat(Map map, int row, int column) {
+        map.removeOrganism(row, column);
+        food += foodIncrement;
     }
 }

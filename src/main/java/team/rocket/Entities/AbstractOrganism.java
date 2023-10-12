@@ -1,6 +1,4 @@
-package team.rocket;
-
-import team.rocket.Enums.Direction;
+package team.rocket.Entities;
 
 public abstract class AbstractOrganism {
     private static char icon;

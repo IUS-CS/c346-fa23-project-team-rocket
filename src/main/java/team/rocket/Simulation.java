@@ -2,6 +2,10 @@ package team.rocket;
 
 import java.lang.Runnable;
 
+import team.rocket.Entities.AbstractAnimal;
+import team.rocket.Entities.AbstractOrganism;
+import team.rocket.Entities.OrganismFactory;
+import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
 /*
 import team.rocket.Handlers.Terminal.FlagHandler;

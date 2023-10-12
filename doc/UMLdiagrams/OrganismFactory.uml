@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>team.rocket.Entities.OrganismFactory</OriginalElement>
+  <nodes>
+    <node x="-144.0" y="-22.0">team.rocket.Entities.OrganismFactory</node>
+  </nodes>
+  <notes />
+  <edges />
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="200.5" y="112.0" />
+  <SelectedNodes>
+    <node>team.rocket.Entities.OrganismFactory</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

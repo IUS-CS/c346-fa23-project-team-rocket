@@ -1,4 +1,4 @@
-package team.rocket;
+package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
 

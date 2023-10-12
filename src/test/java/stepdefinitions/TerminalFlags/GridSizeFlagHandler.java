@@ -3,9 +3,7 @@ package stepdefinitions.TerminalFlags;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
 import org.junit.jupiter.api.Assertions;
-import team.rocket.AbstractOrganism;
 import team.rocket.Handlers.Terminal.TerminalFlagRequest;
 import team.rocket.Map;
 

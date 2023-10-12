@@ -1,10 +1,9 @@
 package team.rocket.Handlers.Terminal;
 
-import team.rocket.AbstractOrganism;
+import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Map;
-import team.rocket.OrganismFactory;
+import team.rocket.Entities.OrganismFactory;
 
-import java.util.Random;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 

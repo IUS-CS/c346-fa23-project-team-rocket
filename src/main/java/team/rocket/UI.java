@@ -1,5 +1,8 @@
 package team.rocket;
 
+import team.rocket.Entities.Grass;
+import team.rocket.Entities.OrganismFactory;
+import team.rocket.Entities.Rabbit;
 import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
 import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;

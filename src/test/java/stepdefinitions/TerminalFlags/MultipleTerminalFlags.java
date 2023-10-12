@@ -10,8 +10,8 @@ import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
 import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
 import team.rocket.Handlers.Terminal.TerminalFlagRequest;
 import team.rocket.Map;
-import team.rocket.OrganismFactory;
-import team.rocket.Rabbit;
+import team.rocket.Entities.OrganismFactory;
+import team.rocket.Entities.Rabbit;
 
 public class MultipleTerminalFlags {
 	FlagHandler handler;
