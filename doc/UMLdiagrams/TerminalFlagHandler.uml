@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>team.rocket.Handlers.Terminal.FlagHandler</OriginalElement>
+  <nodes>
+    <node x="-171.84005303676838" y="60.60299090892734">team.rocket.Handlers.Terminal.FlagHandler</node>
+    <node x="434.85125455427715" y="307.036129840612">team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler</node>
+    <node x="394.65725288679624" y="-21.48753216277747">team.rocket.Handlers.Terminal.TerminalFlagRequest</node>
+    <node x="-130.13930948826112" y="317.51730942496073">team.rocket.Handlers.Terminal.GridSizeFlagHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler" target="team.rocket.Handlers.Terminal.FlagHandler" relationship="GENERALIZATION">
+      <point x="-2.545542771485998E-4" y="-61.500129840611976" />
+      <point x="692.351" y="282.0" />
+      <point x="80.16" y="282.0" />
+      <point x="5.303676837797866E-5" y="98.00000909107267" />
+    </edge>
+    <edge source="team.rocket.Handlers.Terminal.GridSizeFlagHandler" target="team.rocket.Handlers.Terminal.FlagHandler" relationship="GENERALIZATION">
+      <point x="3.094882611200944E-4" y="-61.50030942496073" />
+      <point x="121.861" y="282.0" />
+      <point x="80.16" y="282.0" />
+      <point x="5.303676837797866E-5" y="98.00000909107267" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="1.0" showDependencies="false" x="389.0" y="209.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

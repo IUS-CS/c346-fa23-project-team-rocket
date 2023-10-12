@@ -1,0 +1,29 @@
+@startuml
+
+!theme plain
+top to bottom direction
+skinparam linetype ortho
+
+class FlagHandler {
+  + FlagHandler(): 
+  + setSuccessor(FlagHandler): void
+  + handleRequest(TerminalFlagRequest): void
+}
+class GridSizeFlagHandler {
+  + GridSizeFlagHandler(): 
+  + handleRequest(TerminalFlagRequest): void
+}
+class InitialOrganismCountFlagHandler {
+  + InitialOrganismCountFlagHandler(): 
+  + handleRequest(TerminalFlagRequest): void
+}
+class TerminalFlagRequest {
+  + TerminalFlagRequest(String, Map): 
+  + getMap(): Map
+  + getTerminalCommand(): String
+  + setMap(Map): void
+}
+
+GridSizeFlagHandler              -[#000082,plain]-^  FlagHandler                     
+InitialOrganismCountFlagHandler  -[#000082,plain]-^  FlagHandler                     
+@enduml
