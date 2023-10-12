@@ -32,6 +32,7 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 			matcher = pattern.matcher(flag);
 			boolean matchFound = matcher.find();
 			if(matchFound){
+
 				//Gets the organism name
 				Organism = flag.split("[_]")[0];
 				//Gets the count of that organism
@@ -42,8 +43,8 @@ public class InitialOrganismCountFlagHandler extends FlagHandler {
 				if(organism==null){
 					continue;
 				} else {
+					System.out.println(Organism);
 					organism.reduceCount();
-
 					//Places the Organisms one after another in the grid as long as theres an empty space
 					for (int y = 0; y < grid.length; y++) {
 						for (int x = 0; x < grid[y].length; x++) {

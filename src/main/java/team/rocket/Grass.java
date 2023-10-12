@@ -17,7 +17,7 @@ public class Grass extends AbstractPlant {
     }
 
     /**
-     * @returns boolean indication if grass has grown this cycle
+     * @return boolean indication if grass has grown this cycle
      */
     public boolean growthStatus(){
         return this.hasGrown;
@@ -29,6 +29,12 @@ public class Grass extends AbstractPlant {
     public static char toIcon(){
         return icon;
     }
+
+    /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
 
     /**
      * @return current Grass count

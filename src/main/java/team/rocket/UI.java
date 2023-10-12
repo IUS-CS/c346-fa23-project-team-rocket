@@ -13,6 +13,8 @@ import java.util.Scanner;
  */
 public class UI {
     public static void main(String[] args) {
+        //Prepares the factories for construction
+        setupOrganismFactory();
 
         Scanner input = new Scanner(System.in);
         Simulation simulation;
@@ -38,7 +40,7 @@ public class UI {
         Thread simulationThread = new Thread(simulation);
         simulationThread.start();
     }
-    private void setupOrganismFactory(){
+    static private void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();
         //Register organisms so that they can be created
         organismFactory.registerOrganism("Rabbit", new Rabbit());

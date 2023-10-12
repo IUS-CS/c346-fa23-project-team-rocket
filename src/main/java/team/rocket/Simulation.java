@@ -173,7 +173,7 @@ public class Simulation implements Runnable {
             System.out.print("| "); // Print left edge
             for (int j = 0; j < map.getWidth(); j++) {
                 if (map.getOrganism(i, j) != null) {
-                    System.out.print(Rabbit.toIcon() + " "); // Prints an 'R' where an entity is present
+                    System.out.print(map.getOrganism(i,j).instancedToIcon()+ " "); // Prints an entities icon where the entity is present
                 } else {
                     System.out.print("  "); // Print an empty space if there's no animal
                 }

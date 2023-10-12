@@ -23,6 +23,12 @@ public class Rabbit extends AbstractAnimal{
     }
 
     /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
+
+    /**
      * @return current Rabbit count
      */
     public static int getCount(){

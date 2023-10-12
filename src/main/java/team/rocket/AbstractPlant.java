@@ -16,6 +16,12 @@ public abstract class AbstractPlant extends AbstractOrganism{
     }
 
     /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
+
+    /**
      * @return current Plant count
      */
     public static int getCount(){
