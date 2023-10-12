@@ -19,12 +19,15 @@ Run it from the projects root directory.
 
 ### Terminal Flags and Using them
 
-Since terminal flags are a very soon to be implemented feature we'll detail how to use them with this program.
+Since terminal flags are a very soon to be implemented feature we'll detail how to use them with this program. The flags won't be noticed if more then one argument is passed, as such the quotation marks are very important and allow the program to identify the flags properly.
 Terminal Flags are run in this program by string, as such they should be attached to the end of the run command like so:
 
 > java -jar (path/to/jar) "terminal-flags-go-in-here"
 
-Multiple flags can be used at the same time, however, per handler they are checked from left to right. As such if there's two grid_width flags then only the rightmost one will matter.
+Multiple flags can be used at the same time, however, per handler they are checked from left to right. As such if there's two grid_width flags then only the rightmost one will matter. The following is an example of what using multiple flags might look like:
+
+> java -jar (path/to/jar) "--Grass_count 10 --Rabbit_count 10 --grid_width 10 --grid_height 20"
+
 We have 3 different terminal flags currently:
 
 * --(organism_name)_count #
@@ -50,7 +53,7 @@ This flag sets the initial grid height for the simulation, the the value is capp
 
 ![TerminalFlagHandler diagram](./doc/UMLdiagrams/TerminalFlagHandler.png)
 
-The TerminalFlagHandler depends on the Organism Factory to properly create organisms within the grid for it's initialOrganismCountFlagHandler. It is an abstract class but there are currently 2 concrete instances of it.
+The TerminalFlagHandler depends on the **Organism Factory** to properly create organisms within the grid for it's initialOrganismCountFlagHandler. It is an abstract class but there are currently 2 concrete instances of it.
 These concrete instances are the grid size handler and the initial organism count handler which do as the name implies, they work by taking the internal map of the request and modifying it to make and save the changes. They use regex to pick out the flags and know when and how they're supposed to make those changes.
 
 This component is based upon the Chain of Responsibility design pattern from [oodesign.com](https://www.oodesign.com/chain-of-responsibility-pattern)
