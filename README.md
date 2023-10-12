@@ -6,6 +6,10 @@ Life Simulator is an interactive ecosystem simulation of the complex relationshi
 
 Run `./gradlew build` from the project root directory to build it. The jar can be found in the build/libs directory.
 
+## Testing
+
+The programs tests can be run by using the `./gradlew cucumber` command from the project root directory.
+
 ## Usage
 
 
