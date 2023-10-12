@@ -27,7 +27,7 @@ Terminal Flags are run in this program by string, as such they should be attache
 Multiple flags can be used at the same time, however, per handler they are checked from left to right. As such if there's two grid_width flags then only the rightmost one will matter.
 We have 3 different terminal flags currently:
 
-* --(animal_name)_count #
+* --(organism_name)_count #
 
 Example of Usage: --Rabbit_count 33
 This flag spawns an initial amount of rabbits in the simulation, the value is capped to 9999999. Negative values don't work.
