@@ -1,6 +1,7 @@
-package team.rocket;
+package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
+import team.rocket.Map;
 
 import java.util.Random;
 public class Rabbit extends AbstractAnimal{
@@ -16,11 +17,17 @@ public class Rabbit extends AbstractAnimal{
     }
 
     /**
-     * @return team.rocket.Rabbit's icon as a character
+     * @return team.rocket.Entities.Rabbit's icon as a character
      */
     public static char toIcon(){
         return icon;
     }
+
+    /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
 
     /**
      * @return current Rabbit count
@@ -58,7 +65,7 @@ public class Rabbit extends AbstractAnimal{
     }
 
     /**
-     * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of a team.rocket.Entities.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */

@@ -2,6 +2,10 @@ package team.rocket;
 
 import java.lang.Runnable;
 
+import team.rocket.Entities.AbstractAnimal;
+import team.rocket.Entities.AbstractOrganism;
+import team.rocket.Entities.OrganismFactory;
+import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
 /*
 import team.rocket.Handlers.Terminal.FlagHandler;
@@ -70,9 +74,16 @@ public class Simulation implements Runnable {
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
+     * Contains one rabbit in the corner by default
      */
     Simulation() {
         map = new Map();
+        //adds one rabbit in the top left corner by default
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
+    }
+
+    public Simulation(Map m){
+        map = m;
     }
 
     /**
@@ -80,7 +91,6 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        map.addOrganism(new Rabbit(), 0, 0); // Adds a rabbit to the grid
 
         currentDay = 1;
         outputGrid();
@@ -167,7 +177,7 @@ public class Simulation implements Runnable {
             System.out.print("| "); // Print left edge
             for (int j = 0; j < map.getWidth(); j++) {
                 if (map.getOrganism(i, j) != null) {
-                    System.out.print(Rabbit.toIcon() + " "); // Prints an 'R' where an entity is present
+                    System.out.print(map.getOrganism(i,j).instancedToIcon()+ " "); // Prints an entities icon where the entity is present
                 } else {
                     System.out.print("  "); // Print an empty space if there's no animal
                 }

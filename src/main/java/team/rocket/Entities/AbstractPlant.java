@@ -1,6 +1,4 @@
-package team.rocket;
-
-import team.rocket.Enums.Direction;
+package team.rocket.Entities;
 
 public abstract class AbstractPlant extends AbstractOrganism{
     private static char icon;
@@ -14,6 +12,12 @@ public abstract class AbstractPlant extends AbstractOrganism{
     public static char toIcon(){
         return icon;
     }
+
+    /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
 
     /**
      * @return current Plant count
