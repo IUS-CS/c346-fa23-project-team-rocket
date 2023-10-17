@@ -83,7 +83,7 @@ public class Simulation implements Runnable {
         map.addOrganism(new Rabbit(), 0, 0); // Adds a rabbit to the grid
 
         currentDay = 1;
-        outputGrid();
+        UI.outputGrid(currentDay, map);
 
         for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
@@ -100,7 +100,7 @@ public class Simulation implements Runnable {
             if (mapIsFull) {
                 return;
             }
-            outputGrid();
+            UI.outputGrid(currentDay, map);
         } // End of simulation
     }
 
@@ -141,46 +141,13 @@ public class Simulation implements Runnable {
 
                 if (map.isFull()) {
                     mapIsFull = true;
-                    outputGrid();
+                    UI.outputGrid(currentDay, map);
 
                     System.out.println("The program has ended prematurely because there is no more space for animals.");
                     return;
                 }
             }
         } // End of grid iteration
-    }
-
-    /**
-     * Outputs the current Grid with boundaries and letter representations for the animals
-     */
-    public void outputGrid() {
-        System.out.println("Day " + currentDay);
-
-        // Print upper edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
-
-        for (int i = 0; i < map.getHeight(); i++) {
-            System.out.print("| "); // Print left edge
-            for (int j = 0; j < map.getWidth(); j++) {
-                if (map.getOrganism(i, j) != null) {
-                    System.out.print(Rabbit.toIcon() + " "); // Prints an 'R' where an entity is present
-                } else {
-                    System.out.print("  "); // Print an empty space if there's no animal
-                }
-            }
-            System.out.println("|"); // Print right edge
-        }
-
-        // Print lower edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
     }
 
     /**
