@@ -19,6 +19,12 @@ public class Fox extends AbstractAnimal{
     }
 
     /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
+
+    /**
      * @return team.rocket.Entities.Fox's icon as a character
      */
     public static char toIcon(){

@@ -1,5 +1,6 @@
 package team.rocket;
 
+import team.rocket.Entities.Fox;
 import team.rocket.Entities.Grass;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Entities.Rabbit;
@@ -48,5 +49,6 @@ public class UI {
         //Register organisms so that they can be created
         organismFactory.registerOrganism("Rabbit", new Rabbit());
         organismFactory.registerOrganism("Grass", new Grass());
+        organismFactory.registerOrganism("Fox", new Fox());
     }
 }

@@ -15,7 +15,7 @@ public abstract class AbstractOrganism {
      * gets the icon from an instance
      * @return the icon of the organism
      */
-    public char instancedToIcon(){return icon;}
+    abstract public char instancedToIcon();
 
     /**
      * @return current Organism count
