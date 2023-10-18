@@ -1,5 +1,7 @@
 package team.rocket;
 
+import team.rocket.Entities.AbstractOrganism;
+
 /**
  * A team.rocket.Map contains the information about the arrangement of a set of simulated organisms.
  *

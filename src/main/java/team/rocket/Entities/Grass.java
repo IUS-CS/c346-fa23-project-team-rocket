@@ -1,4 +1,4 @@
-package team.rocket;
+package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
 import java.util.Random;
@@ -17,7 +17,7 @@ public class Grass extends AbstractPlant {
     }
 
     /**
-     * @returns boolean indication if grass has grown this cycle
+     * @return boolean indication if grass has grown this cycle
      */
     public boolean growthStatus(){
         return this.hasGrown;
@@ -29,6 +29,12 @@ public class Grass extends AbstractPlant {
     public static char toIcon(){
         return icon;
     }
+
+    /**
+     * gets the icon from an instance
+     * @return the icon of the organism
+     */
+    public char instancedToIcon(){return icon;}
 
     /**
      * @return current Grass count
@@ -68,7 +74,7 @@ public class Grass extends AbstractPlant {
     }
 
     /**
-     * Takes array of a team.rocket.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of a team.rocket.Entities.Rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */

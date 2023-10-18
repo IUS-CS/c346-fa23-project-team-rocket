@@ -5,13 +5,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import team.rocket.Rabbit;
-
-import java.util.Arrays;
+import team.rocket.Entities.Rabbit;
 
 public class OrganismFactory {
-    team.rocket.OrganismFactory factory;
-    team.rocket.OrganismFactory factoryTwo;
+    team.rocket.Entities.OrganismFactory factory;
+    team.rocket.Entities.OrganismFactory factoryTwo;
 
     @Given("there is a previous number of rabbits we should reset it")
     public void thereIsAPreviousNumberOfRabbitsWeShouldResetIt() {
@@ -20,13 +18,13 @@ public class OrganismFactory {
 
     @And("We retrieve an OrganismFactory instances")
     public void weRetrieveOrganismFactoryInstances() {
-        factory = team.rocket.OrganismFactory.getInstance();
+        factory = team.rocket.Entities.OrganismFactory.getInstance();
     }
 
 
     @Given("We retrieve another OrganismFactory instance")
     public void weRetrieveAnotherOrganismFactoryInstance() {
-        factoryTwo = team.rocket.OrganismFactory.getInstance();
+        factoryTwo = team.rocket.Entities.OrganismFactory.getInstance();
     }
 
 

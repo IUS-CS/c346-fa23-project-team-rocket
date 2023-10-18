@@ -4,16 +4,11 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
-import team.rocket.AbstractOrganism;
-import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.TerminalFlagRequest;
 import team.rocket.Map;
-import team.rocket.OrganismFactory;
-import team.rocket.Rabbit;
-
-import java.util.Objects;
+import team.rocket.Entities.OrganismFactory;
+import team.rocket.Entities.Rabbit;
 
 public class InitialOrganismCountFlagHandler {
 	team.rocket.Handlers.Terminal.TerminalFlagRequest request;
