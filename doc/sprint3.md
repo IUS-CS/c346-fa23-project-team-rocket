@@ -21,6 +21,11 @@ This sprint, we completed:
 
 Here are screenshots of what we did:
 
+![Architecture Diagram](/doc/DesignDiagrams/Class_Architecture.drawio.png)
+![Development Process Diagram](/doc/DesignDiagrams/Team_Rocket_Development_Process.png)
+![Organism Factory Diagram](/doc/UMLdiagrams/OrganismFactory.png)
+![Terminal Flag Handler Diagram](/doc/UMLdiagrams/TerminalFlagHandler.png)
+
 
 
 
