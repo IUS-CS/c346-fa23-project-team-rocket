@@ -1,0 +1,21 @@
+@startuml
+
+interface Entity
+class EntityFactory
+EntityFactory -- Entity
+
+class AbstractEnvironmentPieces implements Entity
+class Rock extends AbstractEnvironmentPieces
+class Water extends AbstractEnvironmentPieces
+
+class AbstractOrganism implements Entity
+
+class AbstractPlant extends AbstractOrganism
+class Grass extends AbstractPlant
+class Carrot extends AbstractPlant
+
+class AbstractAnimal extends AbstractOrganism
+class Rabbit extends AbstractAnimal
+class Fox extends AbstractAnimal
+
+@enduml
