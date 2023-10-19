@@ -35,19 +35,39 @@ Here are screenshots of what we did:
 
 ### Good
 
-* 
+* Workload was more manageable
+* cancelled the meeting on tuesday 
+* Conservative time estimates helped with proper workload balancing
+* More unit tests were written
+* Got some more bugs worked out of our program
 
 ### Bad
 
-* 
+* Missed too many meetings
+* Workload was too light
+* Need more Diagrams and documentation for different components
 
 ### Actionable Commitments
 
 As a team we will...
 
-* 
+* Continue maintaining conservative story point estimates
+* Continue properly testing our program
 
 ## Planning
 
 Points | Story
 -------|--------
+0      | Change program version
+2      | Write testing.md
+1      | Randomized Organism Placement
+2      | Write sprint3.md
+3      | Create Github Test Action
+2      | Test and Debug Rabbit class
+1      | Test and Debug UI class
+5      | Fix and Test Organism Breeding
+5      | Fix and Test Animal Eating
+2      | Implement and Test Plant Carrots
+3      | Make the README presentable to users
+3      | Plan Pathfinding modules
+3      | Creating and integration testing process
