@@ -18,6 +18,8 @@ This sprint, we completed:
 * Creating a general software architecture
 * Fixing some minor issues with the terminal flag implementation
 * We also have begun adding some UML diagrams of our components
+* Further separated UI and Simulation components
+* Finished architecture.md file
 
 Here are screenshots of what we did:
 
