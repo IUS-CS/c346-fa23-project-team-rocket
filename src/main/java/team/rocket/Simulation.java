@@ -93,7 +93,7 @@ public class Simulation implements Runnable {
     public void run() {
 
         currentDay = 1;
-        outputGrid();
+        UI.outputGrid(currentDay, map);
 
         for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
@@ -110,7 +110,7 @@ public class Simulation implements Runnable {
             if (mapIsFull) {
                 return;
             }
-            outputGrid();
+            UI.outputGrid(currentDay, map);
         } // End of simulation
     }
 
@@ -151,7 +151,7 @@ public class Simulation implements Runnable {
 
                 if (map.isFull()) {
                     mapIsFull = true;
-                    outputGrid();
+                    UI.outputGrid(currentDay, map);
 
                     System.out.println("The program has ended prematurely because there is no more space for animals.");
                     return;
@@ -161,71 +161,40 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Outputs the current Grid with boundaries and letter representations for the animals
-     */
-    public void outputGrid() {
-        System.out.println("Day " + currentDay);
-
-        // Print upper edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
-
-        for (int i = 0; i < map.getHeight(); i++) {
-            System.out.print("| "); // Print left edge
-            for (int j = 0; j < map.getWidth(); j++) {
-                if (map.getOrganism(i, j) != null) {
-                    System.out.print(map.getOrganism(i,j).instancedToIcon()+ " "); // Prints an entities icon where the entity is present
-                } else {
-                    System.out.print("  "); // Print an empty space if there's no animal
-                }
-            }
-            System.out.println("|"); // Print right edge
-        }
-
-        // Print lower edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
-    }
-
-    /**
      * Handles animal movement as the days progress
      */
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) != null) {
+                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
                     AbstractOrganism[] neighbors = new AbstractOrganism[4];
                     if (i == 0) {
                         neighbors[0] = new Rabbit();
                     } else {
-                        neighbors[0] = map.getOrganism(i-1, j);
+                        neighbors[0] = map.getOrganism(i - 1, j);
                     }
 
                     if (i == map.getHeight() - 1) {
                         neighbors[1] = new Rabbit();
                     } else {
-                        neighbors[1] = map.getOrganism(i+1, j);
+                        neighbors[1] = map.getOrganism(i + 1, j);
                     }
 
                     if (j == 0) {
                         neighbors[2] = new Rabbit();
                     } else {
-                        neighbors[2] = map.getOrganism(i, j-1);
+                        neighbors[2] = map.getOrganism(i, j - 1);
                     }
 
                     if (j == map.getWidth() - 1) {
                         neighbors[3] = new Rabbit();
                     } else {
-                        neighbors[3] = map.getOrganism(i, j+1);
+                        neighbors[3] = map.getOrganism(i, j + 1);
                     }
 
                     moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
+                } else {
+                    break; // Break from the loop if the object is not an instance of AbstractAnimal
                 }
             }
         }
