@@ -1,0 +1,14 @@
+@startuml
+
+class UI
+class SimulationEventHandler
+SimulationEventHandler --o UI
+
+class AbstractFlagHandler
+AbstractFlagHandler o-- AbstractFlagHandler
+class TerminalFlagRequest
+AbstractFlagHandler -- TerminalFlagRequest
+class InitialOrganismCount extends AbstractFlagHandler
+class GridSize extends AbstractFlagHandler
+
+@enduml
