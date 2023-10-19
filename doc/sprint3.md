@@ -13,9 +13,15 @@ Members present:
 
 This sprint, we completed:
 
-* 
+* Adding foxes
+* Designing a software development process
+* Creating a general software architecture
+* Fixing some minor issues with the terminal flag implementation
+* We also have begun adding some UML diagrams of our components
 
 Here are screenshots of what we did:
+
+
 
 
 ## Retro
