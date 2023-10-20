@@ -19,7 +19,7 @@ import team.rocket.Handlers.Terminal.TerminalFlagRequest;
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version 0.2.0
+ * @version 0.4.0
  * @since 0.1.0
  */
 public class Simulation implements Runnable {

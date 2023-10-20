@@ -9,7 +9,7 @@ plugins {
 //Group
 group = "team.rocket"
 //Version of the software
-version = "prototype"
+version = "0.5.0"
 //Generic description of the software
 description = "Animal Simulation project"
 

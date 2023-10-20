@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 /**
  * Handles Grid Size Flags
  * Ex --grid_width 55 --grid_height 35
+ * @since 0.3.0
+ * @version 0.3.0
  */
 public class GridSizeFlagHandler extends FlagHandler{
 

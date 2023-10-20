@@ -6,8 +6,8 @@ import team.rocket.Entities.AbstractOrganism;
  * A team.rocket.Map contains the information about the arrangement of a set of simulated organisms.
  *
  * @author Dale Morris
- * @version Sprint2
- * @since Sprint2
+ * @version 0.2.0
+ * @since 0.2.0
  */
 public class Map {
     private AbstractOrganism[][] grid; // The 2D array containing all the organisms on the map

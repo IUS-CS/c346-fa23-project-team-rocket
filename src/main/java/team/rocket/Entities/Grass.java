@@ -3,6 +3,10 @@ package team.rocket.Entities;
 import team.rocket.Enums.Direction;
 import java.util.Random;
 
+/**
+ * @since 0.3.0
+ * @version 0.4.0
+ */
 public class Grass extends AbstractPlant {
     private static char icon = 'G';
     private static int count;

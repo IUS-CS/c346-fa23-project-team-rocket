@@ -1,6 +1,7 @@
 # Life Simulator
 
 Life Simulator is an interactive ecosystem simulation of the complex relationships between organisms in various ecosystems, including reproduction, death, hunger, and dynamic weather patterns. The ecosystem simulation is an innovative, immersive, and hands-on experience in which users can customize parameters like population sizes, species interactions, and weather patterns to simulate specific ecosystems and study the effects of different variables. The aim of Life Simulator is to bring the wonders of the natural world to users' fingertips and contribute to a greater understanding of our interconnected ecosystems.
+It's currently on version **0.5.0**.
 
 ## Installation
 
@@ -13,10 +14,13 @@ The programs tests can be run by using the `./gradlew cucumber` command from the
 ## Usage
 
 
-This command will build and run the jar from the intellij :
+Combining these two commands will build and run the program :
 
 `
-./gradlew build && java -jar build/libs/animal-simulation-project-prototype.jar
+./gradlew build
+`
+`
+java -jar build/libs/animal-simulation-project-0.5.0.jar
 `
 
 Run it from the projects root directory.
