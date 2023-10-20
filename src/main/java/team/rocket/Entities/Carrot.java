@@ -3,29 +3,33 @@ package team.rocket.Entities;
 import team.rocket.Enums.Direction;
 import java.util.Random;
 
-public class Grass extends AbstractPlant {
-    private static char icon = 'G';
-    private static int nutrition = 5;
+/**
+ * @since 0.5.0
+ * @version 0.5.0
+ */
+public class Carrot extends AbstractPlant {
+    private static char icon = 'C';
+    private static int nutrition = 25;
     private static int count;
     private boolean hasGrown;
 
     /**
-     * Creates new grass, not ready to grow
+     * Creates new Carrot, not ready to grow
      */
-    public Grass(){
+    public Carrot(){
         count++;
         hasGrown = true;
     }
 
     /**
-     * @return boolean indication if grass has grown this cycle
+     * @return boolean indication if Carrot has grown this cycle
      */
     public boolean growthStatus(){
         return this.hasGrown;
     }
 
     /**
-     * @return Grass's icon as a character
+     * @return Carrot's icon as a character
      */
     public static char toIcon(){
         return icon;
@@ -38,21 +42,21 @@ public class Grass extends AbstractPlant {
     public char instancedToIcon(){return icon;}
 
     /**
-     * @return current Grass count
+     * @return current Carrot count
      */
     public static int getCount(){
         return count;
     }
 
     /**
-     * @return Grass nutrition
+     * @return Carrot nutrition
      */
     public static int getNutrition(){
         return nutrition;
     }
 
     /**
-     * Sets the count of Grass
+     * Sets the count of Carrot
      * @param i the number count is being set too
      */
     public void setCount(int i) {
@@ -71,7 +75,7 @@ public class Grass extends AbstractPlant {
      * @return a fresh new not-copied AbstractOrganism
      */
     public AbstractOrganism getNewObjectFromExistingObject(){
-        return new Grass();
+        return new Carrot();
     }
 
     /**
@@ -126,11 +130,11 @@ public class Grass extends AbstractPlant {
     }
 
     /**
-     * Creates new Grass in free adjacent slot
+     * Creates new Carrot in free adjacent slot
      * @param grid 2D array holding all Organisms in simulation
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
-     * @param y - y position of Grass in grid
-     * @param x - x position of Grass in grid
+     * @param y - y position of Carrot in grid
+     * @param x - x position of Carrot in grid
      */
     public void grow(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x) {
         if (hasGrown) {

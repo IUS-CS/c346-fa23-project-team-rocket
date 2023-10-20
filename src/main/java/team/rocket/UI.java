@@ -1,9 +1,6 @@
 package team.rocket;
 
-import team.rocket.Entities.Fox;
-import team.rocket.Entities.Grass;
-import team.rocket.Entities.OrganismFactory;
-import team.rocket.Entities.Rabbit;
+import team.rocket.Entities.*;
 import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
 import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
@@ -89,5 +86,6 @@ public class UI {
         organismFactory.registerOrganism("Rabbit", new Rabbit());
         organismFactory.registerOrganism("Grass", new Grass());
         organismFactory.registerOrganism("Fox", new Fox());
+        organismFactory.registerOrganism("Carrot", new Carrot());
     }
 }
