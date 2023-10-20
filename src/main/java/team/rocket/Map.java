@@ -98,6 +98,7 @@ public class Map {
      *
      * @param row the row that the organism is in
      * @param column the column that the organism is in
+     * @return AbstractOrganism or null if the location is empty
      */
     public AbstractOrganism getOrganism(int row, int column) {
         return grid[row][column];
