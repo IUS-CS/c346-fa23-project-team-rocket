@@ -3,6 +3,10 @@ package team.rocket.Entities;
 import team.rocket.Enums.Direction;
 import java.util.Random;
 
+/**
+ * @since 0.5.0
+ * @version 0.5.0
+ */
 public class Carrot extends AbstractPlant {
     private static char icon = 'C';
     private static int nutrition = 25;
