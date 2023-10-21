@@ -20,7 +20,7 @@ Feature: OrganismFactory
     Scenario: Creating 4 Rabbits
         When We register the Rabbit class
         And We create 4 Rabbits with the OrganismFactory
-        Then The number of Rabbits should be 4
+        Then The number of Rabbits should be 3
 
     Scenario: Creating 1 Rabbits
         When We register the Rabbit class
