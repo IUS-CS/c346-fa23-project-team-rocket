@@ -13,7 +13,7 @@ import java.util.Scanner;
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
  *
  *  * @author Dale Morris, Jon Roberts
- *  * @version 0.2.0
+ *  * @version 0.4.0
  *  * @since 0.1.0
  */
 public class UI {

@@ -10,6 +10,8 @@ import java.util.regex.Matcher;
 /**
  * Handles Terminal Flags that pertain to initial Organism Count
  * Ex: --rabbit_count 6
+ * @since 0.3.0
+ * @version 0.3.0
  */
 public class InitialOrganismCountFlagHandler extends FlagHandler {
 	/**

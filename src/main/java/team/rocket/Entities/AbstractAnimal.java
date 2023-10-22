@@ -2,6 +2,10 @@ package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
 
+/**
+ * @since 0.1.0
+ * @version 0.4.0
+ */
 public abstract class AbstractAnimal extends AbstractOrganism {
     private static char icon;
     private static int count;

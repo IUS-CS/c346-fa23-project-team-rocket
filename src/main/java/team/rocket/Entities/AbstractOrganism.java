@@ -1,5 +1,9 @@
 package team.rocket.Entities;
 
+/**
+ * @since 0.1.0
+ * @version 0.4.0
+ */
 public abstract class AbstractOrganism {
     private static char icon;
     private static int count;
