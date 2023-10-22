@@ -16,7 +16,7 @@ The AbstractFlagHandler class is a template for flag handlers which will check f
 
 The architecture of the Simulation package is rather simple. The simulation class contains all of the logic relating to changing the environment at specified time intervals. It's the main driver of the program. Simulation also contains an instance of the Map class which represents where various living and nonliving things are in the environment.
 
-![Simulation](./UMLdiagrams/Simulation.png)
+![Simulation](./UMLdiagrams/simulation.png)
 
 ## Entities
 
@@ -26,4 +26,4 @@ AbstractOrganism implements Entity and is an abstract class representing living 
 
 Finally, EntityFactory is a class that creates an instance of Entity based on certain specifications. It can create a direct instance of any subclass of Entity that has previously been registered with it. EntityFactory uses the singleton design pattern, so there will only ever be one entity factory in the program.
 
-![Entities](./UMLdiagrams/Entities.png)
+![Entities](./UMLdiagrams/entities.png)
