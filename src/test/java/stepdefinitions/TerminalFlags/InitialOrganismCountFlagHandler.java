@@ -10,6 +10,8 @@ import team.rocket.Map;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Entities.Rabbit;
 
+import java.io.Console;
+
 public class InitialOrganismCountFlagHandler {
 	team.rocket.Handlers.Terminal.TerminalFlagRequest request;
 
@@ -67,4 +69,5 @@ public class InitialOrganismCountFlagHandler {
 		Rabbit rabbit = new Rabbit();
 		rabbit.setCount(0);
 	}
+
 }
