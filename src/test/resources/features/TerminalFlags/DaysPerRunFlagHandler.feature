@@ -7,7 +7,7 @@ Feature:
         Then The TerminalFlagRequest has <N> numOfDays
 
         Examples:
-            | string            | N |
-            | "--days_amount 3" | 3 |
-            | "--days_amount 6" | 6 |
-            | ""                | 0 |
+            | string            | N  |
+            | "--days_amount 3" | 3  |
+            | "--days_amount 6" | 6  |
+            | ""                | 10 |

@@ -21,7 +21,7 @@ Feature: Terminal Flag Request Class
         Given there is a TerminalFlagRequest Created with an <X> by <Y> map and a <string> command
         And A TerminalFlagRequest exists
         When I set the map to Size <A>, <B>
-        And I set the numOfDays to <W>
+        And I set the numOfDays to <N>
         Then I should have a TerminalFlagRequest which gives me an <A> by <B> map with a <string> command
         And the TerminalFlagRequest should return <N> when getting the numOfDays
 

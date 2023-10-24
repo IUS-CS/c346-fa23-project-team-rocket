@@ -2,6 +2,7 @@ package team.rocket.Handlers.Terminal;
 
 
 import team.rocket.Map;
+import team.rocket.Simulation;
 
 /**
  * A request to be used with the Terminal FlagHandlers
@@ -18,7 +19,10 @@ public class TerminalFlagRequest {
 	 */
 	final private String terminalCommand;
 
-	private int numOfDays = 0;
+	/**
+	 * The number of Days to run the simulation, starts as the default
+	 */
+	private int numOfDays = Simulation.DEFAULT_DAYS_PER_RUN;
 
 	/**
 	 * Constructs a TerminalFlagRequest
