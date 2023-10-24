@@ -19,6 +19,7 @@ Combining these two commands will build and run the program :
 `
 ./gradlew build
 `
+
 `
 java -jar build/libs/animal-simulation-project-0.5.0.jar
 `
