@@ -18,7 +18,7 @@ public class TerminalFlagRequest {
 	 */
 	final private String terminalCommand;
 
-	private int numOfDays;
+	private int numOfDays = 0;
 
 	/**
 	 * Constructs a TerminalFlagRequest
