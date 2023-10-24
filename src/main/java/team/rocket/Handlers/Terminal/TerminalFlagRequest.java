@@ -18,6 +18,8 @@ public class TerminalFlagRequest {
 	 */
 	final private String terminalCommand;
 
+	private int numOfDays;
+
 	/**
 	 * Constructs a TerminalFlagRequest
 	 * @param command The terminal Command
@@ -50,5 +52,21 @@ public class TerminalFlagRequest {
 	 */
 	public String getTerminalCommand() {
 		return this.terminalCommand;
+	}
+
+	/**
+	 * Gets the numOfDays integer
+	 * @return the numOfDays integer
+	 */
+	public int getNumOfDays(){
+		return this.numOfDays;
+	}
+
+	/**
+	 * Sets the numOfDays integer
+	 * @param num the new number of days
+	 */
+	public void setNumOfDays(int num){
+		this.numOfDays = num;
 	}
 }
