@@ -4,8 +4,13 @@
 top to bottom direction
 skinparam linetype ortho
 
+class DaysPerRunFlagHandler {
+  + DaysPerRunFlagHandler(): 
+  + handleRequest(TerminalFlagRequest): void
+}
 class FlagHandler {
   + FlagHandler(): 
+  # m_successor: FlagHandler
   + setSuccessor(FlagHandler): void
   + handleRequest(TerminalFlagRequest): void
 }
@@ -19,11 +24,17 @@ class InitialOrganismCountFlagHandler {
 }
 class TerminalFlagRequest {
   + TerminalFlagRequest(String, Map): 
+  - map: Map
+  - terminalCommand: String
+  - numOfDays: int
   + getMap(): Map
-  + getTerminalCommand(): String
+  + getNumOfDays(): int
+  + setNumOfDays(int): void
   + setMap(Map): void
+  + getTerminalCommand(): String
 }
 
+DaysPerRunFlagHandler            -[#000082,plain]-^  FlagHandler                     
 GridSizeFlagHandler              -[#000082,plain]-^  FlagHandler                     
 InitialOrganismCountFlagHandler  -[#000082,plain]-^  FlagHandler                     
 @enduml

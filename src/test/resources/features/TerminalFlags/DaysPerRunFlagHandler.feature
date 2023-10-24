@@ -8,6 +8,6 @@ Feature:
 
         Examples:
             | string            | N |
-            | "--Days_Amount 3" | 3 |
-            | "--Days_Amount 6" | 6 |
+            | "--days_amount 3" | 3 |
+            | "--days_amount 6" | 6 |
             | ""                | 0 |

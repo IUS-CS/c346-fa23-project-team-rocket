@@ -8,7 +8,7 @@ This document outlines the architecture of our project. Each section represents 
 
 The UI package contains everything needed for a user to interact with the program. The UI class contains the main method for the program which simply runs a simulations when called. It contains an instance of the SimulationEventHandler class which handles anything that happens in the simulation that the UI might need to output. It acts a bridge between the UI and the simulation.
 
-The AbstractFlagHandler class is a template for flag handlers which will check for flags when the program is run. An instance of AbstractFlagHandler contains another instance of the same class which is the successor to it in a chain of responsibility. The InitialOrganismCount class will check for the flag giving the initial organism count while GridSize will do the same for the size of the map in the simulation. TerminalFlagRequest simply represents the whole set of terminal flags given as a single object.
+The AbstractFlagHandler class is a template for flag handlers which will check for flags when the program is run. An instance of AbstractFlagHandler contains another instance of the same class which is the successor to it in a chain of responsibility. The InitialOrganismCount class will check for the flag giving the initial organism count while GridSize will do the same for the size of the map in the simulation. The DaysPerRun flag handler just uses regex to look for the relevant flag and then grabs the associated integer, assigning it to the internal request numOfDays value. TerminalFlagRequest simply represents the whole set of terminal flags given as a single object.
 
 ![UI](./UMLdiagrams/UI.png)
 
