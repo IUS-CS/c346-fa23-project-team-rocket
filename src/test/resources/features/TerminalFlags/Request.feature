@@ -21,15 +21,19 @@ Feature: Terminal Flag Request Class
         Given there is a TerminalFlagRequest Created with an <X> by <Y> map and a <string> command
         And A TerminalFlagRequest exists
         When I set the map to Size <A>, <B>
+        And I set the numOfDays to <W>
         Then I should have a TerminalFlagRequest which gives me an <A> by <B> map with a <string> command
+        And the TerminalFlagRequest should return <N> when getting the numOfDays
 
         Examples:
-            | X  | Y  | A | B | string           |
-            | 3  | 3  | 4 | 4 | "--rabbit 6      |
-            | 2  | 2  | 2 | 2 | "--grid_width 30 |
-            | 1  | 1  | 4 | 5 | ""               |
-            | 10 | 10 | 3 | 4 | "x "             |
-            | 9  | 1  | 1 | 9 | "rigorous"       |
+            | X  | Y  | A | B | string           | N  |
+            | 3  | 3  | 4 | 4 | "--rabbit 6      | 5  |
+            | 2  | 2  | 2 | 2 | "--grid_width 30 | 3  |
+            | 1  | 1  | 4 | 5 | ""               | 10 |
+            | 10 | 10 | 3 | 4 | "x "             | 16 |
+            | 9  | 1  | 1 | 9 | "rigorous"       | 25 |
+
+
 
 
 
