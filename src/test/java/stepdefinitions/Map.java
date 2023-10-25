@@ -6,6 +6,8 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.Rabbit;
+import team.rocket.Entities.AbstractAnimal;
+
 
 import java.util.Arrays;
 
