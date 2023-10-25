@@ -1,0 +1,7 @@
+@startuml
+
+class Simulation
+class Map
+Simulation --o Map
+
+@enduml

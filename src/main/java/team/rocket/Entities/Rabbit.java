@@ -4,6 +4,12 @@ import team.rocket.Enums.Direction;
 import team.rocket.Map;
 
 import java.util.Random;
+
+/**
+ *
+ * @since 0.1.0
+ * @version 0.4.0
+ */
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;

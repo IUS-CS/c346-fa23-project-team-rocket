@@ -1,0 +1,29 @@
+@startuml
+
+Interface Incident
+class IncidentFactory
+Incident -- IncidentFactory
+
+class AbstractTimeIncident implements Incident
+
+class AbstractWeather extends AbstractTimeIncident
+class Sunshine extends AbstractWeather
+class Rain extends AbstractWeather
+class Clouds extends AbstractWeather
+class Snow extends AbstractWeather
+
+class AbstractSeasons extends AbstractTimeIncident
+class Summer extends AbstractSeasons
+class Autumn extends AbstractSeasons
+class Winter extends AbstractSeasons
+class Spring extends AbstractSeasons
+
+class AbstractRandomIncident implements Incident
+
+class AbstractDisaster extends AbstractRandomIncident
+class Earthquake extends AbstractDisaster
+class Avalanche extends AbstractDisaster
+class Flood extends AbstractDisaster
+class Tornado extends AbstractDisaster
+
+@enduml

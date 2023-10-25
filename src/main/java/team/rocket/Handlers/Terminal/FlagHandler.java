@@ -5,6 +5,8 @@ import java.util.logging.Handler;
 /**
  * Largely based on <a href="https://www.oodesign.com/chain-of-responsibility-pattern">OODesign Chain of Responsibility</a>.
  * Intended to be used as a base for other terminal flag handlers.
+ * @since 0.3.0
+ * @version 0.3.0
  */
 public abstract class FlagHandler {
 	/**

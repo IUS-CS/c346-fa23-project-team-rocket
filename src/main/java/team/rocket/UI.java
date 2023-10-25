@@ -1,9 +1,6 @@
 package team.rocket;
 
-import team.rocket.Entities.Fox;
-import team.rocket.Entities.Grass;
-import team.rocket.Entities.OrganismFactory;
-import team.rocket.Entities.Rabbit;
+import team.rocket.Entities.*;
 import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
 import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
@@ -16,7 +13,7 @@ import java.util.Scanner;
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
  *
  *  * @author Dale Morris, Jon Roberts
- *  * @version 0.2.0
+ *  * @version 0.4.0
  *  * @since 0.1.0
  */
 public class UI {
@@ -89,5 +86,6 @@ public class UI {
         organismFactory.registerOrganism("Rabbit", new Rabbit());
         organismFactory.registerOrganism("Grass", new Grass());
         organismFactory.registerOrganism("Fox", new Fox());
+        organismFactory.registerOrganism("Carrot", new Carrot());
     }
 }
