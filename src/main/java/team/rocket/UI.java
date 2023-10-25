@@ -29,23 +29,29 @@ public class UI {
             FlagHandler mainHandler = new GridSizeFlagHandler();
             FlagHandler subHandlerOne = new InitialOrganismCountFlagHandler();
             FlagHandler subHandlerTwo = new DaysPerRunFlagHandler();
+            FlagHandler subHandlerThree = new TimeStepsPerDayFlagHandler();
             //set the handlers successor to the appropriate successor
             mainHandler.setSuccessor(subHandlerOne);
             //set subHandlerOne's successor to the DaysPerRun Flag Handler
             subHandlerOne.setSuccessor(subHandlerTwo);
+            //set subHandlerTwo's successor to the TimeStepsPerDay Flag Handler
+            subHandlerTwo.setSuccessor(subHandlerThree);
             //Appropriately handle the request with the handlers, data will be passed back through the request
             mainHandler.handleRequest(tFR);
             //Create a Simulation from the tFR map
             simulation = new Simulation(tFR.getMap());
             // Set the simulations # of days
             simulation.setDaysPerRun(tFR.getNumOfDays());
+            // Set the simulations # of Time steps per day
+            simulation.setTimeStepsPerDay(tFR.getStepsPerDay());
 
         } else {
             simulation = new Simulation();
             simulation.setDaysPerRun(Simulation.DEFAULT_DAYS_PER_RUN);
+            simulation.setTimeStepsPerDay(Simulation.DEFAULT_TIME_STEPS_PER_DAY);
         }
 
-        simulation.setTimeStepsPerDay(Simulation.DEFAULT_TIME_STEPS_PER_DAY);
+
         simulation.setMillisecondsPerTimeStep(Simulation.DEFAULT_MILLISECONDS_PER_TIME_STEP);
 
         Thread simulationThread = new Thread(simulation);

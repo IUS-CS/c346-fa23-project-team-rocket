@@ -37,7 +37,7 @@ Multiple flags can be used at the same time, however, per handler they are check
 
 > java -jar (path/to/jar) "--Grass_count 10 --Rabbit_count 10 --grid_width 10 --grid_height 20"
 
-We have 3 different terminal flags currently:
+We have 5 different terminal flags currently:
 
 * --(organism_name)_count #
 
