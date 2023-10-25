@@ -61,6 +61,10 @@ This flag sets the initial grid height for the simulation, the value is capped t
 Example of Usage: --days_amount 4
 This flag sets how many days the simulation will last, the value is capped to 9999999. Negative values don't work.
 
+* --steps_per_day #
+
+Example of Usage: --steps_per_day 10
+This flag sets how many time steps will occur per simulation day, the value is capped to 9999999. Negative values don't work.
 
 ## Program Structure
 
@@ -69,7 +73,7 @@ This flag sets how many days the simulation will last, the value is capped to 99
 ![TerminalFlagHandler diagram](./doc/UMLdiagrams/TerminalFlagHandler.png)
 
 The TerminalFlagHandler depends on the **Organism Factory** to properly create organisms within the grid for it's initialOrganismCountFlagHandler. It is an abstract class but there are currently 2 concrete instances of it.
-These concrete instances are the grid size handler, the initial organism count handler, and the Days per run handler which all do as their names implies, they work by taking the internal values of the request and modifying it to make and save the changes. They use regex to pick out the flags and know when and how they're supposed to make those changes.
+These concrete instances are the grid size handler, the initial organism count handler, the Days per run handler, and the Time Steps Per Day handler which all do as their names implies, they work by taking the internal values of the request and modifying it to make and save the changes. They use regex to pick out the flags and know when and how they're supposed to make those changes.
 
 This component is based upon the Chain of Responsibility design pattern from [oodesign.com](https://www.oodesign.com/chain-of-responsibility-pattern)
 
