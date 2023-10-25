@@ -25,6 +25,11 @@ public class TerminalFlagRequest {
 	private int numOfDays = Simulation.DEFAULT_DAYS_PER_RUN;
 
 	/**
+	 * The number of steps per day in the simulation, starts as the default
+	 */
+	private int stepsPerDay = Simulation.DEFAULT_TIME_STEPS_PER_DAY;
+
+	/**
 	 * Constructs a TerminalFlagRequest
 	 * @param command The terminal Command
 	 * @param map The current map being used, typically blank
@@ -73,4 +78,16 @@ public class TerminalFlagRequest {
 	public void setNumOfDays(int num){
 		this.numOfDays = num;
 	}
+
+	/**
+	 * gets the stepsPerDay integer
+	 * @return the stepsPerDay integer
+	 */
+	public int getStepsPerDay() {return this.stepsPerDay; }
+
+	/**
+	 * sets the stepsPerDay integer
+	 * @param num the new number of steps per day
+	 */
+	public void setStepsPerDay(int num){this.stepsPerDay = num; }
 }

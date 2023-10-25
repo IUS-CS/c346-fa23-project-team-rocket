@@ -33,6 +33,15 @@ Feature: Terminal Flag Request Class
             | 10 | 10 | 3 | 4 | "x "             | 16 |
             | 9  | 1  | 1 | 9 | "rigorous"       | 25 |
 
+    Scenario: A TerminalFlagRequest is created and its stepsPerDay value is changed
+        Given A TerminalFlagRequest is Created
+        When The TerminalFlagRequests stepsPerDay value is changed to 15
+        Then the TerminalFlagRequests stepsPerDay value is 15
+
+    Scenario: A TerminalFlagRequest is created and its stepsPerDay value is changed
+        Given A TerminalFlagRequest is Created
+        When The TerminalFlagRequests stepsPerDay value is changed to 99
+        Then the TerminalFlagRequests stepsPerDay value is 99
 
 
 

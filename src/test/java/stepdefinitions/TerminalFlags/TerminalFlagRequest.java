@@ -51,4 +51,14 @@ public class TerminalFlagRequest {
 	public void theTerminalFlagRequestShouldReturnWhenGettingTheNumOfDays(String numOfDays) {
 		Assertions.assertEquals(Integer.parseInt(numOfDays), request.getNumOfDays());
 	}
+
+	@When("The TerminalFlagRequests stepsPerDay value is changed to {int}")
+	public void theTerminalFlagRequestsStepsPerDayValueIsChangedTo(int stepsPerDay) {
+		request.setStepsPerDay(stepsPerDay);
+	}
+
+	@Then("the TerminalFlagRequests stepsPerDay value is {int}")
+	public void theTerminalFlagRequestsStepsPerDayValueIs(int stepsPerDay) {
+		Assertions.assertEquals(stepsPerDay, request.getStepsPerDay());
+	}
 }
