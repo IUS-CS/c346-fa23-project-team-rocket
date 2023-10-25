@@ -3,35 +3,41 @@
   <ID>JAVA</ID>
   <OriginalElement>team.rocket.Handlers.Terminal</OriginalElement>
   <nodes>
-    <node x="345.4500603916587" y="-256.8310535581179">team.rocket.Handlers.Terminal.FlagHandler</node>
-    <node x="-220.70578767720804" y="-178.6188392974559">team.rocket.Handlers.Terminal.TerminalFlagRequest</node>
-    <node x="-242.9547283551741" y="250.42089203441796">team.rocket.Handlers.Terminal.GridSizeFlagHandler</node>
-    <node x="339.95006039165867" y="33.29491923815003">team.rocket.Handlers.Terminal.DaysPerRunFlagHandler</node>
-    <node x="339.95006039165867" y="250.42089203441793">team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler</node>
+    <node x="676.5211738602508" y="166.8164409399987">team.rocket.Handlers.Terminal.FlagHandler</node>
+    <node x="328.1543837807082" y="-217.32356373688512">team.rocket.Handlers.Terminal.DaysPerRunFlagHandler</node>
+    <node x="48.00576479963388" y="61.2879994168058">team.rocket.Handlers.Terminal.TerminalFlagRequest</node>
+    <node x="-184.76523452170275" y="-217.32356373688512">team.rocket.Handlers.Terminal.TimeStepsPerDayFlagHandler</node>
+    <node x="841.0740020831192" y="-217.32356373688512">team.rocket.Handlers.Terminal.GridSizeFlagHandler</node>
+    <node x="1353.9936203855302" y="-217.32356373688512">team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler</node>
   </nodes>
   <notes />
   <edges>
     <edge source="team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler" target="team.rocket.Handlers.Terminal.FlagHandler" relationship="GENERALIZATION">
-      <point x="-257.5000603916587" y="1.0796558206038753E-4" />
-      <point x="280.0" y="311.921" />
-      <point x="280.0" y="-158.83081355932202" />
-      <point x="-252.00001411133323" y="2.3999879587677242E-4" />
+      <point x="-0.6874763177336263" y="62.694326448749536" />
+      <point x="1610.8061440677966" y="-33.0" />
+      <point x="928.521" y="-33.0" />
+      <point x="-1.738602508112308E-4" y="-98.0004409399987" />
+    </edge>
+    <edge source="team.rocket.Handlers.Terminal.TimeStepsPerDayFlagHandler" target="team.rocket.Handlers.Terminal.FlagHandler" relationship="GENERALIZATION">
+      <point x="4.075090791388902E-5" y="61.49989477131146" />
+      <point x="67.23480622920516" y="-33.0" />
+      <point x="928.521" y="-33.0" />
+      <point x="-1.738602508112308E-4" y="-98.0004409399987" />
     </edge>
     <edge source="team.rocket.Handlers.Terminal.DaysPerRunFlagHandler" target="team.rocket.Handlers.Terminal.FlagHandler" relationship="GENERALIZATION">
-      <point x="3.713516188099675E-4" y="61.50010730389205" />
-      <point x="591.9504317432775" y="193.523" />
-      <point x="280.0" y="193.523" />
-      <point x="280.0" y="-158.83081355932202" />
-      <point x="-252.00001411133323" y="2.3999879587677242E-4" />
+      <point x="8.799789100066846E-5" y="61.500487804812906" />
+      <point x="580.1544717785993" y="-33.0" />
+      <point x="928.521" y="-33.0" />
+      <point x="-1.738602508112308E-4" y="-98.0004409399987" />
     </edge>
     <edge source="team.rocket.Handlers.Terminal.GridSizeFlagHandler" target="team.rocket.Handlers.Terminal.FlagHandler" relationship="GENERALIZATION">
-      <point x="251.99978767720802" y="4.133144235538566E-4" />
-      <point x="280.0" y="311.92130534884154" />
-      <point x="280.0" y="-158.83081355932202" />
-      <point x="-252.00001411133323" y="2.3999879587677242E-4" />
+      <point x="-4.597102376919793E-4" y="61.50019933010549" />
+      <point x="1093.0735423728815" y="-33.0" />
+      <point x="928.521" y="-33.0" />
+      <point x="-1.738602508112308E-4" y="-98.0004409399987" />
     </edge>
   </edges>
-  <settings layout="Hierarchic" zoom="0.7346303501945526" showDependencies="false" x="386.5" y="259.5" />
+  <settings layout="Hierarchic" zoom="0.4701634241245137" showDependencies="false" x="825.9807004766947" y="76.68405720338978" />
   <SelectedNodes />
   <Categories>
     <Category>Constructors</Category>

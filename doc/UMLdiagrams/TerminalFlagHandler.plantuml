@@ -26,15 +26,23 @@ class TerminalFlagRequest {
   + TerminalFlagRequest(String, Map): 
   - map: Map
   - terminalCommand: String
+  - stepsPerDay: int
   - numOfDays: int
   + getMap(): Map
-  + getNumOfDays(): int
   + setNumOfDays(int): void
+  + setStepsPerDay(int): void
   + setMap(Map): void
   + getTerminalCommand(): String
+  + getNumOfDays(): int
+  + getStepsPerDay(): int
+}
+class TimeStepsPerDayFlagHandler {
+  + TimeStepsPerDayFlagHandler(): 
+  + handleRequest(TerminalFlagRequest): void
 }
 
 DaysPerRunFlagHandler            -[#000082,plain]-^  FlagHandler                     
 GridSizeFlagHandler              -[#000082,plain]-^  FlagHandler                     
 InitialOrganismCountFlagHandler  -[#000082,plain]-^  FlagHandler                     
+TimeStepsPerDayFlagHandler       -[#000082,plain]-^  FlagHandler                     
 @enduml
