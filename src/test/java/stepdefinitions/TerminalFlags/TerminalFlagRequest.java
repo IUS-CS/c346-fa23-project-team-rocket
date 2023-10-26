@@ -1,5 +1,6 @@
 package stepdefinitions.TerminalFlags;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 
@@ -38,5 +39,26 @@ public class TerminalFlagRequest {
 	@When("I set the map to Size {}, {}")
 	public void iSetTheMapToSize(String arg0, String arg1) {
 		request.setMap(new Map(Integer.parseInt(arg0), Integer.parseInt(arg1)));
+	}
+
+	@And("I set the numOfDays to {}")
+	public void iSetTheNumOfDaysTo(String numOfDays) {
+		request.setNumOfDays(Integer.parseInt(numOfDays));
+	}
+
+
+	@And("the TerminalFlagRequest should return {} when getting the numOfDays")
+	public void theTerminalFlagRequestShouldReturnWhenGettingTheNumOfDays(String numOfDays) {
+		Assertions.assertEquals(Integer.parseInt(numOfDays), request.getNumOfDays());
+	}
+
+	@When("The TerminalFlagRequests stepsPerDay value is changed to {int}")
+	public void theTerminalFlagRequestsStepsPerDayValueIsChangedTo(int stepsPerDay) {
+		request.setStepsPerDay(stepsPerDay);
+	}
+
+	@Then("the TerminalFlagRequests stepsPerDay value is {int}")
+	public void theTerminalFlagRequestsStepsPerDayValueIs(int stepsPerDay) {
+		Assertions.assertEquals(stepsPerDay, request.getStepsPerDay());
 	}
 }

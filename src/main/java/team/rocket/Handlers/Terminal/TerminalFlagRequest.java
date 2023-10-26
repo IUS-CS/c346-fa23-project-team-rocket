@@ -2,6 +2,7 @@ package team.rocket.Handlers.Terminal;
 
 
 import team.rocket.Map;
+import team.rocket.Simulation;
 
 /**
  * A request to be used with the Terminal FlagHandlers
@@ -17,6 +18,16 @@ public class TerminalFlagRequest {
 	 * The full terminal command in string form
 	 */
 	final private String terminalCommand;
+
+	/**
+	 * The number of Days to run the simulation, starts as the default
+	 */
+	private int numOfDays = Simulation.DEFAULT_DAYS_PER_RUN;
+
+	/**
+	 * The number of steps per day in the simulation, starts as the default
+	 */
+	private int stepsPerDay = Simulation.DEFAULT_TIME_STEPS_PER_DAY;
 
 	/**
 	 * Constructs a TerminalFlagRequest
@@ -51,4 +62,32 @@ public class TerminalFlagRequest {
 	public String getTerminalCommand() {
 		return this.terminalCommand;
 	}
+
+	/**
+	 * Gets the numOfDays integer
+	 * @return the numOfDays integer
+	 */
+	public int getNumOfDays(){
+		return this.numOfDays;
+	}
+
+	/**
+	 * Sets the numOfDays integer
+	 * @param num the new number of days
+	 */
+	public void setNumOfDays(int num){
+		this.numOfDays = num;
+	}
+
+	/**
+	 * gets the stepsPerDay integer
+	 * @return the stepsPerDay integer
+	 */
+	public int getStepsPerDay() {return this.stepsPerDay; }
+
+	/**
+	 * sets the stepsPerDay integer
+	 * @param num the new number of steps per day
+	 */
+	public void setStepsPerDay(int num){this.stepsPerDay = num; }
 }
