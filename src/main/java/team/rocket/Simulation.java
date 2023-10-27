@@ -5,7 +5,6 @@ import java.lang.Runnable;
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
-import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
 /*
 import team.rocket.Handlers.Terminal.FlagHandler;
@@ -34,6 +33,8 @@ public class Simulation implements Runnable {
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
     // private FlagHandler flagHandler = new GridSizeFlagHandler();
     private boolean mapIsFull = false;
+
+    private boolean printOutput = true;
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -69,11 +70,8 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-
-        currentDay = 1;
-        UI.outputGrid(currentDay, map);
-
-        for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
+        if(printOutput) UI.outputGrid(0, map);
+        for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 try {
                     Thread.sleep(millisecondsPerTimeStep);
@@ -83,13 +81,16 @@ public class Simulation implements Runnable {
                 }
                 moveAnimal();
             } // End of current day
+            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
 
             breed();
             if (mapIsFull) {
                 return;
             }
-            UI.outputGrid(currentDay, map);
+           if(printOutput) UI.outputGrid(currentDay, map);
         } // End of simulation
+        currentDay--; //For loop increments past the stopping date, this fixes that error
+        //Decrements ensure that if the simulations step is checked that it isn't on day 11 or timestep 11 since those haven't occurred
     }
 
     /**
@@ -129,9 +130,10 @@ public class Simulation implements Runnable {
 
                 if (map.isFull()) {
                     mapIsFull = true;
-                    UI.outputGrid(currentDay, map);
-
-                    System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    if(printOutput) {
+                        UI.outputGrid(currentDay, map);
+                        System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    }
                     return;
                 }
             }
@@ -193,25 +195,25 @@ public class Simulation implements Runnable {
     private void moveDirection(AbstractAnimal animal, AbstractOrganism[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
-        switch(direction){
-            case UP -> {
-                map.removeOrganism(y, x);
-                map.addOrganism(animal, y-1, x);
-            }
-            case DOWN -> {
-                map.removeOrganism(y, x);
-                map.addOrganism(animal, y+1, x);
-            }
-            case LEFT -> {
-                map.removeOrganism(y, x);
-                map.addOrganism(animal, y, x-1);
-            }
-            case RIGHT -> {
-                map.removeOrganism(y, x);
-                map.addOrganism(animal, y, x+1);
-            }
-            default ->{
-                return;
+        if(direction!=null){
+            switch(direction) {
+                case UP -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y - 1, x);
+                }
+                case DOWN -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y + 1, x);
+                }
+                case LEFT -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y, x - 1);
+                }
+                case RIGHT -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y, x + 1);
+                }
+
             }
         }
     }
@@ -237,4 +239,12 @@ public class Simulation implements Runnable {
     }
 
     public Map getMap(){return map; }
+
+    /**
+     * Sets whether the simulation should print it's output
+     * @param printOutput if true it will send the signals to the UI, otherwise it won't
+     */
+    public void setPrintOutput(boolean printOutput) {
+        this.printOutput = printOutput;
+    }
 }
