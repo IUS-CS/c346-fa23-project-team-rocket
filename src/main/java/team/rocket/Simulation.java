@@ -185,28 +185,26 @@ public class Simulation implements Runnable {
     private void moveDirection(AbstractAnimal animal, AbstractOrganism[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
-        if (direction == null) {
-            return;
-        }
-
-        if (direction == Direction.UP) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y-1, x);
-        }
-
-        if (direction == Direction.DOWN) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y+1, x);
-        }
-
-        if (direction == Direction.LEFT) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y, x-1);
-        }
-
-        if (direction == Direction.RIGHT) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y, x+1);
+        switch(direction){
+            case UP -> {
+                map.removeOrganism(y, x);
+                map.addOrganism(animal, y-1, x);
+            }
+            case DOWN -> {
+                map.removeOrganism(y, x);
+                map.addOrganism(animal, y+1, x);
+            }
+            case LEFT -> {
+                map.removeOrganism(y, x);
+                map.addOrganism(animal, y, x-1);
+            }
+            case RIGHT -> {
+                map.removeOrganism(y, x);
+                map.addOrganism(animal, y, x+1);
+            }
+            default ->{
+                return;
+            }
         }
     }
 
