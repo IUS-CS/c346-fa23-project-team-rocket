@@ -19,7 +19,7 @@ import team.rocket.Handlers.Terminal.TerminalFlagRequest;
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version 0.4.0
+ * @version 0.5.0
  * @since 0.1.0
  */
 public class Simulation implements Runnable {
@@ -50,12 +50,16 @@ public class Simulation implements Runnable {
      * Returns a new team.rocket.Simulation object with default constraints.
      * Contains one rabbit in the corner by default
      */
-    Simulation() {
+    public Simulation() {
         map = new Map();
         //adds one rabbit in the top left corner by default
         map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
     }
 
+    /**
+     * Creates a simulation from a map
+     * @param m the map to create a simulation from
+     */
     public Simulation(Map m){
         map = m;
     }
@@ -107,7 +111,7 @@ public class Simulation implements Runnable {
                     for (int k = 0; k < map.getHeight(); k++) {     // Iterates through each row of the grid
                         for (int l = 0; l < map.getWidth(); l++) {  // Iterates through each column of the grid
                             if (map.getOrganism(k, l) == null) {    // If the current grid space is empty
-                                map.addOrganism(new Rabbit(), k, l);
+                                map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), k, l);
                                 rabbitsBred++;
                                 hasBred = true;
                             }
@@ -143,25 +147,29 @@ public class Simulation implements Runnable {
                 if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
                     AbstractOrganism[] neighbors = new AbstractOrganism[4];
                     if (i == 0) {
-                        neighbors[0] = new Rabbit();
+                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
                     } else {
                         neighbors[0] = map.getOrganism(i - 1, j);
                     }
 
                     if (i == map.getHeight() - 1) {
-                        neighbors[1] = new Rabbit();
+                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[1].reduceCount();
                     } else {
                         neighbors[1] = map.getOrganism(i + 1, j);
                     }
 
                     if (j == 0) {
-                        neighbors[2] = new Rabbit();
+                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[2].reduceCount();
                     } else {
                         neighbors[2] = map.getOrganism(i, j - 1);
                     }
 
                     if (j == map.getWidth() - 1) {
-                        neighbors[3] = new Rabbit();
+                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[3].reduceCount();
                     } else {
                         neighbors[3] = map.getOrganism(i, j + 1);
                     }
@@ -227,4 +235,6 @@ public class Simulation implements Runnable {
     public int getCurrentTimeStep() {
         return currentTimeStep;
     }
+
+    public Map getMap(){return map; }
 }
