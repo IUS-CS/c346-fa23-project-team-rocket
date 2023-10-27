@@ -12,6 +12,7 @@ public class Simulation {
 
     @Given("simulation has a map")
     public void simulationHasAMap() {
+
     }
 
     @When("the map is full")

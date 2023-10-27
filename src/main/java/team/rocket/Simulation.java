@@ -38,23 +38,6 @@ public class Simulation implements Runnable {
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
      *
-     * @param terminalFlags the flags entered into the terminal
-     * @param mapWidth      the number of columns of the simulated grid
-     * @param mapHeight     the number of rows of the simulated grid
-     */
-    /* Simulation(String terminalFlags, int mapWidth, int mapHeight) {
-        flagHandler.setSuccessor(new InitialOrganismCountFlagHandler());
-        OrganismFactory.getInstance().registerOrganism("rabbit", new Rabbit());
-        OrganismFactory.getInstance().registerOrganism("grass", new Grass());
-        TerminalFlagRequest request = new TerminalFlagRequest(terminalFlags, new Map());
-        flagHandler.handleRequest(request);
-
-        map = request.getMap();
-    } */
-
-    /**
-     * Returns a new team.rocket.Simulation object with the given constraints.
-     *
      * @param mapWidth      the number of columns of the simulated grid
      * @param mapHeight     the number of rows of the simulated grid
      */
@@ -62,15 +45,6 @@ public class Simulation implements Runnable {
         map = new Map(mapWidth, mapHeight);
     }
 
-
-    /**
-     * Returns a new team.rocket.Simulation object with default constraints.
-     *
-     * @param terminalFlags the flags entered into the terminal
-     */
-    /* Simulation(String terminalFlags) {
-        new Simulation(terminalFlags, Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
-    } */
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
