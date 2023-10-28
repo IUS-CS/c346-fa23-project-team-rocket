@@ -15,9 +15,7 @@ public class TerminalFlagRequest {
 
 	@Then("A TerminalFlagRequest exists")
 	public void aTerminalFlagRequestExists() {
-
 		Assertions.assertNotNull(request);
-
 	}
 
 	@Given("A TerminalFlagRequest is Created")

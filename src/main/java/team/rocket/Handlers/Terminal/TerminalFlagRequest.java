@@ -7,7 +7,7 @@ import team.rocket.Simulation;
 /**
  * A request to be used with the Terminal FlagHandlers
  * @since 0.3.0
- * @version 0.3.0
+ * @version 0.5.0
  */
 public class TerminalFlagRequest {
 	/**

@@ -5,7 +5,6 @@ import java.lang.Runnable;
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
-import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
 /*
 import team.rocket.Handlers.Terminal.FlagHandler;
@@ -19,7 +18,7 @@ import team.rocket.Handlers.Terminal.TerminalFlagRequest;
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version 0.4.0
+ * @version 0.5.0
  * @since 0.1.0
  */
 public class Simulation implements Runnable {
@@ -35,22 +34,7 @@ public class Simulation implements Runnable {
     // private FlagHandler flagHandler = new GridSizeFlagHandler();
     private boolean mapIsFull = false;
 
-    /**
-     * Returns a new team.rocket.Simulation object with the given constraints.
-     *
-     * @param terminalFlags the flags entered into the terminal
-     * @param mapWidth      the number of columns of the simulated grid
-     * @param mapHeight     the number of rows of the simulated grid
-     */
-    /* Simulation(String terminalFlags, int mapWidth, int mapHeight) {
-        flagHandler.setSuccessor(new InitialOrganismCountFlagHandler());
-        OrganismFactory.getInstance().registerOrganism("rabbit", new Rabbit());
-        OrganismFactory.getInstance().registerOrganism("grass", new Grass());
-        TerminalFlagRequest request = new TerminalFlagRequest(terminalFlags, new Map());
-        flagHandler.handleRequest(request);
-
-        map = request.getMap();
-    } */
+    private boolean printOutput = true;
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -65,23 +49,18 @@ public class Simulation implements Runnable {
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
-     *
-     * @param terminalFlags the flags entered into the terminal
-     */
-    /* Simulation(String terminalFlags) {
-        new Simulation(terminalFlags, Map.DEFAULT_WIDTH, Map.DEFAULT_HEIGHT);
-    } */
-
-    /**
-     * Returns a new team.rocket.Simulation object with default constraints.
      * Contains one rabbit in the corner by default
      */
-    Simulation() {
+    public Simulation() {
         map = new Map();
         //adds one rabbit in the top left corner by default
         map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
     }
 
+    /**
+     * Creates a simulation from a map
+     * @param m the map to create a simulation from
+     */
     public Simulation(Map m){
         map = m;
     }
@@ -91,11 +70,8 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-
-        currentDay = 1;
-        UI.outputGrid(currentDay, map);
-
-        for (currentDay = 2; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
+        if(printOutput) UI.outputGrid(0, map);
+        for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 try {
                     Thread.sleep(millisecondsPerTimeStep);
@@ -105,13 +81,16 @@ public class Simulation implements Runnable {
                 }
                 moveAnimal();
             } // End of current day
+            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
 
             breed();
             if (mapIsFull) {
                 return;
             }
-            UI.outputGrid(currentDay, map);
+           if(printOutput) UI.outputGrid(currentDay, map);
         } // End of simulation
+        currentDay--; //For loop increments past the stopping date, this fixes that error
+        //Decrements ensure that if the simulations step is checked that it isn't on day 11 or timestep 11 since those haven't occurred
     }
 
     /**
@@ -133,7 +112,7 @@ public class Simulation implements Runnable {
                     for (int k = 0; k < map.getHeight(); k++) {     // Iterates through each row of the grid
                         for (int l = 0; l < map.getWidth(); l++) {  // Iterates through each column of the grid
                             if (map.getOrganism(k, l) == null) {    // If the current grid space is empty
-                                map.addOrganism(new Rabbit(), k, l);
+                                map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), k, l);
                                 rabbitsBred++;
                                 hasBred = true;
                             }
@@ -151,9 +130,10 @@ public class Simulation implements Runnable {
 
                 if (map.isFull()) {
                     mapIsFull = true;
-                    UI.outputGrid(currentDay, map);
-
-                    System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    if(printOutput) {
+                        UI.outputGrid(currentDay, map);
+                        System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    }
                     return;
                 }
             }
@@ -169,25 +149,29 @@ public class Simulation implements Runnable {
                 if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
                     AbstractOrganism[] neighbors = new AbstractOrganism[4];
                     if (i == 0) {
-                        neighbors[0] = new Rabbit();
+                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
                     } else {
                         neighbors[0] = map.getOrganism(i - 1, j);
                     }
 
                     if (i == map.getHeight() - 1) {
-                        neighbors[1] = new Rabbit();
+                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[1].reduceCount();
                     } else {
                         neighbors[1] = map.getOrganism(i + 1, j);
                     }
 
                     if (j == 0) {
-                        neighbors[2] = new Rabbit();
+                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[2].reduceCount();
                     } else {
                         neighbors[2] = map.getOrganism(i, j - 1);
                     }
 
                     if (j == map.getWidth() - 1) {
-                        neighbors[3] = new Rabbit();
+                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[3].reduceCount();
                     } else {
                         neighbors[3] = map.getOrganism(i, j + 1);
                     }
@@ -211,28 +195,26 @@ public class Simulation implements Runnable {
     private void moveDirection(AbstractAnimal animal, AbstractOrganism[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
-        if (direction == null) {
-            return;
-        }
+        if(direction!=null){
+            switch(direction) {
+                case UP -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y - 1, x);
+                }
+                case DOWN -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y + 1, x);
+                }
+                case LEFT -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y, x - 1);
+                }
+                case RIGHT -> {
+                    map.removeOrganism(y, x);
+                    map.addOrganism(animal, y, x + 1);
+                }
 
-        if (direction == Direction.UP) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y-1, x);
-        }
-
-        if (direction == Direction.DOWN) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y+1, x);
-        }
-
-        if (direction == Direction.LEFT) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y, x-1);
-        }
-
-        if (direction == Direction.RIGHT) {
-            map.removeOrganism(y, x);
-            map.addOrganism(animal, y, x+1);
+            }
         }
     }
 
@@ -254,5 +236,15 @@ public class Simulation implements Runnable {
 
     public int getCurrentTimeStep() {
         return currentTimeStep;
+    }
+
+    public Map getMap(){return map; }
+
+    /**
+     * Sets whether the simulation should print it's output
+     * @param printOutput if true it will send the signals to the UI, otherwise it won't
+     */
+    public void setPrintOutput(boolean printOutput) {
+        this.printOutput = printOutput;
     }
 }
