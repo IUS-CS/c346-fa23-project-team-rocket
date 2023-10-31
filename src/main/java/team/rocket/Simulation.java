@@ -5,7 +5,9 @@ import java.lang.Runnable;
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
+import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
+import java.util.Random;
 /*
 import team.rocket.Handlers.Terminal.FlagHandler;
 import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
@@ -33,6 +35,7 @@ public class Simulation implements Runnable {
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
     // private FlagHandler flagHandler = new GridSizeFlagHandler();
     private boolean mapIsFull = false;
+    private int breedChance = 50; //the % chance that two animals will breed
 
     private boolean printOutput = true;
 
@@ -53,8 +56,9 @@ public class Simulation implements Runnable {
      */
     public Simulation() {
         map = new Map();
-        //adds one rabbit in the top left corner by default
+        //adds two rabbits to the top left corner when the simulation starts running
         map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"),0,1 );
     }
 
     /**
@@ -71,6 +75,7 @@ public class Simulation implements Runnable {
     @Override
     public void run() {
         if(printOutput) UI.outputGrid(0, map);
+        breed();        //this make sure that the animals attempt to breed before they move away from each other when the simulation first starts
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 try {
@@ -95,12 +100,16 @@ public class Simulation implements Runnable {
 
     /**
      * Simulates breeding among the animals and creates a new entity when breeding occurs
+     * There is a chance that the animals breed based on the breedChance variable
      */
     private void breed() {
         int rabbitsBred = 0;
-        int expectedBreeds = (int) Math.pow(2, currentDay-1);
-        Map oldMap = map;    // A copy of the current map
-        boolean hasBred;     // Indicates if the animal in the current grid space has bred yet
+        int expectedBreeds = (int) Math.pow(2, currentDay - 1);
+        Map oldMap = map; // A copy of the current map
+        boolean hasBred; // Indicates if the animal in the current grid space has bred yet
+
+        Random random = new Random();
+        int randomValue;
 
         /* Looks for an organism to breed */
         for (int i = 0; i < oldMap.getHeight(); i++) { // Iterates through each row of a copy of the grid
@@ -108,29 +117,40 @@ public class Simulation implements Runnable {
             for (int j = 0; j < oldMap.getWidth(); j++) { // Iterates through each column of a copy of the grid
                 if (map.getOrganism(i, j) != null) { // Found an animal
 
-                    /* Looks for an empty space to put a new organism */
-                    for (int k = 0; k < map.getHeight(); k++) {     // Iterates through each row of the grid
-                        for (int l = 0; l < map.getWidth(); l++) {  // Iterates through each column of the grid
-                            if (map.getOrganism(k, l) == null) {    // If the current grid space is empty
-                                map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), k, l);
-                                rabbitsBred++;
-                                hasBred = true;
-                            }
+                    // Check if there is an organism on the tile next to them (left, right, up, or down)
+                    if ((i > 0 && map.getOrganism(i - 1, j) != null) || (i < map.getHeight() - 1 && map.getOrganism(i + 1, j) != null) ||
+                            (j > 0 && map.getOrganism(i, j - 1) != null) || (j < map.getWidth() - 1 && map.getOrganism(i, j + 1) != null)) {
 
-                            if (rabbitsBred > expectedBreeds || hasBred) {
-                                break;
-                            }
-                        }
+                        // Generate a random value between 0 and 99
+                        randomValue = random.nextInt(100);
 
-                        if (rabbitsBred > expectedBreeds || hasBred) {
-                            break;
+                        // Check if the random value is less than the breed chance
+                        if (randomValue < breedChance) {
+                            // Breed the animals
+                            for (int k = 0; k < map.getHeight(); k++) { // Iterates through each row of the grid
+                                for (int l = 0; l < map.getWidth(); l++) { // Iterates through each column of the grid
+                                    if (map.getOrganism(k, l) == null) { // If the current grid space is empty
+                                        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), k, l);
+                                        rabbitsBred++;
+                                        hasBred = true;
+                                    }
+
+                                    if (rabbitsBred > expectedBreeds || hasBred) {
+                                        break;
+                                    }
+                                }
+
+                                if (rabbitsBred > expectedBreeds || hasBred) {
+                                    break;
+                                }
+                            }
                         }
                     }
                 }
 
                 if (map.isFull()) {
                     mapIsFull = true;
-                    if(printOutput) {
+                    if (printOutput) {
                         UI.outputGrid(currentDay, map);
                         System.out.println("The program has ended prematurely because there is no more space for animals.");
                     }
