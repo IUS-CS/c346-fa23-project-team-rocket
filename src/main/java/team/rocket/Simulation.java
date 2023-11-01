@@ -174,7 +174,7 @@ public class Simulation implements Runnable {
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
+                if (map.getOrganism(i, j) instanceof AbstractAnimal ) { // Check if the object is an instance of AbstractAnimal
                     AbstractOrganism[] neighbors = new AbstractOrganism[4];
                     if (i == 0) {
                         neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
@@ -205,8 +205,6 @@ public class Simulation implements Runnable {
                     }
 
                     moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
-                } else {
-                    break; // Break from the loop if the object is not an instance of AbstractAnimal
                 }
             }
         }
