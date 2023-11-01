@@ -2,8 +2,12 @@
 
 # Life Simulator
 
-Life Simulator is an interactive ecosystem simulation of the complex relationships between organisms in various ecosystems, including reproduction, death, hunger, and dynamic weather patterns. The ecosystem simulation is an innovative, immersive, and hands-on experience in which users can customize parameters like population sizes, species interactions, and weather patterns to simulate specific ecosystems and study the effects of different variables. The aim of Life Simulator is to bring the wonders of the natural world to users' fingertips and contribute to a greater understanding of our interconnected ecosystems.
-It's currently on version **0.5.0**.
+Life Simulator is an interactive ecosystem simulation of the complex relationships between organisms in various 
+ecosystems, including reproduction, death, hunger, and dynamic weather patterns. The ecosystem simulation is an 
+innovative, immersive, and hands-on experience in which users can customize parameters like population sizes, species 
+interactions, and weather patterns to simulate specific ecosystems and study the effects of different variables. The aim 
+of Life Simulator is to bring the wonders of the natural world to users' fingertips and contribute to a greater 
+understanding of our interconnected ecosystems. It's currently on version **0.5.0**.
 
 <details>
 <summary>Table of Contents</summary>
@@ -75,9 +79,12 @@ We have 5 different terminal flags currently:
 * --<organism-name>_count #
 
 Example of Usage: --Rabbit_count 33
-This flag spawns an initial amount of rabbits in the simulation, the value is capped to 9999999. Negative values don't work.
-It also only works with currently implemented animals, those being:
-Rabbit
+This flag spawns an initial amount of rabbits in the simulation, the value is capped to 9999999. Negative values don't 
+work. It also only works with currently implemented animals, those being:
+
+* Rabbit
+* Fox
+
 
 * --grid_width #
 
@@ -97,7 +104,8 @@ This flag sets how many days the simulation will last, the value is capped to 99
 * --steps_per_day #
 
 Example of Usage: --steps_per_day 10
-This flag sets how many time steps will occur per simulation day, the value is capped to 9999999. Negative values don't work.
+This flag sets how many time steps will occur per simulation day, the value is capped to 9999999. Negative values don't 
+work.
 
 ## Testing
 
@@ -111,7 +119,7 @@ The programs tests can be run by using the following command:
 
 ### TerminalFlagHandler
 
-![TerminalFlagHandler diagram](./doc/UMLdiagrams/TerminalFlagHandler.png)
+![TerminalFlagHandler diagram](doc/UMLdiagrams/TerminalFlagHandler.png)
 
 The TerminalFlagHandler depends on the **OrganismFactory** to properly create organisms within the grid for it's 
 **InitialOrganismCountFlagHandler**. It is an abstract class. Concrete classes that extend it include 
@@ -120,11 +128,12 @@ The TerminalFlagHandler depends on the **OrganismFactory** to properly create or
 and modifying it to make and save the changes. They use regex to pick out the flags and know when and how they're 
 supposed to make those changes.
 
-This component is based upon the [Chain of Responsibility](https://www.oodesign.com/chain-of-responsibility-pattern) design pattern from [oodesign.com](https://www.oodesign.com/).
+This component is based upon the [Chain of Responsibility](https://www.oodesign.com/chain-of-responsibility-pattern) 
+design pattern from [oodesign.com](https://www.oodesign.com/).
 
 ### OrganismFactory
 
-![OrganismFactory diagram](./doc/UMLdiagrams/OrganismFactory.png)
+![OrganismFactory diagram](doc/UMLdiagrams/OrganismFactory.png)
 
 The OrganismFactory is a singleton which registers organisms into itself via an instance and a string. It then creates a 
 new object from the internal instance when asked to create one with the required string ID.
@@ -134,6 +143,4 @@ It is based on the [Factory](https://www.oodesign.com/factory-pattern) design pa
 
 ## License
 
-This project is distributed under the terms of the MIT license.
-
-See [LICENSE](LICENSE) for details.
+This project is distributed under the terms of the MIT license. See [LICENSE](LICENSE) for details.
