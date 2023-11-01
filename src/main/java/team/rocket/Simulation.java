@@ -35,7 +35,7 @@ public class Simulation implements Runnable {
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
     // private FlagHandler flagHandler = new GridSizeFlagHandler();
     private boolean mapIsFull = false;
-    private int breedChance = 50; //the % chance that two animals will breed
+    private int breedChance = 25; //the % chance that two animals will breed
 
     private boolean printOutput = true;
 
@@ -126,23 +126,12 @@ public class Simulation implements Runnable {
 
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
-                            // Breed the animals
-                            for (int k = 0; k < map.getHeight(); k++) { // Iterates through each row of the grid
-                                for (int l = 0; l < map.getWidth(); l++) { // Iterates through each column of the grid
-                                    if (map.getOrganism(k, l) == null) { // If the current grid space is empty
-                                        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), k, l);
-                                        rabbitsBred++;
-                                        hasBred = true;
-                                    }
-
-                                    if (rabbitsBred > expectedBreeds || hasBred) {
-                                        break;
-                                    }
-                                }
-
-                                if (rabbitsBred > expectedBreeds || hasBred) {
-                                    break;
-                                }
+                            // Breed the animals in the closest available tile
+                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
+                            if (closestEmptyTile != null) {
+                                map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
+                                rabbitsBred++;
+                                hasBred = true;
                             }
                         }
                     }
@@ -158,6 +147,25 @@ public class Simulation implements Runnable {
                 }
             }
         } // End of grid iteration
+    }
+
+    // Finds the closest empty tile to the specified coordinates
+    private int[] findClosestEmptyTile(Map map, int y, int x) {
+        int[] closestEmptyTile = null;
+        int minDistance = Integer.MAX_VALUE;
+
+        for (int i = 0; i < map.getHeight(); i++) {
+            for (int j = 0; j < map.getWidth(); j++) {
+                if (map.getOrganism(i, j) == null) {
+                    int distance = Math.abs(i - y) + Math.abs(j - x);
+                    if (distance < minDistance) {
+                        minDistance = distance;
+                        closestEmptyTile = new int[]{i, j};
+                    }
+                }
+            }
+        }
+        return closestEmptyTile;
     }
 
     /**
