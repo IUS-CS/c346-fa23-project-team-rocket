@@ -117,29 +117,7 @@ The programs tests can be run by using the following command:
 
 ## Program Structure
 
-### TerminalFlagHandler
-
-![TerminalFlagHandler diagram](doc/UMLdiagrams/TerminalFlagHandler.png)
-
-The TerminalFlagHandler depends on the **OrganismFactory** to properly create organisms within the grid for it's 
-**InitialOrganismCountFlagHandler**. It is an abstract class. Concrete classes that extend it include 
-**GridSizeFlagHandler**, the **InitialOrganismCountFlagHandler**, **DaysPerRunFlagHandler**, and 
-**TimeStepsPerDayFlagHandler** which all do as their names imply. They work by taking the internal values of the request 
-and modifying it to make and save the changes. They use regex to pick out the flags and know when and how they're 
-supposed to make those changes.
-
-This component is based upon the [Chain of Responsibility](https://www.oodesign.com/chain-of-responsibility-pattern) 
-design pattern from [oodesign.com](https://www.oodesign.com/).
-
-### OrganismFactory
-
-![OrganismFactory diagram](doc/UMLdiagrams/OrganismFactory.png)
-
-The OrganismFactory is a singleton which registers organisms into itself via an instance and a string. It then creates a 
-new object from the internal instance when asked to create one with the required string ID.
-
-It is based on the [Factory](https://www.oodesign.com/factory-pattern) design pattern and 
-[Singleton](https://www.oodesign.com/singleton-pattern) design pattern from [oodesign.com](https://www.oodesign.com/).
+For information about the program structure see [architecture.md](doc/architecture.md).
 
 ## License
 
