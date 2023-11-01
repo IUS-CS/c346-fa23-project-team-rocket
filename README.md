@@ -20,8 +20,6 @@ understanding of our interconnected ecosystems. It's currently on version **0.5.
   * [Terminal Flags](#terminal-flags)
 * [Testing](#testing)
 * [Program Structure](#program-structure)
-  * [TerminalFlagHandler](#terminalflaghandler)
-  * [OrganismFactory](#organismfactory)
 * [License](#license)
 
 </details>
