@@ -5,6 +5,17 @@ It's currently on version **0.5.0**.
 
 ## Installation
 
+### Dependencies
+
+Make sure you have installed the dependencies:
+* `java` 17
+* `git`
+
+### Building
+
+To build this project:
+* Run `git clone https://github.com/IUS-CS/c346-fa23-project-team-rocket`
+
 Run `./gradlew build` from the project root directory to build it. The jar can be found in the build/libs directory.
 
 ## Testing
