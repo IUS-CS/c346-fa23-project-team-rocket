@@ -9,7 +9,7 @@ import java.util.Random;
  * @since 0.4.0
  * @version 0.4.0
  */
-public class Fox extends AbstractAnimal{
+public class Fox extends AbstractAnimal {
     private static final char icon = 'F';
     private static int count = 0;
     private boolean hasMoved;
@@ -17,7 +17,7 @@ public class Fox extends AbstractAnimal{
     private int hunger;
     private int nutrition = 0;
 
-    public Fox(){
+    public Fox() {
         count++;
         hasMoved = true;
         hasBred = true;
@@ -26,42 +26,47 @@ public class Fox extends AbstractAnimal{
 
     /**
      * gets the icon from an instance
+     *
      * @return the icon of the organism
      */
-    public char instancedToIcon(){return icon;}
+    public char instancedToIcon() {
+        return icon;
+    }
 
     /**
      * @return team.rocket.Entities.Fox's icon as a character
      */
-    public static char toIcon(){
+    public static char toIcon() {
         return icon;
     }
 
     /**
      * @return current Fox count
      */
-    public static int getCount(){
+    public static int getCount() {
         return count;
     }
 
     /**
      * @return Fox's current hunger
      */
-    public int getHunger(){return hunger;}
+    public int getHunger() {
+        return hunger;
+    }
 
     /**
      * @return Fox nutrition
      */
-    public int getNutrition(){
+    public int getNutrition() {
         return nutrition;
     }
 
     /**
      * decreases Fox's hunger meter
      */
-    public void reduceHunger(){
-        hunger-=10;
-        if (hunger < 0){
+    public void reduceHunger() {
+        hunger -= 10;
+        if (hunger < 0) {
             hunger = 0;
         }
     }
@@ -85,12 +90,13 @@ public class Fox extends AbstractAnimal{
     /**
      * Creates new Fox
      */
-    public void breed(){} //not yet implemented
+    public void breed() {
+    } //not yet implemented
 
     /**
      * Resets hasMoved to false, meant to be used to reset movement each day
      */
-    public void resetMove(){
+    public void resetMove() {
         hasMoved = false;
     }
 
@@ -102,22 +108,23 @@ public class Fox extends AbstractAnimal{
     /**
      * Resets hasBred to false, meant to be used to reset breeding each day
      */
-    public void resetBreeding(){
+    public void resetBreeding() {
         hasBred = false;
     }
 
     /**
      * Takes array of a team.rocket.Entities.Fox's neighbors, randomly chooses an available space, and returns corresponding direction
+     *
      * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
-    public Direction availableMovementSpace(AbstractOrganism[] neighbors){
+    public Direction availableMovementSpace(AbstractOrganism[] neighbors) {
         int i = 0; //tracks iterations of for loop
         int freeSpaceCount = 0; //stores number of free adjacent spaces
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
 
-        for(i = 0; i < 4; i++){
-            if(neighbors[i] == null || neighbors[i].toIcon() == 'R'){
+        for (i = 0; i < 4; i++) {
+            if (neighbors[i] == null || neighbors[i].toIcon() == 'R') {
                 switch (i) { //identifies which direction is being evaluated
                     case 0 -> {
                         freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
@@ -139,30 +146,32 @@ public class Fox extends AbstractAnimal{
             }
         }
 
-        if(freeSpaceCount==0){ //returns null in case of no free spaces
+        if (freeSpaceCount == 0) { //returns null in case of no free spaces
             return null;
         }
-        if(freeSpaceCount==1){
+        if (freeSpaceCount == 1) {
             return freeSpaces[0];
-        }
-        else{
+        } else {
             return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
     }
 
     /**
      * Moves Fox in grid based on current position, available movement space, and past movement
-     * @param map map of simulation
-     * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
-     * @param y - y position of Fox in grid
-     * @param x - x position of Fox in grid
+     *
+     * @param map       map of simulation
+     * @param y         - y position of Fox in grid
+     * @param x         - x position of Fox in grid
      */
-    public void move(Map map, AbstractOrganism[] neighbors, int y, int x) {
+    public void move(Map map, int y, int x) {
         if (hasMoved) {
             return;
         }
+
         int newX = x;
         int newY = y;
+
+        AbstractOrganism[] neighbors = findNeighbors(map);
 
         Direction direction = this.availableMovementSpace(neighbors);
 
@@ -197,5 +206,44 @@ public class Fox extends AbstractAnimal{
             map.removeOrganism(row, column);
             hunger += org.getNutrition();
         }
+    }
+
+    public AbstractOrganism[] findNeighbors(Map map) {
+        AbstractOrganism[] neighbors = new AbstractOrganism[4];
+        for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
+            for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
+                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
+                    if (i == 0) {
+                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
+                    } else {
+                        neighbors[0] = map.getOrganism(i - 1, j);
+                    }
+
+                    if (i == map.getHeight() - 1) {
+                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[1].reduceCount();
+                    } else {
+                        neighbors[1] = map.getOrganism(i + 1, j);
+                    }
+
+                    if (j == 0) {
+                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[2].reduceCount();
+                    } else {
+                        neighbors[2] = map.getOrganism(i, j - 1);
+                    }
+
+                    if (j == map.getWidth() - 1) {
+                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[3].reduceCount();
+                    } else {
+                        neighbors[3] = map.getOrganism(i, j + 1);
+                    }
+
+                }
+            }
+        }
+        return neighbors;
     }
 }

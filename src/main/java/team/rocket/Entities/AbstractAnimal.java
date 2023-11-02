@@ -50,11 +50,10 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     /**
      * Moves Animal in grid based on current position, available movement space, and past movement
      * @param map map of simulation
-     * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @param y - y position of Rabbit in grid
      * @param x - x position of Rabbit in grid
      */
-    public abstract void move(Map map, AbstractOrganism[] neighbors, int y, int x);
+    public abstract void move(Map map, int y, int x);
 
     /**
      * @return nutrition
