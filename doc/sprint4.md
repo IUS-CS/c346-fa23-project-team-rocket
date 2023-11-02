@@ -52,4 +52,5 @@ As a team we will...
 Points | Story
 -------|--------
 0      | Change program version
+2      | Write sprint4.md
 
