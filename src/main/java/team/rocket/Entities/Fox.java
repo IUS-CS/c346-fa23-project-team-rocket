@@ -117,7 +117,7 @@ public class Fox extends AbstractAnimal{
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
 
         for(i = 0; i < 4; i++){
-            if(neighbors[i] == null){
+            if(neighbors[i] == null || neighbors[i].toIcon() == 'R'){
                 switch (i) { //identifies which direction is being evaluated
                     case 0 -> {
                         freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
@@ -185,6 +185,7 @@ public class Fox extends AbstractAnimal{
         if (direction == Direction.RIGHT) {
             newX++;
         }
+        this.eat(map, newY, newX);
         map.getGrid()[y][x] = null;
         map.getGrid()[newY][newX] = this;
         hasMoved = true;
