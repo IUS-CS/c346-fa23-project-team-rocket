@@ -24,9 +24,9 @@ This sprint, we completed:
 
 Here are screenshots of what we did:
 
-[Pathfinding flow](/doc/s4pics/pathfinding_flow.png)
-[Github actions test](/doc/s4pics/Githubactions_S4.png)
-[Updated README.md](/doc/s4pics/updatedReadme_S4.png)
+![Pathfinding flow](/doc/s4pics/pathfinding_flow.png)
+![Github actions test](/doc/s4pics/Githubactions_S4.png)
+![Updated README.md](/doc/s4pics/updatedReadme_S4.png)
 
 
 
