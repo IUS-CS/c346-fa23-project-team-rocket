@@ -131,7 +131,7 @@ public class Rabbit extends AbstractAnimal{
      * @param y - y position of Rabbit in grid
      * @param x - x position of Rabbit in grid
      */
-    public void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x) {
+    public void move(AbstractOrganism[][] grid, AbstractOrganism[] neighbors, int y, int x) {
         if (hasMoved) {
             return;
         }

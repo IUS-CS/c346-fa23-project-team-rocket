@@ -157,7 +157,7 @@ public class Fox extends AbstractAnimal{
      * @param y - y position of Fox in grid
      * @param x - x position of Fox in grid
      */
-    public void move(AbstractAnimal grid[][], AbstractAnimal[] neighbors, int y, int x) {
+    public void move(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x) {
         if (hasMoved) {
             return;
         }
