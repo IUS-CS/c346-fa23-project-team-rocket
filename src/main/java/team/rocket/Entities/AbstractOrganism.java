@@ -7,6 +7,7 @@ package team.rocket.Entities;
 public abstract class AbstractOrganism {
     private static char icon;
     private static int count;
+    private static int nutrition;
 
     /**
      * @return Organism's icon as a character
@@ -45,5 +46,10 @@ public abstract class AbstractOrganism {
      * @return a fresh new not-copied AbstractOrganism
      */
     public abstract AbstractOrganism getNewObjectFromExistingObject();
+
+    /**
+     * @return nutrition
+     */
+    public abstract int getNutrition();
 
 }

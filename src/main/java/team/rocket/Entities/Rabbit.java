@@ -14,12 +14,16 @@ public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;
     private boolean hasMoved;
-    private int food;
+    private boolean hasBred;
+    private int hunger;
     private static int deathFood = 0;
-    private static int foodIncrement = 1;
+    private static int nutrition = 10;
 
     public Rabbit(){
         count++;
+        hasMoved = true;
+        hasBred = true;
+        hunger = 100; //100 is full, 0 is empty
     }
 
     /**
@@ -47,6 +51,12 @@ public class Rabbit extends AbstractAnimal{
         count = i;
     }
 
+    /**
+     * @return Rabbit nutrition
+     */
+    public int getNutrition(){
+        return nutrition;
+    }
 
     @Override
     public void reduceCount() {
@@ -155,11 +165,14 @@ public class Rabbit extends AbstractAnimal{
     }
 
     public boolean isStarving() {
-        return food < deathFood;
+        return hunger < deathFood;
     }
 
     public void eat(Map map, int row, int column) {
-        map.removeOrganism(row, column);
-        food += foodIncrement;
+        AbstractOrganism org = map.getGrid()[row][column];
+        if (org.toIcon() == 'C' || org.toIcon() == 'G') {
+            map.removeOrganism(row, column);
+            hunger += org.getNutrition();
+        }
     }
 }

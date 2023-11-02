@@ -8,6 +8,7 @@ public abstract class AbstractPlant extends AbstractOrganism{
     private static char icon;
     private static int count;
     private boolean hasGrown;
+    private static int nutrition;
 
 
     /**
@@ -58,5 +59,10 @@ public abstract class AbstractPlant extends AbstractOrganism{
      * Creates new Organism
      */
     public abstract void grow(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x);
+
+    /**
+     * @return nutrition
+     */
+    public abstract int getNutrition();
 
 }

@@ -1,6 +1,7 @@
 package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
+import team.rocket.Map;
 
 import java.util.Random;
 
@@ -14,6 +15,7 @@ public class Fox extends AbstractAnimal{
     private boolean hasMoved;
     private boolean hasBred;
     private int hunger;
+    private int nutrition = 0;
 
     public Fox(){
         count++;
@@ -48,22 +50,19 @@ public class Fox extends AbstractAnimal{
     public int getHunger(){return hunger;}
 
     /**
+     * @return Fox nutrition
+     */
+    public int getNutrition(){
+        return nutrition;
+    }
+
+    /**
      * decreases Fox's hunger meter
      */
     public void reduceHunger(){
         hunger-=10;
         if (hunger < 0){
             hunger = 0;
-        }
-    }
-
-    /**
-     * increases Fox's hunger meter
-     */
-    public void eat() {
-        hunger+=10;
-        if (hunger > 100){
-            hunger = 100;
         }
     }
 
@@ -189,5 +188,13 @@ public class Fox extends AbstractAnimal{
             grid[y][x+1] = this;
         }
         hasMoved = true;
+    }
+
+    public void eat(Map map, int row, int column) {
+        AbstractOrganism org = map.getGrid()[row][column];
+        if (org.toIcon() == 'R') {
+            map.removeOrganism(row, column);
+            hunger += org.getNutrition();
+        }
     }
 }
