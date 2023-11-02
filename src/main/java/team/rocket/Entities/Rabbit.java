@@ -138,7 +138,7 @@ public class Rabbit extends AbstractAnimal{
         int newX = x;
         int newY = y;
 
-        AbstractOrganism[] neighbors = findNeighbors(map);
+        AbstractOrganism[] neighbors = findNeighbors(map, y, x);
 
         Direction direction = this.availableMovementSpace(neighbors);
 
@@ -174,47 +174,41 @@ public class Rabbit extends AbstractAnimal{
     public void eat(Map map, int row, int column) {
         AbstractOrganism org = map.getGrid()[row][column];
         if (org.toIcon() == 'C' || org.toIcon() == 'G') {
-            map.removeOrganism(row, column);
             hunger += org.getNutrition();
+            map.removeOrganism(row, column);
         }
     }
 
-    public AbstractOrganism[] findNeighbors(Map map) {
+    public AbstractOrganism[] findNeighbors(Map map, int y, int x) {
         AbstractOrganism[] neighbors = new AbstractOrganism[4];
-        for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
-            for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
-                    if (i == 0) {
-                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
-                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
-                    } else {
-                        neighbors[0] = map.getOrganism(i - 1, j);
-                    }
-
-                    if (i == map.getHeight() - 1) {
-                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[1].reduceCount();
-                    } else {
-                        neighbors[1] = map.getOrganism(i + 1, j);
-                    }
-
-                    if (j == 0) {
-                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[2].reduceCount();
-                    } else {
-                        neighbors[2] = map.getOrganism(i, j - 1);
-                    }
-
-                    if (j == map.getWidth() - 1) {
-                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[3].reduceCount();
-                    } else {
-                        neighbors[3] = map.getOrganism(i, j + 1);
-                    }
-
-                }
-            }
+        if (y == 0) {
+            neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+            neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
+        } else {
+            neighbors[0] = map.getOrganism(y - 1, x);
         }
+
+        if (y == map.getHeight() - 1) {
+            neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[1].reduceCount();
+        } else {
+            neighbors[1] = map.getOrganism(y + 1, x);
+        }
+
+        if (x == 0) {
+            neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[2].reduceCount();
+        } else {
+            neighbors[2] = map.getOrganism(y, x - 1);
+        }
+
+        if (x == map.getWidth() - 1) {
+            neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[3].reduceCount();
+        } else {
+            neighbors[3] = map.getOrganism(y, x + 1);
+        }
+
         return neighbors;
     }
 }
