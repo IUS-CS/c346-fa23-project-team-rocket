@@ -152,15 +152,17 @@ public class Fox extends AbstractAnimal{
 
     /**
      * Moves Fox in grid based on current position, available movement space, and past movement
-     * @param grid 2D array holding all Organisms in simulation
+     * @param map map of simulation
      * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @param y - y position of Fox in grid
      * @param x - x position of Fox in grid
      */
-    public void move(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x) {
+    public void move(Map map, AbstractOrganism[] neighbors, int y, int x) {
         if (hasMoved) {
             return;
         }
+        int newX = x;
+        int newY = y;
 
         Direction direction = this.availableMovementSpace(neighbors);
 
@@ -169,24 +171,22 @@ public class Fox extends AbstractAnimal{
         }
 
         if (direction == Direction.UP) {
-            grid[y][x] = null;
-            grid[y-1][x] = this;
+            newY--;
         }
 
         if (direction == Direction.DOWN) {
-            grid[y][x] = null;
-            grid[y+1][x] = this;
+            newY++;
         }
 
         if (direction == Direction.LEFT) {
-            grid[y][x] = null;
-            grid[y][x-1] = this;
+            newX--;
         }
 
         if (direction == Direction.RIGHT) {
-            grid[y][x] = null;
-            grid[y][x+1] = this;
+            newX++;
         }
+        map.getGrid()[y][x] = null;
+        map.getGrid()[newY][newX] = this;
         hasMoved = true;
     }
 
