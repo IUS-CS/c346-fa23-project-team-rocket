@@ -103,13 +103,11 @@ public class Rabbit extends AbstractAnimal{
                     }
                 }
             }
+
         }
 
         if(freeSpaceCount==0){ //returns null in case of no free spaces
             return null;
-        }
-        if(freeSpaceCount==1){
-            return freeSpaces[0];
         }
         else{
             return freeSpaces[RandomManager.getRandom().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
