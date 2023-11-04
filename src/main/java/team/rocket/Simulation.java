@@ -7,6 +7,7 @@ import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Enums.Direction;
 import team.rocket.IO.UI;
+import team.rocket.util.RandomManager;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -41,7 +42,6 @@ public class Simulation implements Runnable {
 
     private boolean printOutput = true;
 
-    public static final Random random= new Random();
 
      //Holds all of the useful one-off offsets
      private static final int[][] offsetArray = {
@@ -137,7 +137,7 @@ public class Simulation implements Runnable {
                             (j > 0 && map.getOrganism(i, j - 1) != null) || (j < map.getWidth() - 1 && map.getOrganism(i, j + 1) != null)) {
 
                         // Generate a random value between 0 and 99
-                        randomValue = random.nextInt(100);
+                        randomValue = RandomManager.getRandom().nextInt(100);
 
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
