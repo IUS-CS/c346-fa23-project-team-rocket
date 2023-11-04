@@ -2,6 +2,7 @@ package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
 import team.rocket.Map;
+import team.rocket.Simulation;
 
 import java.util.Random;
 
@@ -110,7 +111,7 @@ public class Rabbit extends AbstractAnimal{
             return freeSpaces[0];
         }
         else{
-            return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
+            return freeSpaces[Simulation.random.nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
     }
 

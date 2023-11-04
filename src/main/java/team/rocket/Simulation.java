@@ -40,7 +40,7 @@ public class Simulation implements Runnable {
 
     private boolean printOutput = true;
 
-    private Random random= new Random();
+    public static final Random random= new Random();
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
