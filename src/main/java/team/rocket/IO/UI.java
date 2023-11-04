@@ -1,7 +1,9 @@
-package team.rocket;
+package team.rocket.IO;
 
 import team.rocket.Entities.*;
-import team.rocket.Handlers.Terminal.*;
+import team.rocket.IO.Terminal.*;
+import team.rocket.Map;
+import team.rocket.Simulation;
 
 import java.lang.Thread;
 import java.util.Scanner;
@@ -15,7 +17,9 @@ import java.util.Scanner;
  */
 public class UI {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+
+        Thread.sleep(5000);
         //Prepares the factories for construction
         setupOrganismFactory();
 
@@ -64,32 +68,31 @@ public class UI {
     public static void outputGrid(int currentDay, Map map) {
         System.out.println("Day " + currentDay);
 
-        // Print upper edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
+        // constructs a var representing upper edge and prints it
+        String verticalBorder = "-" +
+                "--".repeat(Math.max(0, map.getWidth() + 1));
+
+        System.out.println(verticalBorder);
 
         for (int i = 0; i < map.getHeight(); i++) {
             System.out.print("| "); // Print left edge
             for (int j = 0; j < map.getWidth(); j++) {
+                String row = "";
                 if (map.getOrganism(i, j) != null) {
-                    System.out.print(map.getOrganism(i, j).instancedToIcon() + " "); // Prints an icon where an entity is present
+                   row+=(map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
                 } else {
-                    System.out.print("  "); // Print an empty space if there's no animal
+                    row+=("  "); // append an empty space if there's no animal
                 }
+                System.out.print(row);
             }
             System.out.println("|"); // Print right edge
         }
 
         // Print lower edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
+        System.out.println(verticalBorder);
     }
+
+
 
     static private void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();

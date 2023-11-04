@@ -1,4 +1,4 @@
-package team.rocket.Handlers.Terminal;
+package team.rocket.IO.Terminal;
 
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Map;

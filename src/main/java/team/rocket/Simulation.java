@@ -5,14 +5,15 @@ import java.lang.Runnable;
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
-import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
+import team.rocket.IO.UI;
+
 import java.util.Random;
 /*
-import team.rocket.Handlers.Terminal.FlagHandler;
-import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
-import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
-import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+import team.rocket.IO.Terminal.FlagHandler;
+import team.rocket.IO.Terminal.GridSizeFlagHandler;
+import team.rocket.IO.Terminal.InitialOrganismCountFlagHandler;
+import team.rocket.IO.Terminal.TerminalFlagRequest;
  */
 
 /**
