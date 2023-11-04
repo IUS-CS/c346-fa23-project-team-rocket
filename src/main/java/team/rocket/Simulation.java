@@ -8,6 +8,7 @@ import team.rocket.Entities.OrganismFactory;
 import team.rocket.Enums.Direction;
 import team.rocket.IO.UI;
 
+import java.util.Arrays;
 import java.util.Random;
 /*
 import team.rocket.IO.Terminal.FlagHandler;
@@ -41,6 +42,18 @@ public class Simulation implements Runnable {
     private boolean printOutput = true;
 
     public static final Random random= new Random();
+
+     //Holds all of the useful one-off offsets
+     private static final int[][] offsetArray = {
+            {1, 1},
+            {1, 0},
+            {1, -1},
+            {0, 1},
+            {0, -1},
+            {-1, 1},
+            {-1, 0},
+            {-1, -1}
+    };
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -130,7 +143,7 @@ public class Simulation implements Runnable {
                         if (randomValue < breedChance) {
                             // Breed the animals in the closest available tile
                             int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
-                            if (closestEmptyTile != null) {
+                            if (!Arrays.equals(closestEmptyTile, new int[0])) {
                                 map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
                                 rabbitsBred++;
                                 hasBred = true;
@@ -162,19 +175,7 @@ public class Simulation implements Runnable {
      * @return an array with the y position then the x position
      */
     private int[] findClosestEmptyTile(Map map, int y, int x) {
-        int[] closestEmptyTile = null;
 
-        //Holds all of the useful one-off offsets
-        int[][] offsetArray = {
-                {1, 1},
-                {1, 0},
-                {1, -1},
-                {0, 1},
-                {0, -1},
-                {-1, 1},
-                {-1, 0},
-                {-1, -1}
-        };
 
         for(int[] offset: offsetArray){
             int offsetY = y + offset[0];
@@ -184,7 +185,7 @@ public class Simulation implements Runnable {
                 return new int[]{offsetX, offsetY};
             }
         }
-        return null;
+        return new int[0];
     }
 
     /**
