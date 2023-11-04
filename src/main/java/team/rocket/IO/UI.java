@@ -23,7 +23,6 @@ public class UI {
         //Prepares the factories for construction
         setupOrganismFactory();
 
-        Scanner input = new Scanner(System.in);
         Simulation simulation;
         //If args length == 1 make a map from terminal flags and create simulation that way
         if(args.length == 1){
@@ -66,16 +65,17 @@ public class UI {
      * Outputs the current Grid with boundaries and letter representations for the animals
      */
     public static void outputGrid(int currentDay, Map map) {
-        System.out.println("Day " + currentDay);
+        System.out.println("\n"+"Day " + currentDay);
 
         // constructs a var representing upper edge and prints it
         String verticalBorder = "-" +
                 "--".repeat(Math.max(0, map.getWidth() + 1));
 
-        System.out.println(verticalBorder);
+        StringBuilder grid = new StringBuilder(verticalBorder + "\n");
+
 
         for (int i = 0; i < map.getHeight(); i++) {
-            System.out.print("| "); // Print left edge
+            grid.append("| ");
             for (int j = 0; j < map.getWidth(); j++) {
                 String row = "";
                 if (map.getOrganism(i, j) != null) {
@@ -83,18 +83,19 @@ public class UI {
                 } else {
                     row+=("  "); // append an empty space if there's no animal
                 }
-                System.out.print(row);
+                grid.append(row);
             }
-            System.out.println("|"); // Print right edge
+            grid.append("|\n"); // Print right edge
         }
 
         // Print lower edge
-        System.out.println(verticalBorder);
+        grid.append(verticalBorder).append("\n");
+
+        System.out.print(grid);
     }
 
 
-
-    static private void setupOrganismFactory(){
+    private static void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();
         //Register organisms so that they can be created
         organismFactory.registerOrganism("Rabbit", new Rabbit());
