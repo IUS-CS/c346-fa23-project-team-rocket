@@ -40,6 +40,8 @@ public class Simulation implements Runnable {
 
     private boolean printOutput = true;
 
+    private Random random= new Random();
+
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
      *
@@ -109,7 +111,6 @@ public class Simulation implements Runnable {
         Map oldMap = map; // A copy of the current map
         boolean hasBred; // Indicates if the animal in the current grid space has bred yet
 
-        Random random = new Random();
         int randomValue;
 
         /* Looks for an organism to breed */
@@ -151,22 +152,39 @@ public class Simulation implements Runnable {
     }
 
     // Finds the closest empty tile to the specified coordinates
+
+    /**
+     * finds the closest empty tile to position y, x in the grid
+     * only searchs within 1 tile orthogonally and diagonally
+     * @param map the map to search
+     * @param y the center y position
+     * @param x the center x position
+     * @return an array with the y position then the x position
+     */
     private int[] findClosestEmptyTile(Map map, int y, int x) {
         int[] closestEmptyTile = null;
-        int minDistance = Integer.MAX_VALUE;
 
-        for (int i = 0; i < map.getHeight(); i++) {
-            for (int j = 0; j < map.getWidth(); j++) {
-                if (map.getOrganism(i, j) == null) {
-                    int distance = Math.abs(i - y) + Math.abs(j - x);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestEmptyTile = new int[]{i, j};
-                    }
-                }
+        //Holds all of the useful one-off offsets
+        int[][] offsetArray = {
+                {1, 1},
+                {1, 0},
+                {1, -1},
+                {0, 1},
+                {0, -1},
+                {-1, 1},
+                {-1, 0},
+                {-1, -1}
+        };
+
+        for(int[] offset: offsetArray){
+            int offsetY = y + offset[0];
+            int offsetX = x + offset[1];
+
+            if(!(offsetX < 0 || offsetX > map.getWidth() - 1) && !(offsetY < 0 || offsetY > map.getHeight() - 1) && map.getOrganism(offsetX, offsetY) == null){
+                return new int[]{offsetX, offsetY};
             }
         }
-        return closestEmptyTile;
+        return null;
     }
 
     /**
