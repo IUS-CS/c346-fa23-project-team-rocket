@@ -7,6 +7,7 @@ import team.rocket.Simulation;
 
 import java.lang.Thread;
 import java.util.Scanner;
+import java.util.concurrent.Executors;
 
 /**
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
@@ -16,6 +17,8 @@ import java.util.Scanner;
  *  * @since 0.1.0
  */
 public class UI {
+
+    private static Thread uiThread;
 
     public static void main(String[] args) throws InterruptedException {
 
@@ -65,38 +68,47 @@ public class UI {
      * Outputs the current Grid with boundaries and letter representations for the animals
      */
     public static void outputGrid(int currentDay, Map map) {
-        new Thread(() -> {
-            System.out.println("\n" + "Day " + currentDay);
+        Thread t1 = new Thread(() -> {
 
-            // constructs a var representing upper edge and prints it
-            String verticalBorder = "-" +
-                    "--".repeat(Math.max(0, map.getWidth() + 1));
+	    System.out.println("\n" + "Day " + currentDay);
+	    System.out.print(gridString(map));
 
-            StringBuilder grid = new StringBuilder(verticalBorder + "\n");
-
-
-            for (int i = 0; i < map.getHeight(); i++) {
-                grid.append("| ");
-                for (int j = 0; j < map.getWidth(); j++) {
-                    String row = "";
-                    if (map.getOrganism(i, j) != null) {
-                        row += (map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
-                    } else {
-                        row += ("  "); // append an empty space if there's no animal
-                    }
-                    grid.append(row);
-                }
-                grid.append("|\n"); // Print right edge
-            }
-
-            // Print lower edge
-            grid.append(verticalBorder).append("\n");
-
-            System.out.print(grid);
-
-        }).start();
+	});
+        t1.start();
     }
 
+
+    /**
+     * Constructs a string from the map with some formatting
+     * @param map the map to be turned into a string
+     * @return the newly made and formatted string
+     */
+    private static String gridString(Map map){
+        // constructs a var representing upper edge and prints it
+        String verticalBorder = "-" +
+                "--".repeat(Math.max(0, map.getWidth() + 1));
+
+        StringBuilder grid = new StringBuilder(verticalBorder + "\n");
+
+
+        for (int i = 0; i < map.getHeight(); i++) {
+            grid.append("| ");
+            for (int j = 0; j < map.getWidth(); j++) {
+                String row = "";
+                if (map.getOrganism(i, j) != null) {
+                    row += (map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
+                } else {
+                    row += ("  "); // append an empty space if there's no animal
+                }
+                grid.append(row);
+            }
+            grid.append("|\n"); // Print right edge
+        }
+
+        // Print lower edge
+        grid.append(verticalBorder).append("\n");
+        return String.valueOf(grid);
+    }
 
     private static void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();

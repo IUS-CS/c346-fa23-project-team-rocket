@@ -108,6 +108,8 @@ public class Simulation implements Runnable {
             if (mapIsFull) {
                 return;
             }
+            //print out map
+            if(printOutput) UI.outputGrid(currentDay, map);
 
             long currentTime = TimeManager.getCurrentTime();
             //Only sleep if computation time didn't take long enough
@@ -121,7 +123,6 @@ public class Simulation implements Runnable {
                 }
             }
 
-           if(printOutput) UI.outputGrid(currentDay, map);
         } // End of simulation
         currentDay--; //For loop increments past the stopping date, this fixes that error
         //Decrements ensure that if the simulations step is checked that it isn't on day 11 or timestep 11 since those haven't occurred
