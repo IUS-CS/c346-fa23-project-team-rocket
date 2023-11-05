@@ -113,7 +113,7 @@ public class Fox extends AbstractAnimal{
      * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
-    public Direction availableMovementSpace(Boolean[] neighbors){
+    public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
         int freeSpaceCount = 0; //stores number of free adjacent spaces
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions

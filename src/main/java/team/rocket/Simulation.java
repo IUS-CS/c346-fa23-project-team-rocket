@@ -195,32 +195,33 @@ public class Simulation implements Runnable {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
                 if (map.getOrganism(i, j) instanceof AbstractAnimal ) { // Check if the object is an instance of AbstractAnimal
-                    /**
-                     * 0-3 representing up, down, left, right. if the space is blocked true otherwise false
-                     */
-                    Boolean[] neighbors = new Boolean[4];
+                    AbstractOrganism[] neighbors = new AbstractOrganism[4];
                     if (i == 0) {
-                        neighbors[0] = true; //up is blocked
+                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
                     } else {
-                        neighbors[0] = (map.getOrganism(i - 1, j)==null);
+                        neighbors[0] = map.getOrganism(i - 1, j);
                     }
 
                     if (i == map.getHeight() - 1) {
-                        neighbors[1] = true;
+                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[1].reduceCount();
                     } else {
-                        neighbors[1] = map.getOrganism(i + 1, j)==null;
+                        neighbors[1] = map.getOrganism(i + 1, j);
                     }
 
                     if (j == 0) {
-                        neighbors[2] = true;
+                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[2].reduceCount();
                     } else {
-                        neighbors[2] = map.getOrganism(i, j - 1)==null;
+                        neighbors[2] = map.getOrganism(i, j - 1);
                     }
 
                     if (j == map.getWidth() - 1) {
-                        neighbors[3] = true;
+                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+                        neighbors[3].reduceCount();
                     } else {
-                        neighbors[3] = map.getOrganism(i, j + 1)==null;
+                        neighbors[3] = map.getOrganism(i, j + 1);
                     }
 
                     moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
@@ -237,7 +238,7 @@ public class Simulation implements Runnable {
      * @param y         the vertical movement of the grid
      * @param x         the horizontal movement of the grid
      */
-    private void moveDirection(AbstractAnimal animal, Boolean[] neighbors, int y, int x) {
+    private void moveDirection(AbstractAnimal animal, AbstractOrganism[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
         if(direction!=null){
