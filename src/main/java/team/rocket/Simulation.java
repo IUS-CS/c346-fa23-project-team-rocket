@@ -8,6 +8,7 @@ import team.rocket.Entities.OrganismFactory;
 import team.rocket.Enums.Direction;
 import team.rocket.IO.UI;
 import team.rocket.util.RandomManager;
+import team.rocket.util.TimeManager;
 
 import java.util.Arrays;
 import java.util.Random;
@@ -93,23 +94,32 @@ public class Simulation implements Runnable {
         if(printOutput) UI.outputGrid(0, map);
         breed();        //this make sure that the animals attempt to breed before they move away from each other when the simulation first starts
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
-            for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
+            long startTime = TimeManager.getCurrentTime();
+            int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
 
-                try {
-                    Thread.sleep(millisecondsPerTimeStep);
-                } catch (InterruptedException e) {
-                    System.out.println("There was an unexpected issue with the simulation.");
-                    return;
-                }
+            for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 moveAnimal();
             } // End of current day
+
             currentTimeStep--; //For loop increments past the stopping step, this fixes that error
 
             breed();
+
             if (mapIsFull) {
                 return;
             }
 
+            long currentTime = TimeManager.getCurrentTime();
+            //Only sleep if computation time didn't take long enough
+            if(currentTime < startTime + millisecondsPerDay){
+                try {
+                    Thread.sleep(startTime + millisecondsPerDay-currentTime);
+
+                } catch (InterruptedException e) {
+                    System.out.println("There was an unexpected issue with the simulation.");
+                    return;
+                }
+            }
 
            if(printOutput) UI.outputGrid(currentDay, map);
         } // End of simulation

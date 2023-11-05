@@ -65,33 +65,36 @@ public class UI {
      * Outputs the current Grid with boundaries and letter representations for the animals
      */
     public static void outputGrid(int currentDay, Map map) {
-        System.out.println("\n"+"Day " + currentDay);
+        new Thread(() -> {
+            System.out.println("\n" + "Day " + currentDay);
 
-        // constructs a var representing upper edge and prints it
-        String verticalBorder = "-" +
-                "--".repeat(Math.max(0, map.getWidth() + 1));
+            // constructs a var representing upper edge and prints it
+            String verticalBorder = "-" +
+                    "--".repeat(Math.max(0, map.getWidth() + 1));
 
-        StringBuilder grid = new StringBuilder(verticalBorder + "\n");
+            StringBuilder grid = new StringBuilder(verticalBorder + "\n");
 
 
-        for (int i = 0; i < map.getHeight(); i++) {
-            grid.append("| ");
-            for (int j = 0; j < map.getWidth(); j++) {
-                String row = "";
-                if (map.getOrganism(i, j) != null) {
-                   row+=(map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
-                } else {
-                    row+=("  "); // append an empty space if there's no animal
+            for (int i = 0; i < map.getHeight(); i++) {
+                grid.append("| ");
+                for (int j = 0; j < map.getWidth(); j++) {
+                    String row = "";
+                    if (map.getOrganism(i, j) != null) {
+                        row += (map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
+                    } else {
+                        row += ("  "); // append an empty space if there's no animal
+                    }
+                    grid.append(row);
                 }
-                grid.append(row);
+                grid.append("|\n"); // Print right edge
             }
-            grid.append("|\n"); // Print right edge
-        }
 
-        // Print lower edge
-        grid.append(verticalBorder).append("\n");
+            // Print lower edge
+            grid.append(verticalBorder).append("\n");
 
-        System.out.print(grid);
+            System.out.print(grid);
+
+        }).start();
     }
 
 
