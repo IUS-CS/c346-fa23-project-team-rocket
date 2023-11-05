@@ -94,6 +94,7 @@ public class Simulation implements Runnable {
         breed();        //this make sure that the animals attempt to breed before they move away from each other when the simulation first starts
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
+
                 try {
                     Thread.sleep(millisecondsPerTimeStep);
                 } catch (InterruptedException e) {
@@ -108,6 +109,8 @@ public class Simulation implements Runnable {
             if (mapIsFull) {
                 return;
             }
+
+
            if(printOutput) UI.outputGrid(currentDay, map);
         } // End of simulation
         currentDay--; //For loop increments past the stopping date, this fixes that error
