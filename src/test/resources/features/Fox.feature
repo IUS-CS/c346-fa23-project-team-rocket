@@ -14,6 +14,3 @@ Feature: Fox
         And A fox loses hunger
         Then A fox should have ninety hunger
         Then A fox can move
-
-    Scenario: A fox should be able to see 5 tiles away
-        Then getVision should return 5

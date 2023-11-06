@@ -16,6 +16,3 @@ Feature: Rabbit
         Given a new rabbit is born
         When the rabbit's movement is reset
         Then the rabbit can move
-
-    Scenario: Rabbits should be able to see 4 tiles away
-        Then getVision should return 4

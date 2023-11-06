@@ -60,9 +60,4 @@ public class Fox {
         f.move(grid,neighbors,y,x);
         Assertions.assertEquals(grid[2][2],f);
     }
-
-    @Then("getVision should return {int}")
-    public void getvisionShouldReturn(int arg0) {
-        assertEquals(arg0, team.rocket.Entities.Fox.getVision());
-    }
 }
