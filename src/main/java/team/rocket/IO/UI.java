@@ -6,8 +6,6 @@ import team.rocket.Map;
 import team.rocket.Simulation;
 
 import java.lang.Thread;
-import java.util.Scanner;
-import java.util.concurrent.Executors;
 
 /**
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.

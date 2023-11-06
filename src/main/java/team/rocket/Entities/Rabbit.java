@@ -2,10 +2,6 @@ package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
 import team.rocket.Map;
-import team.rocket.Simulation;
-import team.rocket.util.RandomManager;
-
-import java.util.Random;
 
 import static java.lang.Byte.parseByte;
 import static java.lang.Byte.valueOf;

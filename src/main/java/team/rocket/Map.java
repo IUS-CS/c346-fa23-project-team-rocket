@@ -1,6 +1,8 @@
 package team.rocket;
 
 import team.rocket.Entities.AbstractOrganism;
+import java.util.HashMap;
+import team.rocket.Enums.Direction;
 
 /**
  * A team.rocket.Map contains the information about the arrangement of a set of simulated organisms.
@@ -170,10 +172,66 @@ public class Map {
     }
 
     /**
-     *
-     * @return
+     * Gets the neighbors of the position (x,y)
+     * if a neighbor is a wall then that entry isn't included.
+     * @param x the x coordinate of the position to be checked
+     * @param y the y coordinate of the position to be checked
+     * @return a HashMap with entries of the neighbors with the Directions as keys
      */
-    public AbstractOrganism[] getNeighbors(){
+    public HashMap<Direction, AbstractOrganism> getNeighbors(int x, int y){
+        if(x < 0 || x >= width){
+            throw new IllegalArgumentException("x is outside bounds [0,%d].".formatted(width));
+        } else if (y < 0 || y >= height){
+            throw new IllegalArgumentException("y is outside bounds [0,%d].".formatted(height));
+        }
 
+        HashMap<Direction, AbstractOrganism> returnArrayList = new HashMap<>();
+
+        if(y-1 > 0){
+            returnArrayList.put(Direction.UP, grid[y-1][x]);
+        }
+        if (y+1 < height){
+            returnArrayList.put(Direction.DOWN, grid[y+1][x]);
+        }
+        if (x-1 > 0){
+            returnArrayList.put(Direction.LEFT, grid[y][x-1]);
+        }
+        if (x+1 < width){
+            returnArrayList.put(Direction.RIGHT, grid[y][x+1]);
+        }
+
+        return returnArrayList;
+    }
+
+    /**
+     * Gets the neighbors of the position (x,y) as characters
+     * If a neighbor is a wall, then that entry isn't included.
+     * @param x the x coordinate of the position to be checked
+     * @param y the y coordinate of the position to be checked
+     * @return a HashMap of with entries of the neighbors with directions as keys
+     */
+    public HashMap<Direction, Character> getNeighborsAsCharacter(int x, int y){
+        if(x < 0 || x >= width){
+            throw new IllegalArgumentException("x is outside bounds [0,%d].".formatted(width));
+        } else if (y < 0 || y >= height){
+            throw new IllegalArgumentException("y is outside bounds [0,%d].".formatted(height));
+        }
+
+        HashMap<Direction, Character> returnArrayList = new HashMap<>();
+
+        if(y-1 > 0){
+            returnArrayList.put(Direction.UP, grid[y-1][x].instancedToIcon());
+        }
+        if (y+1 < height){
+            returnArrayList.put(Direction.DOWN, grid[y+1][x].instancedToIcon());
+        }
+        if (x-1 > 0){
+            returnArrayList.put(Direction.LEFT, grid[y][x-1].instancedToIcon());
+        }
+        if (x+1 < width){
+            returnArrayList.put(Direction.RIGHT, grid[y][x+1].instancedToIcon());
+        }
+
+        return returnArrayList;
     }
 }

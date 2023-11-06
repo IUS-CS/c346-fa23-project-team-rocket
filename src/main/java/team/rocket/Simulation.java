@@ -11,7 +11,6 @@ import team.rocket.util.RandomManager;
 import team.rocket.util.TimeManager;
 
 import java.util.Arrays;
-import java.util.Random;
 /*
 import team.rocket.IO.Terminal.FlagHandler;
 import team.rocket.IO.Terminal.GridSizeFlagHandler;
