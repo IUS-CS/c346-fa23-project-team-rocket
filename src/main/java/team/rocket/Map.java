@@ -18,7 +18,7 @@ public class Map {
     public static final int DEFAULT_WIDTH = 5; // The default value for the width of the grid
     public static final int DEFAULT_HEIGHT = 5; // The default value for the height of the grid
 
-    public long numberOfOrganisms;
+    private long numberOfOrganisms;
 
     /**
      * A constructor for the team.rocket.Map class that sets the grid to an empty grid of default size and sets the
@@ -233,5 +233,13 @@ public class Map {
         }
 
         return returnArrayList;
+    }
+
+    /**
+     * Gets the number of entities held by the map
+     * @return a long representing the number of entities held by the map
+     */
+    public long getNumberOfOrganisms() {
+        return numberOfOrganisms;
     }
 }
