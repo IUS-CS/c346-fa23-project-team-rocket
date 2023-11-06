@@ -16,6 +16,8 @@ public class Map {
     public static final int DEFAULT_WIDTH = 5; // The default value for the width of the grid
     public static final int DEFAULT_HEIGHT = 5; // The default value for the height of the grid
 
+    public long numberOfOrganisms;
+
     /**
      * A constructor for the team.rocket.Map class that sets the grid to an empty grid of default size and sets the
      * width and height to their default values
@@ -24,6 +26,7 @@ public class Map {
         grid = new AbstractOrganism[DEFAULT_HEIGHT][DEFAULT_WIDTH];
         width = DEFAULT_WIDTH;
         height = DEFAULT_HEIGHT;
+        this.numberOfOrganisms = 0;
     }
 
     /**
@@ -41,6 +44,8 @@ public class Map {
         }
         this.width = width;
         this.height = height;
+        this.numberOfOrganisms = 0;
+
     }
 
     /**
@@ -53,6 +58,12 @@ public class Map {
         this.grid = grid;
         width = grid[0].length;
         height = grid.length;
+
+        for(int w = 0; w < width; w++){
+            for (int h = 0; h < height; h++){
+                if(grid[h][w] != null) numberOfOrganisms++;
+            }
+        }
     }
 
     /**
@@ -73,6 +84,12 @@ public class Map {
         this.grid = grid;
         width = grid[0].length;
         height = grid.length;
+
+        for(int w = 0; w < width; w++){
+            for (int h = 0; h < height; h++){
+                if(grid[h][w] != null) numberOfOrganisms++;
+            }
+        }
     }
 
     /**
@@ -112,6 +129,10 @@ public class Map {
      * @param column the column that the organism will be in
      */
     public void addOrganism(AbstractOrganism organism, int row, int column) {
+        //If no organism is in the space then numberOfOrganisms increases
+        if(grid[row][column] == null){
+            this.numberOfOrganisms++;
+        }
         grid[row][column] = organism;
     }
 
@@ -122,7 +143,12 @@ public class Map {
      * @param column the column of the organism that is to be removed from the map
      */
     public void removeOrganism(int row, int column) {
+        //If there's an organism in the space then numberOfOrganisms decreases
+        if(grid[row][column] != null){
+            this.numberOfOrganisms--;
+        }
         grid[row][column] = null;
+
     }
 
     /**
@@ -131,15 +157,7 @@ public class Map {
      * @return true if the map is empty, false otherwise
      */
     public boolean isEmpty() {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] != null) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
+        return this.numberOfOrganisms==0;
     }
 
     /**
@@ -148,14 +166,14 @@ public class Map {
      * @return true if the map is full, false otherwise
      */
     public boolean isFull() {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j] == null) {
-                    return false;
-                }
-            }
-        }
+        return this.numberOfOrganisms == (long) width * height;
+    }
 
-        return true;
+    /**
+     *
+     * @return
+     */
+    public AbstractOrganism[] getNeighbors(){
+
     }
 }
