@@ -115,41 +115,19 @@ public class Fox extends AbstractAnimal{
      */
     public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
-        int freeSpaceCount = 0; //stores number of free adjacent spaces
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
+
+        //Represents available directions in the order up, down, left, right
+        boolean[] availableDirections = {false,false,false,false};
 
         for(i = 0; i < 4; i++){
             if(neighbors[i] == null){
-                switch (i) { //identifies which direction is being evaluated
-                    case 0 -> {
-                        freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
-                        freeSpaceCount++; //increments number of free spaces
-                    }
-                    case 1 -> {
-                        freeSpaces[freeSpaceCount] = Direction.DOWN;
-                        freeSpaceCount++;
-                    }
-                    case 2 -> {
-                        freeSpaces[freeSpaceCount] = Direction.LEFT;
-                        freeSpaceCount++;
-                    }
-                    case 3 -> {
-                        freeSpaces[freeSpaceCount] = Direction.RIGHT;
-                        freeSpaceCount++;
-                    }
-                }
+                availableDirections[i]=true;
             }
         }
 
-        if(freeSpaceCount==0){ //returns null in case of no free spaces
-            return null;
-        }
-        if(freeSpaceCount==1){
-            return freeSpaces[0];
-        }
-        else{
-            return freeSpaces[RandomManager.getRandom().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
-        }
+        return Direction.randomDirectionFromBooleanArray(availableDirections); //randomly picks and returns a free space
+
     }
 
     /**
