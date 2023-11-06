@@ -3,12 +3,14 @@ package team.rocket.Entities;
 import team.rocket.Enums.Direction;
 import team.rocket.Map;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 /**
  *
  * @since 0.1.0
- * @version 0.4.0
+ * @version 0.6.0
  */
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
@@ -77,41 +79,20 @@ public class Rabbit extends AbstractAnimal{
      * @return randomly determined direction based on available spaces
      */
     public Direction availableMovementSpace(AbstractOrganism[] neighbors){
-        int i = 0; //tracks iterations of for loop
-        int freeSpaceCount = 0; //stores number of free adjacent spaces
-        Direction[] freeSpaces = new Direction[4]; //stores available movement directions
+        List<Direction> freeSpaces = new LinkedList<>(); // Stores available movement directions
 
-        for(i = 0; i < 4; i++){
-            if(neighbors[i] == null){
-                switch (i) { //identifies which direction is being evaluated
-                    case 0 -> {
-                        freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
-                        freeSpaceCount++; //increments number of free spaces
-                    }
-                    case 1 -> {
-                        freeSpaces[freeSpaceCount] = Direction.DOWN;
-                        freeSpaceCount++;
-                    }
-                    case 2 -> {
-                        freeSpaces[freeSpaceCount] = Direction.LEFT;
-                        freeSpaceCount++;
-                    }
-                    case 3 -> {
-                        freeSpaces[freeSpaceCount] = Direction.RIGHT;
-                        freeSpaceCount++;
-                    }
-                }
+        for (Direction direction: Direction.values()) {
+            if (neighbors[Direction.toInteger(direction)] == null) {
+                freeSpaces.add(direction);
             }
         }
 
-        if(freeSpaceCount==0){ //returns null in case of no free spaces
+        if (freeSpaces.isEmpty()) {
             return null;
-        }
-        if(freeSpaceCount==1){
-            return freeSpaces[0];
-        }
-        else{
-            return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
+        } else if (freeSpaces.size() == 1) {
+            return freeSpaces.get(0);
+        } else {
+            return freeSpaces.get((new Random()).nextInt(freeSpaces.size())); // Randomly picks and returns a free space
         }
     }
 
