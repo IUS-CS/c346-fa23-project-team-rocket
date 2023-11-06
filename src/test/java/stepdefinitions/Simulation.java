@@ -156,4 +156,5 @@ public class Simulation {
         simulation.setMillisecondsPerTimeStep(team.rocket.Simulation.DEFAULT_MILLISECONDS_PER_TIME_STEP);
         simulation.setPrintOutput(false);
     }
+
 }
