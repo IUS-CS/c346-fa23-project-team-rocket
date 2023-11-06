@@ -8,7 +8,7 @@ Feature: Rabbit
     Scenario: A rabbit is shown on screen
         Then toIcon should return R
 
-    Scenario: A new rabbit is born
+    Scenario: Newborn rabbits can't move
         Given a new rabbit is born
         Then the rabbit can't move
 
