@@ -218,18 +218,27 @@ public class Map {
         }
 
         HashMap<Direction, Character> returnArrayList = new HashMap<>();
+        char icon;
 
         if(y-1 > 0){
-            returnArrayList.put(Direction.UP, grid[y-1][x].instancedToIcon());
+            icon = ' ';
+            if(grid[y-1][x]!=null) icon = grid[y-1][x].instancedToIcon();
+            returnArrayList.put(Direction.UP, icon);
         }
         if (y+1 < height){
-            returnArrayList.put(Direction.DOWN, grid[y+1][x].instancedToIcon());
+            icon = ' ';
+            if(grid[y+1][x]!=null) icon = grid[y+1][x].instancedToIcon();
+            returnArrayList.put(Direction.DOWN, icon);
         }
         if (x-1 > 0){
-            returnArrayList.put(Direction.LEFT, grid[y][x-1].instancedToIcon());
+            icon = ' ';
+            if(grid[y][x-1]!=null) icon = grid[y][x-1].instancedToIcon();
+            returnArrayList.put(Direction.LEFT, icon);
         }
         if (x+1 < width){
-            returnArrayList.put(Direction.RIGHT, grid[y][x+1].instancedToIcon());
+            icon = ' ';
+            if(grid[y][x+1]!=null) icon = grid[y][x+1].instancedToIcon();
+            returnArrayList.put(Direction.RIGHT, icon);
         }
 
         return returnArrayList;

@@ -1,31 +1,55 @@
 package stepdefinitions;
 
+import io.cucumber.java.Before;
+import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.jupiter.api.Assertions;
 import team.rocket.Entities.AbstractOrganism;
+import team.rocket.Entities.Carrot;
+import team.rocket.Entities.Fox;
+import team.rocket.Entities.Grass;
+import team.rocket.Entities.OrganismFactory;
 import team.rocket.Entities.Rabbit;
-import team.rocket.Entities.AbstractAnimal;
+import team.rocket.Enums.Direction;
 
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
 public class Map {
     /* Constructor-related tests*/
+    team.rocket.Map map;
+    HashMap<Direction, AbstractOrganism> neighbors;
+
+    @BeforeAll
+    public static void beforeAll(){
+        OrganismFactory.getInstance().registerOrganism("Rabbit", new Rabbit());
+        OrganismFactory.getInstance().registerOrganism("Carrot", new Carrot());
+        OrganismFactory.getInstance().registerOrganism("Fox", new Fox());
+        OrganismFactory.getInstance().registerOrganism("Grass", new Grass());
+    }
+
+    @Before
+    public void before(){
+        map = null;
+        neighbors = null;
+    }
 
     @Given("a {int} by {int} map is created")
     public void aByMapIsCreated(int arg0, int arg1) {
-        team.rocket.Map map = new team.rocket.Map(arg0, arg1);
+        map = new team.rocket.Map(arg0, arg1);
 
         assertNotNull(map);
     }
 
     @Then("the map should be {int} by {int}")
     public void theMapShouldBeBy(int arg0, int arg1) {
-        team.rocket.Map map = new team.rocket.Map(arg0, arg1);
+        map = new team.rocket.Map(arg0, arg1);
 
         assertEquals(map.getWidth(), arg0);
         assertEquals(map.getHeight(), arg1);
@@ -33,21 +57,21 @@ public class Map {
 
     @Then("the grid should be null")
     public void theGridShouldBeNull() {
-        team.rocket.Map map = new team.rocket.Map(0, 1);
+        map = new team.rocket.Map(0, 1);
 
         assertNull(map.getGrid());
     }
 
     @And("the grid should not be null")
     public void theGridShouldNotBeNull() {
-        team.rocket.Map map = new team.rocket.Map(1, 1);
+        map = new team.rocket.Map(1, 1);
         assertNotNull(map.getGrid());
     }
 
     @Given("a map is created with a grid")
     public void aMapIsCreatedWithAGrid() {
         AbstractOrganism[][] grid = new AbstractOrganism[2][2];
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertNotNull(map);
     }
@@ -55,7 +79,7 @@ public class Map {
     @Then("the map should have the given dimensions and given contents")
     public void theMapShouldHaveTheGivenDimensionsAndGivenContents() {
         AbstractOrganism[][] grid = new AbstractOrganism[2][2];
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertTrue(Arrays.deepEquals(grid, map.getGrid()));
         assertEquals(grid[0].length, map.getWidth());
@@ -67,7 +91,7 @@ public class Map {
     @Given("an empty map is created")
     public void anEmptyMapIsCreated() {
         AbstractOrganism[][] grid = new AbstractOrganism[1][1];
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertNotNull(map);
     }
@@ -75,7 +99,7 @@ public class Map {
     @Then("the map should be empty")
     public void theMapShouldBeEmpty() {
         AbstractOrganism[][] grid = new AbstractOrganism[1][1];
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertTrue(map.isEmpty());
     }
@@ -83,7 +107,7 @@ public class Map {
     @Given("a map of all rabbits is created")
     public void aMapOfAllRabbitsIsCreated() {
         AbstractOrganism[][] grid = new AbstractOrganism[][] {{new Rabbit()}};
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertNotNull(map);
     }
@@ -91,7 +115,7 @@ public class Map {
     @Then("the map should be full")
     public void theMapShouldBeFull() {
         AbstractOrganism[][] grid = new AbstractOrganism[][] {{new Rabbit()}};
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertTrue(map.isFull());
     }
@@ -99,7 +123,7 @@ public class Map {
     @Given("a nonempty map is created")
     public void aNonemptyMapIsCreated() {
         AbstractOrganism[][] grid = new AbstractOrganism[][] {{null, null}, {new Rabbit(), null}};
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertNotNull(map);
     }
@@ -107,7 +131,7 @@ public class Map {
     @Then("the map should not be empty")
     public void theMapShouldNotBeEmpty() {
         AbstractOrganism[][] grid = new AbstractOrganism[][] {{null, null}, {new Rabbit(), null}};
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertFalse(map.isEmpty());
     }
@@ -115,7 +139,7 @@ public class Map {
     @Given("a nonfull map is created")
     public void aNonfullMapIsCreated() {
         AbstractOrganism[][] grid = new AbstractOrganism[][] {{new Rabbit(), null}, {new Rabbit(), new Rabbit()}};
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertNotNull(map);
     }
@@ -123,7 +147,7 @@ public class Map {
     @Then("the map should not be full")
     public void theMapShouldNotBeFull() {
         AbstractOrganism[][] grid = new AbstractOrganism[][] {{new Rabbit(), null}, {new Rabbit(), new Rabbit()}};
-        team.rocket.Map map = new team.rocket.Map(grid);
+        map = new team.rocket.Map(grid);
 
         assertFalse(map.isFull());
     }
@@ -132,21 +156,21 @@ public class Map {
 
     @Given("a space has no organism")
     public void aSpaceHasNoOrganism() {
-        team.rocket.Map map = new team.rocket.Map(2, 2);
+        map = new team.rocket.Map(2, 2);
 
         assertNull(map.getGrid()[1][1]);
     }
 
     @When("an organism is added to the space")
     public void anOrganismIsAddedToTheSpace() {
-        team.rocket.Map map = new team.rocket.Map(2, 2);
+        map = new team.rocket.Map(2, 2);
         AbstractOrganism rabbit = new Rabbit();
         map.addOrganism(rabbit, 1, 1);
     }
 
     @Then("the space should have the given organism")
     public void theSpaceShouldHaveTheGivenOrganism() {
-        team.rocket.Map map = new team.rocket.Map(2, 2);
+        map = new team.rocket.Map(2, 2);
         AbstractOrganism rabbit = new Rabbit();
         map.addOrganism(rabbit, 1, 1);
 
@@ -155,14 +179,14 @@ public class Map {
 
     @Given("a space has an organism")
     public void aSpaceHasAnOrganism() {
-        team.rocket.Map map = new team.rocket.Map(2, 2);
+        map = new team.rocket.Map(2, 2);
         AbstractOrganism rabbit = new Rabbit();
         map.addOrganism(rabbit, 1, 1);
     }
 
     @When("an organism is removed from the space")
     public void anOrganismIsRemovedFromTheSpace() {
-        team.rocket.Map map = new team.rocket.Map(2, 2);
+        map = new team.rocket.Map(2, 2);
         AbstractOrganism rabbit = new Rabbit();
         map.addOrganism(rabbit, 1, 1);
         map.removeOrganism(1, 1);
@@ -170,11 +194,53 @@ public class Map {
 
     @Then("the space should be empty")
     public void theSpaceShouldBeEmpty() {
-        team.rocket.Map map = new team.rocket.Map(2, 2);
+        map = new team.rocket.Map(2, 2);
         AbstractOrganism rabbit = new Rabbit();
         map.addOrganism(rabbit, 1, 1);
         map.removeOrganism(1, 1);
 
         assertNull(map.getGrid()[1][1]);
+    }
+
+    @When("an organism is added to space \\({int} , {int})")
+    public void anOrganismIsAddedToSpace(int x, int y) {
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), x, y);
+    }
+
+    @Then("Space \\({int} , {int}) should have {int} neighbors")
+    public void spaceShouldHaveNeighbors(int x, int y, int numNeighbors) {
+        Assertions.assertEquals(numNeighbors, map.getNeighbors(x, y).size());
+    }
+
+    @And("a Rabbit is added to space \\({int} , {int})")
+    public void aRabbitIsAddedToSpace(int x, int y) {
+    }
+
+    @And("The organisms {string} neighbor is {string}")
+    public void theOrganismsNeighborIs(String direction, String character) {
+    }
+
+    @And("The organisms {string} character neighbor is {string}")
+    public void theOrganismsCharacterNeighborIs(String arg0, String arg1) {
+
+    }
+
+    @And("Space \\({int} , {int}) should have {int} neighbor characters")
+    public void spaceShouldHaveNeighborCharacters(int x, int y, int numNeighbors) {
+        Assertions.assertEquals(numNeighbors, map.getNeighborsAsCharacter(x, y).size());
+    }
+
+    @And("All of space \\({int} , {int}) neighbors are null")
+    public void allOfSpaceNeighborsAreNull(int x, int y) {
+        for(java.util.Map.Entry<Direction, AbstractOrganism> entry: map.getNeighbors(x,y).entrySet()){
+            Assertions.assertNull(entry.getValue());
+        }
+    }
+
+    @And("All of space \\({int} , {int}) neighbors are {string}")
+    public void allOfSpaceNeighborsAre(int x, int y, String character) {
+        for(java.util.Map.Entry<Direction, Character> entry: map.getNeighborsAsCharacter(x,y).entrySet()){
+            Assertions.assertNull(entry.getValue());
+        }
     }
 }
