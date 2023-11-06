@@ -109,30 +109,26 @@ public class Rabbit extends AbstractAnimal{
         }
 
         Direction direction = this.availableMovementSpace(neighbors);
-
         if (direction == null) {
             return;
         }
 
-        if (direction == Direction.UP) {
-            grid[y][x] = null;
-            grid[y-1][x] = this;
+        switch (direction) {
+            case UP -> {
+                grid[y-1][x] = this;
+            }
+            case DOWN -> {
+                grid[y+1][x] = this;
+            }
+            case LEFT -> {
+                grid[y][x-1] = this;
+            }
+            case RIGHT -> {
+                grid[y][x+1] = this;
+            }
         }
+        grid[y][x] = null;
 
-        if (direction == Direction.DOWN) {
-            grid[y][x] = null;
-            grid[y+1][x] = this;
-        }
-
-        if (direction == Direction.LEFT) {
-            grid[y][x] = null;
-            grid[y][x-1] = this;
-        }
-
-        if (direction == Direction.RIGHT) {
-            grid[y][x] = null;
-            grid[y][x+1] = this;
-        }
         hasMoved = true;
     }
 
