@@ -163,4 +163,8 @@ public class Rabbit extends AbstractAnimal{
         map.removeOrganism(row, column);
         food += foodIncrement;
     }
+
+    public static int getVision() {
+        return vision;
+    }
 }

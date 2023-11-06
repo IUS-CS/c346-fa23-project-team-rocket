@@ -191,4 +191,8 @@ public class Fox extends AbstractAnimal{
         }
         hasMoved = true;
     }
+
+    public static int getVision() {
+        return vision;
+    }
 }
