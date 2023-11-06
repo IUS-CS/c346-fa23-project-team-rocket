@@ -11,6 +11,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     private static int count;
     private boolean hasMoved;
 
+    private static int vision;
+
     /**
      * @return Animal's icon as a character
      */
@@ -52,4 +54,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      * @param x - x position of Rabbit in grid
      */
     public abstract void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x);
+
+    public static int getVision() {
+        return vision;
+    }
 }

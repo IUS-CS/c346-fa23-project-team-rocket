@@ -14,6 +14,7 @@ public class Fox extends AbstractAnimal{
     private boolean hasMoved;
     private boolean hasBred;
     private int hunger;
+    private static final int vision = 5;
 
     public Fox(){
         count++;
