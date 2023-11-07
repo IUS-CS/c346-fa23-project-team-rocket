@@ -78,7 +78,6 @@ public class Rabbit extends AbstractAnimal{
      */
     public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
-        Direction[] freeSpaces = new Direction[4]; //stores available movement directions
 
         //Represents available directions in the order up, down, left, right
         boolean[] availableDirections = {false,false,false,false};
