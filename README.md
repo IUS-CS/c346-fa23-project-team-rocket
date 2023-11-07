@@ -7,7 +7,7 @@ ecosystems, including reproduction, death, hunger, and dynamic weather patterns.
 innovative, immersive, and hands-on experience in which users can customize parameters like population sizes, species 
 interactions, and weather patterns to simulate specific ecosystems and study the effects of different variables. The aim 
 of Life Simulator is to bring the wonders of the natural world to users' fingertips and contribute to a greater 
-understanding of our interconnected ecosystems. It's currently on version **0.5.0**.
+understanding of our interconnected ecosystems. It's currently on version **0.6.0**.
 
 <details>
 <summary>Table of Contents</summary>
@@ -55,7 +55,7 @@ git clone https://github.com/IUS-CS/c346-fa23-project-team-rocket
 After building the program, run the following command to run it:
 
 ```sh
-java -jar build/libs/animal-simulation-project-0.5.0.jar
+java -jar build/libs/animal-simulation-project-0.6.0.jar
 ```
 
 ### Terminal Flags

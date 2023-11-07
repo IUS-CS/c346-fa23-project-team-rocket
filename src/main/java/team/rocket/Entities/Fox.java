@@ -15,6 +15,7 @@ public class Fox extends AbstractAnimal{
     private boolean hasMoved;
     private boolean hasBred;
     private int hunger;
+    private static final int vision = 5;
 
     public Fox(){
         count++;
@@ -168,5 +169,9 @@ public class Fox extends AbstractAnimal{
             grid[y][x+1] = this;
         }
         hasMoved = true;
+    }
+
+    public static int getVision() {
+        return vision;
     }
 }

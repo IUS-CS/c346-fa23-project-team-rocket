@@ -18,6 +18,7 @@ public class Rabbit extends AbstractAnimal{
     private int food;
     private static int deathFood = 0;
     private static int foodIncrement = 1;
+    private static final int vision = 4;
 
     public Rabbit(){
         count++;
@@ -139,5 +140,9 @@ public class Rabbit extends AbstractAnimal{
     public void eat(Map map, int row, int column) {
         map.removeOrganism(row, column);
         food += foodIncrement;
+    }
+
+    public static int getVision() {
+        return vision;
     }
 }
