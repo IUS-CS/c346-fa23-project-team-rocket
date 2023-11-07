@@ -92,7 +92,7 @@ Feature: Map
     Scenario: An organism in the middle of a 3x3 grid with one Rabbit at (1, 2)
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
-        And a Rabbit is added to space (1 , 2)
+        And a Rabbit is added to space (2 , 1)
         And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And The organisms "Up" neighbor is "Null"
@@ -122,7 +122,7 @@ Feature: Map
     Scenario: An organism in the middle of a 3x3 grid with one Rabbit at (2, 1)
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
-        And a Rabbit is added to space (2 , 1)
+        And a Rabbit is added to space (1 , 2)
         And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And The organisms "Up" neighbor is "Null"
@@ -132,4 +132,4 @@ Feature: Map
         And The organisms "Left" neighbor is "Null"
         And The organisms "Left" character neighbor is " "
         And The organisms "Right" neighbor is "Rabbit"
-        And The organisms "Right" character neighbor is " "
+        And The organisms "Right" character neighbor is "R"

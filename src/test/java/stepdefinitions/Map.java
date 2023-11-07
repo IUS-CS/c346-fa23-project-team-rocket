@@ -41,6 +41,7 @@ public class Map {
     public void before(){
         map = null;
         neighbors = null;
+        charNeighbors = null;
     }
 
     @Given("a {int} by {int} map is created")
@@ -206,19 +207,19 @@ public class Map {
     }
 
     @When("an organism is added to space \\({int} , {int})")
-    public void anOrganismIsAddedToSpace(int x, int y) {
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), x, y);
+    public void anOrganismIsAddedToSpace(int row, int col) {
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), row, col);
     }
 
     @Then("Space \\({int} , {int}) should have {int} neighbors")
-    public void spaceShouldHaveNeighbors(int x, int y, int numNeighbors) {
+    public void spaceShouldHaveNeighbors(int row, int col, int numNeighbors) {
 
-        Assertions.assertEquals(numNeighbors, map.getNeighbors(x, y).size());
+        Assertions.assertEquals(numNeighbors, map.getNeighbors(row, col).size());
     }
 
     @And("a Rabbit is added to space \\({int} , {int})")
-    public void aRabbitIsAddedToSpace(int x, int y) {
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), x, y);
+    public void aRabbitIsAddedToSpace(int row, int col) {
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), row, col);
     }
 
     @And("The organisms {string} neighbor is {string}")
@@ -243,27 +244,27 @@ public class Map {
     }
 
     @And("Space \\({int} , {int}) should have {int} neighbor characters")
-    public void spaceShouldHaveNeighborCharacters(int x, int y, int numNeighbors) {
-        Assertions.assertEquals(numNeighbors, map.getNeighborsAsCharacter(x, y).size());
+    public void spaceShouldHaveNeighborCharacters(int row, int col, int numNeighbors) {
+        Assertions.assertEquals(numNeighbors, map.getNeighborsAsCharacter(row, col).size());
     }
 
     @And("All of space \\({int} , {int}) neighbors are null")
-    public void allOfSpaceNeighborsAreNull(int x, int y) {
-        for(java.util.Map.Entry<Direction, AbstractOrganism> entry: map.getNeighbors(x,y).entrySet()){
+    public void allOfSpaceNeighborsAreNull(int row, int col) {
+        for(java.util.Map.Entry<Direction, AbstractOrganism> entry: map.getNeighbors(row,col).entrySet()){
             Assertions.assertNull(entry.getValue());
         }
     }
 
     @And("All of space \\({int} , {int}) character neighbors are {string}")
-    public void allOfSpaceNeighborsAre(int x, int y, String character) {
-        for(java.util.Map.Entry<Direction, Character> entry: map.getNeighborsAsCharacter(x,y).entrySet()){
+    public void allOfSpaceNeighborsAre(int row, int col, String character) {
+        for(java.util.Map.Entry<Direction, Character> entry: map.getNeighborsAsCharacter(row,col).entrySet()){
             Assertions.assertEquals(character, String.valueOf(entry.getValue()));
         }
     }
 
     @And("\\({int} , {int}) neighbors are calculated")
-    public void neighborsAreCalculated(int x, int y) {
-        neighbors = map.getNeighbors(x, y);
-        charNeighbors = map.getNeighborsAsCharacter(x, y);
+    public void neighborsAreCalculated(int row, int col) {
+        neighbors = map.getNeighbors(row, col);
+        charNeighbors = map.getNeighborsAsCharacter(row, col);
     }
 }
