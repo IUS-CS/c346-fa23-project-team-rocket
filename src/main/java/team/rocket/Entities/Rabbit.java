@@ -128,30 +128,36 @@ public class Rabbit extends AbstractAnimal{
 
         Direction direction = this.availableMovementSpace(neighbors);
 
-        if (direction == null) {
-            return;
-        }
+        if (direction != null &&
+                y-1 >=0 &&
+                y+1 <= grid.length &&
+                x-1 >= 0 &&
+                x+1 <= grid[y].length
+        ) {
+            hasMoved = true;
+        } else { return; }
 
-        if (direction == Direction.UP) {
-            grid[y][x] = null;
-            grid[y-1][x] = this;
+        switch(direction){
+            case UP -> {
+                grid[y][x] = null;
+                grid[y-1][x] = this;
+            }
+            case DOWN -> {
+                grid[y][x] = null;
+                grid[y+1][x] = this;
+            }
+            case LEFT -> {
+                grid[y][x] = null;
+                grid[y][x-1] = this;
+            }
+            case RIGHT -> {
+                grid[y][x] = null;
+                grid[y][x+1] = this;
+            }
+            default -> {
+                hasMoved = false;
+            }
         }
-
-        if (direction == Direction.DOWN) {
-            grid[y][x] = null;
-            grid[y+1][x] = this;
-        }
-
-        if (direction == Direction.LEFT) {
-            grid[y][x] = null;
-            grid[y][x-1] = this;
-        }
-
-        if (direction == Direction.RIGHT) {
-            grid[y][x] = null;
-            grid[y][x+1] = this;
-        }
-        hasMoved = true;
     }
 
     public boolean isStarving() {
