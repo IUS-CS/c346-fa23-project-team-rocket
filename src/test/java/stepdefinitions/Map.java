@@ -267,4 +267,31 @@ public class Map {
         neighbors = map.getNeighbors(row, col);
         charNeighbors = map.getNeighborsAsCharacter(row, col);
     }
+
+    @And("\\({int} , {int}) is moved to \\({int} , {int})")
+    public void isMovedTo(int currentCol, int currentRow, int newCol, int newRow) {
+        map.moveOrganism(currentRow, currentCol, newRow, newCol);
+    }
+
+    @Then("\\({int} , {int}) should be null")
+    public void shouldBeNull(int col, int row) {
+        Assertions.assertNull(map.getOrganism(col, row));
+    }
+
+    @And("\\({int} , {int}) should have an organism")
+    public void shouldHaveAnOrganism(int col, int row) {
+        Assertions.assertNotNull(map.getOrganism(row, col));
+    }
+
+    @And("Organism Map count should be {int}")
+    public void organismMapCountShouldBe(int numberOfOrganisms) {
+        Assertions.assertEquals(numberOfOrganisms,map.getNumberOfOrganisms());
+    }
+
+    @Then("an UnsupportedOperationException is thrown when \\({int} , {int}) is attempted to be moved")
+    public void anUnsupportedOperationExceptionIsThrownWhenIsAttemptedToBeMoved(int col, int row) {
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> {
+            map.moveOrganism(row, col, row, col);
+        });
+    }
 }

@@ -56,7 +56,6 @@ public enum Direction {
                                 return Direction.RIGHT;
                         }
                         default -> throw new IllegalArgumentException("string is not one of the following accepted values: up, down, left, right");
-
                 }
         }
 
@@ -94,16 +93,16 @@ public enum Direction {
 
                 //Max iteration
                 final byte MAX_ITER = 4;
-                byte iter_count = 0;
+                byte iterationCount = 0;
 
                 //Sets a random value and checks if booleans[value] is false, if it is look for a different one
                 byte value = (byte) (RandomManager.getRandom().nextInt(3));
-                while(!booleans[value] && iter_count++ < MAX_ITER+1){
+                while(!booleans[value] && iterationCount++ < MAX_ITER+1){
                         value = (byte) (RandomManager.getRandom().nextInt(3));
                 }
 
                 // Gone over iteration limit, pick first available direction
-                if(iter_count>=MAX_ITER){
+                if(iterationCount>=MAX_ITER){
                         int i = 0;
                         while(!booleans[i]) i++;
                         return Direction.directionFromInt(i);

@@ -251,4 +251,19 @@ public class Map {
     public long getNumberOfOrganisms() {
         return numberOfOrganisms;
     }
+
+    /**
+     * Moves an organism at (currentCol, currentRow) to (newCol, newRow) and removes the organism at that location if one is there
+     * @param currentRow the current x position of the organism
+     * @param currentCol the current y position of the organism
+     * @param newRow the x destination of the organism
+     * @param newCol the y destination of the organism
+     * @throws UnsupportedOperationException when the value at (currentCol, currentRow) is null
+     */
+    public void moveOrganism(int currentRow, int currentCol, int newRow, int newCol){
+        if(grid[currentRow][currentCol] == null) throw new UnsupportedOperationException("Tried to move a null value to a new position.");
+        if(grid[newRow][newCol]!=null) numberOfOrganisms--;
+        grid[newRow][newCol] = grid[currentRow][currentCol];
+        grid[currentRow][currentCol] = null;
+    }
 }

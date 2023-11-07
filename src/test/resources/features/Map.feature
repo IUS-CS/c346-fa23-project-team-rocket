@@ -133,3 +133,22 @@ Feature: Map
         And The organisms "Left" character neighbor is " "
         And The organisms "Right" neighbor is "Rabbit"
         And The organisms "Right" character neighbor is "R"
+
+    Scenario: Moving an organism from (0,0) to (1,1)
+        Given a 2 by 2 map is created
+        When an organism is added to space (0 , 0)
+        And (0 , 0) is moved to (1 , 1)
+        Then (0 , 0) should be null
+        And (1 , 1) should have an organism
+
+    Scenario: Moving an organism from (0,0) to (1,1) when there's an organism at (1,1)
+        Given a 2 by 2 map is created
+        When an organism is added to space (0 , 0)
+        And (0 , 0) is moved to (1 , 1)
+        Then (0 , 0) should be null
+        And (1 , 1) should have an organism
+        And Organism Map count should be 1
+
+    Scenario: Moving a null throws an UnsupportedOperationException
+        Given a 2 by 2 map is created
+        Then an UnsupportedOperationException is thrown when (0 , 0) is attempted to be moved
