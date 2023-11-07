@@ -14,6 +14,7 @@ import team.rocket.Entities.Grass;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
+import team.rocket.IO.UI;
 
 
 import java.util.Arrays;
@@ -211,6 +212,7 @@ public class Map {
 
     @Then("Space \\({int} , {int}) should have {int} neighbors")
     public void spaceShouldHaveNeighbors(int x, int y, int numNeighbors) {
+
         Assertions.assertEquals(numNeighbors, map.getNeighbors(x, y).size());
     }
 
@@ -252,10 +254,10 @@ public class Map {
         }
     }
 
-    @And("All of space \\({int} , {int}) neighbors are {string}")
+    @And("All of space \\({int} , {int}) character neighbors are {string}")
     public void allOfSpaceNeighborsAre(int x, int y, String character) {
         for(java.util.Map.Entry<Direction, Character> entry: map.getNeighborsAsCharacter(x,y).entrySet()){
-            Assertions.assertNull(entry.getValue());
+            Assertions.assertEquals(character, String.valueOf(entry.getValue()));
         }
     }
 

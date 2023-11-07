@@ -187,13 +187,13 @@ public class Map {
 
         HashMap<Direction, AbstractOrganism> hashMap = new HashMap<>();
 
-        if(y-1 > 0){
+        if(y-1 >= 0){
             hashMap.put(Direction.UP, grid[y-1][x]);
         }
         if (y+1 < height){
             hashMap.put(Direction.DOWN, grid[y+1][x]);
         }
-        if (x-1 > 0){
+        if (x-1 >= 0){
             hashMap.put(Direction.LEFT, grid[y][x-1]);
         }
         if (x+1 < width){
@@ -220,7 +220,7 @@ public class Map {
         HashMap<Direction, Character> returnArrayList = new HashMap<>();
         char icon;
 
-        if(y-1 > 0){
+        if(y-1 >= 0){
             icon = ' ';
             if(grid[y-1][x]!=null) icon = grid[y-1][x].instancedToIcon();
             returnArrayList.put(Direction.UP, icon);
@@ -230,7 +230,7 @@ public class Map {
             if(grid[y+1][x]!=null) icon = grid[y+1][x].instancedToIcon();
             returnArrayList.put(Direction.DOWN, icon);
         }
-        if (x-1 > 0){
+        if (x-1 >= 0){
             icon = ' ';
             if(grid[y][x-1]!=null) icon = grid[y][x-1].instancedToIcon();
             returnArrayList.put(Direction.LEFT, icon);
