@@ -18,6 +18,7 @@ import team.rocket.Enums.Direction;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static org.junit.Assert.*;
 
@@ -25,6 +26,7 @@ public class Map {
     /* Constructor-related tests*/
     team.rocket.Map map;
     HashMap<Direction, AbstractOrganism> neighbors;
+    HashMap<Direction, Character> charNeighbors;
 
     @BeforeAll
     public static void beforeAll(){
@@ -214,14 +216,27 @@ public class Map {
 
     @And("a Rabbit is added to space \\({int} , {int})")
     public void aRabbitIsAddedToSpace(int x, int y) {
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), x, y);
     }
 
     @And("The organisms {string} neighbor is {string}")
-    public void theOrganismsNeighborIs(String direction, String character) {
+    public void theOrganismsNeighborIs(String direction, String organism) {
+        AbstractOrganism abstractOrganism = neighbors.get(Direction.directionFromString(direction));
+        if(organism.equalsIgnoreCase("null")){
+            Assertions.assertNull(abstractOrganism);
+        } else {
+            Assertions.assertSame(OrganismFactory.getInstance().createOrganism(organism).getClass(), abstractOrganism.getClass());
+        }
     }
 
     @And("The organisms {string} character neighbor is {string}")
-    public void theOrganismsCharacterNeighborIs(String arg0, String arg1) {
+    public void theOrganismsCharacterNeighborIs(String direction, String character) {
+        char c = charNeighbors.get(Direction.directionFromString(direction));
+        if(Objects.equals(character, " ")) {
+            Assertions.assertEquals(' ', c);
+        } else {
+            Assertions.assertEquals(character, String.valueOf(c));
+        }
 
     }
 
@@ -242,5 +257,11 @@ public class Map {
         for(java.util.Map.Entry<Direction, Character> entry: map.getNeighborsAsCharacter(x,y).entrySet()){
             Assertions.assertNull(entry.getValue());
         }
+    }
+
+    @And("\\({int} , {int}) neighbors are calculated")
+    public void neighborsAreCalculated(int x, int y) {
+        neighbors = map.getNeighbors(x, y);
+        charNeighbors = map.getNeighborsAsCharacter(x, y);
     }
 }

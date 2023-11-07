@@ -62,12 +62,14 @@ Feature: Map
     Scenario: An organism in a 1x1 grid should have no neighbors
         Given a 1 by 1 map is created
         When an organism is added to space (0 , 0)
+        And (0 , 0) neighbors are calculated
         Then Space (0 , 0) should have 0 neighbors
         And Space (0 , 0) should have 0 neighbor characters
 
     Scenario: An organism in the middle of a 3x3 grid should have 4 null neighbors
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
+        And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And All of space (1 , 1) neighbors are null
         And All of space (1 , 1) neighbors are " "
@@ -76,6 +78,7 @@ Feature: Map
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
         And a Rabbit is added to space (0 , 1)
+        And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And The organisms "Up" neighbor is "Rabbit"
         And The organisms "Up" character neighbor is "R"
@@ -90,6 +93,7 @@ Feature: Map
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
         And a Rabbit is added to space (1 , 2)
+        And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And The organisms "Up" neighbor is "Null"
         And The organisms "Up" character neighbor is " "
@@ -104,6 +108,7 @@ Feature: Map
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
         And a Rabbit is added to space (0 , 1)
+        And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And The organisms "Up" neighbor is "Null"
         And The organisms "Up" character neighbor is " "
@@ -118,6 +123,7 @@ Feature: Map
         Given a 3 by 3 map is created
         When an organism is added to space (1 , 1)
         And a Rabbit is added to space (2 , 1)
+        And (1 , 1) neighbors are calculated
         Then Space (1 , 1) should have 4 neighbors
         And The organisms "Up" neighbor is "Null"
         And The organisms "Up" character neighbor is " "

@@ -9,7 +9,7 @@ import team.rocket.Enums.Direction;
  *
  * @author Dale Morris
  * @version 0.2.0
- * @since 0.2.0
+ * @since 0.6.0
  */
 public class Map {
     private AbstractOrganism[][] grid; // The 2D array containing all the organisms on the map
@@ -185,22 +185,22 @@ public class Map {
             throw new IllegalArgumentException("y is outside bounds [0,%d].".formatted(height));
         }
 
-        HashMap<Direction, AbstractOrganism> returnArrayList = new HashMap<>();
+        HashMap<Direction, AbstractOrganism> hashMap = new HashMap<>();
 
         if(y-1 > 0){
-            returnArrayList.put(Direction.UP, grid[y-1][x]);
+            hashMap.put(Direction.UP, grid[y-1][x]);
         }
         if (y+1 < height){
-            returnArrayList.put(Direction.DOWN, grid[y+1][x]);
+            hashMap.put(Direction.DOWN, grid[y+1][x]);
         }
         if (x-1 > 0){
-            returnArrayList.put(Direction.LEFT, grid[y][x-1]);
+            hashMap.put(Direction.LEFT, grid[y][x-1]);
         }
         if (x+1 < width){
-            returnArrayList.put(Direction.RIGHT, grid[y][x+1]);
+            hashMap.put(Direction.RIGHT, grid[y][x+1]);
         }
 
-        return returnArrayList;
+        return hashMap;
     }
 
     /**

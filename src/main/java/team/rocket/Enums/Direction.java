@@ -4,7 +4,7 @@ import team.rocket.util.RandomManager;
 
 /**
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.6.0
  */
 public enum Direction {
         UP,
@@ -15,7 +15,7 @@ public enum Direction {
         /**
          * Gets a Direction from an int where the range [0,3] is assigned to UP, DOWN, LEFT, RIGHT in that order
          * @param i the integer representing the Direction
-         * @return a Direction
+         * @return a Direction matching the integer
          */
         public static Direction directionFromInt(int i){
 
@@ -33,6 +33,30 @@ public enum Direction {
                                 return Direction.RIGHT;
                         }
                         default -> throw new IllegalArgumentException("int i is outside range [0,3]");
+                }
+        }
+
+        /**
+         * Gets a direction from a string
+         * @param string the string representing the direction
+         * @return a Direction matching the string
+         */
+        public static Direction directionFromString(String string){
+                switch(string.toLowerCase()){
+                        case "up" -> {
+                                return Direction.UP;
+                        }
+                        case "down" -> {
+                                return Direction.DOWN;
+                        }
+                        case "left" -> {
+                                return Direction.LEFT;
+                        }
+                        case "right" -> {
+                                return Direction.RIGHT;
+                        }
+                        default -> throw new IllegalArgumentException("string is not one of the following accepted values: up, down, left, right");
+
                 }
         }
 
