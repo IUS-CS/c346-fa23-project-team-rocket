@@ -20,7 +20,6 @@ public class UI {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Thread.sleep(5000);
         //Prepares the factories for construction
         setupOrganismFactory();
 
