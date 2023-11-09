@@ -18,6 +18,7 @@ public class Rabbit extends AbstractAnimal{
     private int hunger;
     private static int deathFood = 0;
     private static int nutrition = 10;
+    private static final int vision = 4;
 
     public Rabbit(){
         count++;
@@ -210,5 +211,9 @@ public class Rabbit extends AbstractAnimal{
         }
 
         return neighbors;
+    }
+
+    public static int getVision() {
+        return vision;
     }
 }

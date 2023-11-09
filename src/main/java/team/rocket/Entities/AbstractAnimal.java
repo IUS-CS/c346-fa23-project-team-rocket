@@ -12,6 +12,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     private static int count;
     private boolean hasMoved;
 
+    private static int vision;
+
     private int hunger;
 
     /**
@@ -59,4 +61,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      * @return nutrition
      */
     public abstract int getNutrition();
+
+    public static int getVision() {
+        return vision;
+    }
 }

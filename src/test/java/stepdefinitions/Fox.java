@@ -17,10 +17,14 @@ public class Fox {
     int x;
 
     @Given("A new fox is born")
-    public void aNewFoxIsBorn(){f = new team.rocket.Entities.Fox();}
+    public void aNewFoxIsBorn() {
+        f = new team.rocket.Entities.Fox();
+    }
 
     @Then("The fox should be full")
-    public void theFoxShouldBeFull(){Assertions.assertEquals(f.getHunger(),100);}
+    public void theFoxShouldBeFull() {
+        Assertions.assertEquals(f.getHunger(),100);
+    }
 
     @Then("A fox can't move")
     public void aFoxCantMove(){
@@ -30,13 +34,19 @@ public class Fox {
     }
 
     @And("A fox loses hunger")
-    public void aFoxLosesHunger(){f.reduceHunger();}
+    public void aFoxLosesHunger() {
+        f.reduceHunger();
+    }
 
     @And("A fox's movement is reset")
-    public void aFoxsMovementIsReset(){f.resetMove();}
+    public void aFoxsMovementIsReset() {
+        f.resetMove();
+    }
 
     @Then("A fox should have ninety hunger")
-    public void aFoxShouldHaveNinetyHunger(){Assertions.assertEquals(f.getHunger(),90);}
+    public void aFoxShouldHaveNinetyHunger() {
+        Assertions.assertEquals(f.getHunger(),90);
+    }
 
     @Then("A fox can move")
     public void aFoxCanMove(){
@@ -50,5 +60,4 @@ public class Fox {
         f.move(map,neighbors,y,x);
         Assertions.assertEquals(map.getGrid()[2][2],f);
     }
-
 }

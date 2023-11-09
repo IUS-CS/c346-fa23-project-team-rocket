@@ -16,8 +16,9 @@ public class Fox extends AbstractAnimal {
     private boolean hasBred;
     private int hunger;
     private int nutrition = 0;
+    private static final int vision = 5;
 
-    public Fox() {
+    public Fox(){
         count++;
         hasMoved = true;
         hasBred = true;
@@ -26,24 +27,21 @@ public class Fox extends AbstractAnimal {
 
     /**
      * gets the icon from an instance
-     *
      * @return the icon of the organism
      */
-    public char instancedToIcon() {
-        return icon;
-    }
+    public char instancedToIcon(){return icon;}
 
     /**
      * @return team.rocket.Entities.Fox's icon as a character
      */
-    public static char toIcon() {
+    public static char toIcon(){
         return icon;
     }
 
     /**
      * @return current Fox count
      */
-    public static int getCount() {
+    public static int getCount(){
         return count;
     }
 
@@ -64,9 +62,9 @@ public class Fox extends AbstractAnimal {
     /**
      * decreases Fox's hunger meter
      */
-    public void reduceHunger() {
-        hunger -= 10;
-        if (hunger < 0) {
+    public void reduceHunger(){
+        hunger-=10;
+        if (hunger < 0){
             hunger = 0;
         }
     }
@@ -90,13 +88,12 @@ public class Fox extends AbstractAnimal {
     /**
      * Creates new Fox
      */
-    public void breed() {
-    } //not yet implemented
+    public void breed(){} //not yet implemented
 
     /**
      * Resets hasMoved to false, meant to be used to reset movement each day
      */
-    public void resetMove() {
+    public void resetMove(){
         hasMoved = false;
     }
 
@@ -108,13 +105,12 @@ public class Fox extends AbstractAnimal {
     /**
      * Resets hasBred to false, meant to be used to reset breeding each day
      */
-    public void resetBreeding() {
+    public void resetBreeding(){
         hasBred = false;
     }
 
     /**
      * Takes array of a team.rocket.Entities.Fox's neighbors, randomly chooses an available space, and returns corresponding direction
-     *
      * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces
      */
@@ -146,12 +142,13 @@ public class Fox extends AbstractAnimal {
             }
         }
 
-        if (freeSpaceCount == 0) { //returns null in case of no free spaces
+        if(freeSpaceCount==0){ //returns null in case of no free spaces
             return null;
         }
-        if (freeSpaceCount == 1) {
+        if(freeSpaceCount==1){
             return freeSpaces[0];
-        } else {
+        }
+        else{
             return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
     }
@@ -198,6 +195,10 @@ public class Fox extends AbstractAnimal {
         map.getGrid()[y][x] = null;
         map.getGrid()[newY][newX] = this;
         hasMoved = true;
+    }
+
+    public static int getVision() {
+        return vision;
     }
 
     public void eat(Map map, int row, int column) {
