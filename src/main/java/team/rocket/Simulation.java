@@ -103,6 +103,7 @@ public class Simulation implements Runnable {
      * There is a chance that the animals breed based on the breedChance variable
      */
     private void breed() {
+        int maxDistance = 4; //maximum distance that from parent for new animal to spawn
         int rabbitsBred = 0;
         int expectedBreeds = (int) Math.pow(2, currentDay - 1);
         Map oldMap = map; // A copy of the current map
@@ -127,7 +128,7 @@ public class Simulation implements Runnable {
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
                             // Breed the animals in the closest available tile
-                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
+                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j, maxDistance);
                             if (closestEmptyTile != null) {
                                 map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
                                 rabbitsBred++;
@@ -150,7 +151,7 @@ public class Simulation implements Runnable {
     }
 
     // Finds the closest empty tile to the specified coordinates
-    private int[] findClosestEmptyTile(Map map, int y, int x) {
+    private int[] findClosestEmptyTile(Map map, int y, int x, int maxDistance) {
         int[] closestEmptyTile = null;
         int minDistance = Integer.MAX_VALUE;
 
@@ -158,7 +159,7 @@ public class Simulation implements Runnable {
             for (int j = 0; j < map.getWidth(); j++) {
                 if (map.getOrganism(i, j) == null) {
                     int distance = Math.abs(i - y) + Math.abs(j - x);
-                    if (distance < minDistance) {
+                    if (distance < minDistance && distance <= maxDistance) {
                         minDistance = distance;
                         closestEmptyTile = new int[]{i, j};
                     }
