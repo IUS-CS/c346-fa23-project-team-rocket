@@ -30,4 +30,20 @@ I've worked with various tools and techniques throughout this project, which has
 
 ## Jonathan
 
+### Tools 
+
+During this project I got to work with a lot of tools that previously I had no experience with. The two primary tools being gradle and cucumber. Gradle was used for the build system and was useful experience with manually building and running the project. Cucumber helped me to get used to using a different testing framework from what I am used to using (JUnit) and see some of the advantages/disadvantages of other testing frameworks. This also served as valuable experience in using Git, as I have never really used it properly and the many tools it offers up until now. Specifically using branches, resolving merge conflicts, merge restrictions, and managing pull requests.  
+
+### Development 
+
+The bulk of my work throughout this project has been on the simulation class, and the UI class. These two classes handle a lot of the logic for the different features present in the project. In working on this, I've learned a lot more about the importance of design patterns, documentation, and well defined features. This became particularly apparent to me as I frequently had to consult documentation, review code, or reference materials written by others while working on feature enhancements or bug fixes. Working on the Simulation class, taught me the value of design patterns in creating scalable and maintainable code. The importance of design patterns was more and more evident as we began implementing more and more features, and how those design patterns could help us to avoid a lot of issues when scaling the project. 
+
+### Testing 
+
+Test driven development was something that was emphasized during the project and it really helped to avoid a lot of the issues that we started to run into at the beginning of the project. As we focused more on testing with the implementation of cucumber, we saw less issues. After we had the unit testing process down, I did some research and came up with an Integration testing process. The integration testing was new to me, as I have only ever dealt with unit tests. This all gave me a much better perspective on the importance of testing. 
+
+### Documentation 
+
+Although the documentation at times was very tedious, the documentation that we developed proved to be very helpful as something to refer back to. The documentation proved to be helpful in nearly every aspect of the project, whether that was implementing a new feature, discussing meeting topics, or planning future sprints. Keeping documentation for nearly eveyrthing helped in the long term for the project.
+
 ## Ryan
