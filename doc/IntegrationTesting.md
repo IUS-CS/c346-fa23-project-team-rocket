@@ -1,7 +1,6 @@
 # Integration Testing and Documentation Process
 
 ## Project Name: Team Rocket Simulation
-## Date: 11/01/2023
 
 ---
 
