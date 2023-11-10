@@ -22,6 +22,10 @@ Throughout this project, I feel like I've been improving my general development 
 
 One of the things I've been working on throughout this project is documentation, and it's really opened my eyes to how much documentation can be necessary for a project. On some previous projects I'd worked on, the amount of non-code documentation was very minimal, and looking back, that was a tremendous error that likely caused some of the issues I experienced in those projects later on. As such, having to write out all of these different documentation files and working with markdown has given me a newfound appreciation for writing good, clean, and readable documentation that goes over the intricacies of the project it's attached to. 
 
+### Conclusion
+
+I've worked with various tools and techniques throughout this project, which has allowed me to confront the different problems in the project in interesting ways. For example, when constructing the Terminal Flags module, I was constantly referring back to the chain of responsibility pattern so that it would be easily expandable when we needed more flags. This extra work paid off when I needed to implement time-related flags for some simulation parameters later. As such, I've gained a healthy appreciation for how proper planning can make a project's development smoother and easier to do.
+
 ## Dale
 
 ## Jonathan
