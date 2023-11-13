@@ -92,7 +92,7 @@ public class Rabbit extends AbstractAnimal{
         Direction[] freeSpaces = new Direction[4]; //stores available movement directions
 
         for(i = 0; i < 4; i++){
-            if(neighbors[i] == null || neighbors[i].toIcon() == 'G' || neighbors[i].toIcon() == 'C'){
+            if(neighbors[i] == null || neighbors[i].instancedToIcon() == 'G' || neighbors[i].instancedToIcon() == 'C'){
                 switch (i) { //identifies which direction is being evaluated
                     case 0 -> {
                         freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
@@ -163,8 +163,10 @@ public class Rabbit extends AbstractAnimal{
             newX++;
         }
         this.eat(map, newY, newX);
-        map.getGrid()[y][x] = null;
-        map.getGrid()[newY][newX] = this;
+        AbstractOrganism[][] griddy = map.getGrid();
+        griddy[newY][newX] = this;
+        griddy[y][x] = null;
+        map.setGrid(griddy);
         hasMoved = true;
     }
 
@@ -173,10 +175,13 @@ public class Rabbit extends AbstractAnimal{
     }
 
     public void eat(Map map, int row, int column) {
-        AbstractOrganism org = map.getGrid()[row][column];
-        if (org.toIcon() == 'C' || org.toIcon() == 'G') {
-            hunger += org.getNutrition();
-            map.removeOrganism(row, column);
+        if (map.getGrid()[row][column] != null) {
+            AbstractOrganism org = map.getGrid()[row][column];
+            if (org.instancedToIcon() == 'C' || org.instancedToIcon() == 'G') {
+                this.hunger += org.getNutrition();
+                org.reduceCount();
+                map.removeOrganism(row, column);
+            }
         }
     }
 
