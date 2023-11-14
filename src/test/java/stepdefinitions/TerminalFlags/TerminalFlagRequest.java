@@ -11,7 +11,7 @@ import team.rocket.Map;
 import java.util.Objects;
 
 public class TerminalFlagRequest {
-	team.rocket.Handlers.Terminal.TerminalFlagRequest request;
+	team.rocket.IO.Terminal.TerminalFlagRequest request;
 
 	@Then("A TerminalFlagRequest exists")
 	public void aTerminalFlagRequestExists() {
@@ -20,12 +20,12 @@ public class TerminalFlagRequest {
 
 	@Given("A TerminalFlagRequest is Created")
 	public void aTerminalFlagRequestIsCreated() {
-		request = new team.rocket.Handlers.Terminal.TerminalFlagRequest("", new Map(3, 3));
+		request = new team.rocket.IO.Terminal.TerminalFlagRequest("", new Map(3, 3));
 	}
 
 	@Given("there is a TerminalFlagRequest Created with an {} by {} map and a {} command")
 	public void thereIsATerminalFlagRequestCreatedWithAnByMapAndACommand(String arg0, String arg1, String arg2) {
-		request = new team.rocket.Handlers.Terminal.TerminalFlagRequest(arg2, new Map(Integer.parseInt(arg0), Integer.parseInt(arg1)));
+		request = new team.rocket.IO.Terminal.TerminalFlagRequest(arg2, new Map(Integer.parseInt(arg0), Integer.parseInt(arg1)));
 	}
 
 	@Then("I should have a TerminalFlagRequest which gives me an {} by {} map with a {} command")

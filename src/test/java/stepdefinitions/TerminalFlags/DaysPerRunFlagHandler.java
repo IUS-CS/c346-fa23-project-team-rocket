@@ -1,12 +1,11 @@
 package stepdefinitions.TerminalFlags;
 
-import io.cucumber.java.BeforeAll;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import team.rocket.Handlers.Terminal.FlagHandler;
-import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+import team.rocket.IO.Terminal.FlagHandler;
+import team.rocket.IO.Terminal.TerminalFlagRequest;
 import team.rocket.Map;
 
 import java.util.Objects;
@@ -16,7 +15,7 @@ public class DaysPerRunFlagHandler {
 
 	@When("The TerminalFlagRequest is handled by the DaysPerRunFlagHandler")
 	public void theTerminalFlagRequestIsHandledByTheDaysPerRunFlagHandler() {
-		FlagHandler handler = new team.rocket.Handlers.Terminal.DaysPerRunFlagHandler();
+		FlagHandler handler = new team.rocket.IO.Terminal.DaysPerRunFlagHandler();
 		handler.handleRequest(request);
 	}
 

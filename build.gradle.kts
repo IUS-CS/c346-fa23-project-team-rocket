@@ -64,7 +64,7 @@ tasks.withType<Test> {
 }
 tasks.withType<Jar> {
     manifest {
-        attributes["Main-Class"] = "team.rocket.UI"
+        attributes["Main-Class"] = "team.rocket.IO.UI"
     }
 }
 task("cucumber") {

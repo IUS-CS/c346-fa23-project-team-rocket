@@ -58,3 +58,97 @@ Feature: Map
         Given a space has an organism
         When an organism is removed from the space
         Then the space should be empty
+
+    Scenario: An organism in a 1x1 grid should have no neighbors
+        Given a 1 by 1 map is created
+        When an organism is added to space (0 , 0)
+        And (0 , 0) neighbors are calculated
+        Then Space (0 , 0) should have 0 neighbors
+        And Space (0 , 0) should have 0 neighbor characters
+
+    Scenario: An organism in the middle of a 3x3 grid should have 4 null neighbors
+        Given a 3 by 3 map is created
+        When an organism is added to space (1 , 1)
+        And (1 , 1) neighbors are calculated
+        Then Space (1 , 1) should have 4 neighbors
+        And All of space (1 , 1) neighbors are null
+        And All of space (1 , 1) character neighbors are " "
+
+    Scenario: An organism in the middle of a 3x3 grid with one Rabbit at (1, 0)
+        Given a 3 by 3 map is created
+        When an organism is added to space (1 , 1)
+        And a Rabbit is added to space (0 , 1)
+        And (1 , 1) neighbors are calculated
+        Then Space (1 , 1) should have 4 neighbors
+        And The organisms "Up" neighbor is "Rabbit"
+        And The organisms "Up" character neighbor is "R"
+        And The organisms "Down" neighbor is "Null"
+        And The organisms "Down" character neighbor is " "
+        And The organisms "Left" neighbor is "Null"
+        And The organisms "Left" character neighbor is " "
+        And The organisms "Right" neighbor is "Null"
+        And The organisms "Right" character neighbor is " "
+
+    Scenario: An organism in the middle of a 3x3 grid with one Rabbit at (1, 2)
+        Given a 3 by 3 map is created
+        When an organism is added to space (1 , 1)
+        And a Rabbit is added to space (2 , 1)
+        And (1 , 1) neighbors are calculated
+        Then Space (1 , 1) should have 4 neighbors
+        And The organisms "Up" neighbor is "Null"
+        And The organisms "Up" character neighbor is " "
+        And The organisms "Down" neighbor is "Rabbit"
+        And The organisms "Down" character neighbor is "R"
+        And The organisms "Left" neighbor is "Null"
+        And The organisms "Left" character neighbor is " "
+        And The organisms "Right" neighbor is "Null"
+        And The organisms "Right" character neighbor is " "
+
+    Scenario: An organism in the middle of a 3x3 grid with one Rabbit at (0, 1)
+        Given a 3 by 3 map is created
+        When an organism is added to space (1 , 1)
+        And a Rabbit is added to space (1 , 0)
+        And (1 , 1) neighbors are calculated
+        Then Space (1 , 1) should have 4 neighbors
+        And The organisms "Up" neighbor is "Null"
+        And The organisms "Up" character neighbor is " "
+        And The organisms "Down" neighbor is "Null"
+        And The organisms "Down" character neighbor is " "
+        And The organisms "Left" neighbor is "Rabbit"
+        And The organisms "Left" character neighbor is "R"
+        And The organisms "Right" neighbor is "Null"
+        And The organisms "Right" character neighbor is " "
+
+    Scenario: An organism in the middle of a 3x3 grid with one Rabbit at (2, 1)
+        Given a 3 by 3 map is created
+        When an organism is added to space (1 , 1)
+        And a Rabbit is added to space (1 , 2)
+        And (1 , 1) neighbors are calculated
+        Then Space (1 , 1) should have 4 neighbors
+        And The organisms "Up" neighbor is "Null"
+        And The organisms "Up" character neighbor is " "
+        And The organisms "Down" neighbor is "Null"
+        And The organisms "Down" character neighbor is " "
+        And The organisms "Left" neighbor is "Null"
+        And The organisms "Left" character neighbor is " "
+        And The organisms "Right" neighbor is "Rabbit"
+        And The organisms "Right" character neighbor is "R"
+
+    Scenario: Moving an organism from (0,0) to (1,1)
+        Given a 2 by 2 map is created
+        When an organism is added to space (0 , 0)
+        And (0 , 0) is moved to (1 , 1)
+        Then (0 , 0) should be null
+        And (1 , 1) should have an organism
+
+    Scenario: Moving an organism from (0,0) to (1,1) when there's an organism at (1,1)
+        Given a 2 by 2 map is created
+        When an organism is added to space (0 , 0)
+        And (0 , 0) is moved to (1 , 1)
+        Then (0 , 0) should be null
+        And (1 , 1) should have an organism
+        And Organism Map count should be 1
+
+    Scenario: Moving a null throws an UnsupportedOperationException
+        Given a 2 by 2 map is created
+        Then an UnsupportedOperationException is thrown when (0 , 0) is attempted to be moved

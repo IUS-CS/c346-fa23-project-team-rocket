@@ -3,7 +3,8 @@ package team.rocket.Entities;
 import team.rocket.Enums.Direction;
 import team.rocket.Map;
 
-import java.util.Random;
+import static java.lang.Byte.parseByte;
+import static java.lang.Byte.valueOf;
 
 /**
  *
@@ -78,41 +79,18 @@ public class Rabbit extends AbstractAnimal{
      */
     public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
-        int freeSpaceCount = 0; //stores number of free adjacent spaces
-        Direction[] freeSpaces = new Direction[4]; //stores available movement directions
+
+        //Represents available directions in the order up, down, left, right
+        boolean[] availableDirections = {false,false,false,false};
 
         for(i = 0; i < 4; i++){
             if(neighbors[i] == null){
-                switch (i) { //identifies which direction is being evaluated
-                    case 0 -> {
-                        freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
-                        freeSpaceCount++; //increments number of free spaces
-                    }
-                    case 1 -> {
-                        freeSpaces[freeSpaceCount] = Direction.DOWN;
-                        freeSpaceCount++;
-                    }
-                    case 2 -> {
-                        freeSpaces[freeSpaceCount] = Direction.LEFT;
-                        freeSpaceCount++;
-                    }
-                    case 3 -> {
-                        freeSpaces[freeSpaceCount] = Direction.RIGHT;
-                        freeSpaceCount++;
-                    }
-                }
+                availableDirections[i]=true;
             }
         }
 
-        if(freeSpaceCount==0){ //returns null in case of no free spaces
-            return null;
-        }
-        if(freeSpaceCount==1){
-            return freeSpaces[0];
-        }
-        else{
-            return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
-        }
+        return Direction.randomDirectionFromBooleanArray(availableDirections); //randomly picks and returns a free space
+
     }
 
     /**
@@ -129,30 +107,36 @@ public class Rabbit extends AbstractAnimal{
 
         Direction direction = this.availableMovementSpace(neighbors);
 
-        if (direction == null) {
-            return;
-        }
+        if (direction != null &&
+                y-1 >=0 &&
+                y+1 <= grid.length &&
+                x-1 >= 0 &&
+                x+1 <= grid[y].length
+        ) {
+            hasMoved = true;
+        } else { return; }
 
-        if (direction == Direction.UP) {
-            grid[y][x] = null;
-            grid[y-1][x] = this;
+        switch(direction){
+            case UP -> {
+                grid[y][x] = null;
+                grid[y-1][x] = this;
+            }
+            case DOWN -> {
+                grid[y][x] = null;
+                grid[y+1][x] = this;
+            }
+            case LEFT -> {
+                grid[y][x] = null;
+                grid[y][x-1] = this;
+            }
+            case RIGHT -> {
+                grid[y][x] = null;
+                grid[y][x+1] = this;
+            }
+            default -> {
+                hasMoved = false;
+            }
         }
-
-        if (direction == Direction.DOWN) {
-            grid[y][x] = null;
-            grid[y+1][x] = this;
-        }
-
-        if (direction == Direction.LEFT) {
-            grid[y][x] = null;
-            grid[y][x-1] = this;
-        }
-
-        if (direction == Direction.RIGHT) {
-            grid[y][x] = null;
-            grid[y][x+1] = this;
-        }
-        hasMoved = true;
     }
 
     public boolean isStarving() {
