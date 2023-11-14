@@ -15,7 +15,6 @@ public class Fox {
     team.rocket.Entities.Fox f2;
     Map map = new Map();
     AbstractOrganism[][] grid = map.getGrid();
-    AbstractAnimal[] neighbors = new AbstractAnimal[4];
     int y;
     int x;
 

@@ -59,6 +59,23 @@ public class Rabbit extends AbstractAnimal{
         return nutrition;
     }
 
+    /**
+     * decreases Rabbit's hunger meter
+     */
+    public void reduceHunger(){
+        hunger-=10;
+        if (hunger < 0){
+            hunger = 0;
+        }
+    }
+
+    /**
+     * @return Rabbit's current hunger
+     */
+    public int getHunger() {
+        return hunger;
+    }
+
     @Override
     public void reduceCount() {
         count--;
