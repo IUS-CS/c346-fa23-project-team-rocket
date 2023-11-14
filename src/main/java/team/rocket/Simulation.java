@@ -11,18 +11,11 @@ import team.rocket.util.RandomManager;
 import team.rocket.util.TimeManager;
 
 import java.util.Arrays;
-/*
-import team.rocket.IO.Terminal.FlagHandler;
-import team.rocket.IO.Terminal.GridSizeFlagHandler;
-import team.rocket.IO.Terminal.InitialOrganismCountFlagHandler;
-import team.rocket.IO.Terminal.TerminalFlagRequest;
- */
 
 /**
  * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
- * @author Dale Morris, Jon Roberts
  * @version 0.6.0
  * @since 0.1.0
  */
@@ -41,7 +34,6 @@ public class Simulation implements Runnable {
     private int breedChance = 25; //the % chance that two animals will breed
 
     private boolean printOutput = true;
-
 
      //Holds all of the useful one-off offsets
      private static final int[][] offsetArray = {
@@ -64,7 +56,6 @@ public class Simulation implements Runnable {
     public Simulation(int mapWidth, int mapHeight) {
         map = new Map(mapWidth, mapHeight);
     }
-
 
     /**
      * Returns a new team.rocket.Simulation object with default constraints.
@@ -188,8 +179,6 @@ public class Simulation implements Runnable {
      * @return an array with the y position then the x position
      */
     private int[] findClosestEmptyTile(Map map, int y, int x) {
-
-
         for(int[] offset: offsetArray){
             int offsetY = y + offset[0];
             int offsetX = x + offset[1];
@@ -198,6 +187,7 @@ public class Simulation implements Runnable {
                 return new int[]{offsetX, offsetY};
             }
         }
+
         return new int[0];
     }
 
