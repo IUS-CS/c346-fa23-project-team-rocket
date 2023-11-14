@@ -6,6 +6,7 @@ import team.rocket.Map;
 import team.rocket.Simulation;
 
 import java.lang.Thread;
+import java.util.Scanner;
 
 /**
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
@@ -19,7 +20,6 @@ public class UI {
     private static Thread uiThread;
 
     public static void main(String[] args) throws InterruptedException {
-
         //Prepares the factories for construction
         setupOrganismFactory();
 
@@ -106,7 +106,7 @@ public class UI {
         grid.append(verticalBorder).append("\n");
         return String.valueOf(grid);
     }
-
+  
     private static void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();
         //Register organisms so that they can be created
