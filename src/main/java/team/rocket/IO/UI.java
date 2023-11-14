@@ -12,14 +12,14 @@ import java.util.Scanner;
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
  *
  *  * @author Dale Morris, Jon Roberts
- *  * @version 0.4.0
+ *  * @version 0.6.0
  *  * @since 0.1.0
  */
 public class UI {
 
-    public static void main(String[] args) throws InterruptedException {
+    private static Thread uiThread;
 
-        Thread.sleep(5000);
+    public static void main(String[] args) throws InterruptedException {
         //Prepares the factories for construction
         setupOrganismFactory();
 
@@ -65,8 +65,22 @@ public class UI {
      * Outputs the current Grid with boundaries and letter representations for the animals
      */
     public static void outputGrid(int currentDay, Map map) {
-        System.out.println("\n"+"Day " + currentDay);
+        Thread t1 = new Thread(() -> {
 
+	    System.out.println("\n" + "Day " + currentDay);
+	    System.out.print(gridString(map));
+
+	});
+        t1.start();
+    }
+
+
+    /**
+     * Constructs a string from the map with some formatting
+     * @param map the map to be turned into a string
+     * @return the newly made and formatted string
+     */
+    private static String gridString(Map map){
         // constructs a var representing upper edge and prints it
         String verticalBorder = "-" +
                 "--".repeat(Math.max(0, map.getWidth() + 1));
@@ -79,9 +93,9 @@ public class UI {
             for (int j = 0; j < map.getWidth(); j++) {
                 String row = "";
                 if (map.getOrganism(i, j) != null) {
-                   row+=(map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
+                    row += (map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
                 } else {
-                    row+=("  "); // append an empty space if there's no animal
+                    row += ("  "); // append an empty space if there's no animal
                 }
                 grid.append(row);
             }
@@ -90,11 +104,9 @@ public class UI {
 
         // Print lower edge
         grid.append(verticalBorder).append("\n");
-
-        System.out.print(grid);
+        return String.valueOf(grid);
     }
-
-
+  
     private static void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();
         //Register organisms so that they can be created

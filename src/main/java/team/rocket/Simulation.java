@@ -7,8 +7,10 @@ import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Enums.Direction;
 import team.rocket.IO.UI;
+import team.rocket.util.RandomManager;
+import team.rocket.util.TimeManager;
 
-import java.util.Random;
+import java.util.Arrays;
 /*
 import team.rocket.IO.Terminal.FlagHandler;
 import team.rocket.IO.Terminal.GridSizeFlagHandler;
@@ -21,7 +23,7 @@ import team.rocket.IO.Terminal.TerminalFlagRequest;
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version 0.5.0
+ * @version 0.6.0
  * @since 0.1.0
  */
 public class Simulation implements Runnable {
@@ -39,6 +41,19 @@ public class Simulation implements Runnable {
     private int breedChance = 25; //the % chance that two animals will breed
 
     private boolean printOutput = true;
+
+
+     //Holds all of the useful one-off offsets
+     private static final int[][] offsetArray = {
+            {1, 1},
+            {1, 0},
+            {1, -1},
+            {0, 1},
+            {0, -1},
+            {-1, 1},
+            {-1, 0},
+            {-1, -1}
+    };
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -78,22 +93,35 @@ public class Simulation implements Runnable {
         if(printOutput) UI.outputGrid(0, map);
         breed();        //this make sure that the animals attempt to breed before they move away from each other when the simulation first starts
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
+            long startTime = TimeManager.getCurrentTime();
+            int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
+
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
+                moveAnimal();
+            } // End of current day
+
+            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
+
+            breed();
+
+            if (mapIsFull) {
+                return;
+            }
+            //print out map
+            if(printOutput) UI.outputGrid(currentDay, map);
+
+            long currentTime = TimeManager.getCurrentTime();
+            //Only sleep if computation time didn't take long enough
+            if(currentTime < startTime + millisecondsPerDay){
                 try {
-                    Thread.sleep(millisecondsPerTimeStep);
+                    Thread.sleep(startTime + millisecondsPerDay-currentTime);
+
                 } catch (InterruptedException e) {
                     System.out.println("There was an unexpected issue with the simulation.");
                     return;
                 }
-                moveAnimal();
-            } // End of current day
-            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
-
-            breed();
-            if (mapIsFull) {
-                return;
             }
-           if(printOutput) UI.outputGrid(currentDay, map);
+
         } // End of simulation
         currentDay--; //For loop increments past the stopping date, this fixes that error
         //Decrements ensure that if the simulations step is checked that it isn't on day 11 or timestep 11 since those haven't occurred
@@ -109,7 +137,6 @@ public class Simulation implements Runnable {
         Map oldMap = map; // A copy of the current map
         boolean hasBred; // Indicates if the animal in the current grid space has bred yet
 
-        Random random = new Random();
         int randomValue;
 
         /* Looks for an organism to breed */
@@ -123,13 +150,13 @@ public class Simulation implements Runnable {
                             (j > 0 && map.getOrganism(i, j - 1) != null) || (j < map.getWidth() - 1 && map.getOrganism(i, j + 1) != null)) {
 
                         // Generate a random value between 0 and 99
-                        randomValue = random.nextInt(100);
+                        randomValue = RandomManager.getRandom().nextInt(100);
 
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
                             // Breed the animals in the closest available tile
                             int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
-                            if (closestEmptyTile != null) {
+                            if (!Arrays.equals(closestEmptyTile, new int[0])) {
                                 map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
                                 rabbitsBred++;
                                 hasBred = true;
@@ -151,22 +178,27 @@ public class Simulation implements Runnable {
     }
 
     // Finds the closest empty tile to the specified coordinates
-    private int[] findClosestEmptyTile(Map map, int y, int x) {
-        int[] closestEmptyTile = null;
-        int minDistance = Integer.MAX_VALUE;
 
-        for (int i = 0; i < map.getHeight(); i++) {
-            for (int j = 0; j < map.getWidth(); j++) {
-                if (map.getOrganism(i, j) == null) {
-                    int distance = Math.abs(i - y) + Math.abs(j - x);
-                    if (distance < minDistance) {
-                        minDistance = distance;
-                        closestEmptyTile = new int[]{i, j};
-                    }
-                }
+    /**
+     * finds the closest empty tile to position y, x in the grid
+     * only searchs within 1 tile orthogonally and diagonally
+     * @param map the map to search
+     * @param y the center y position
+     * @param x the center x position
+     * @return an array with the y position then the x position
+     */
+    private int[] findClosestEmptyTile(Map map, int y, int x) {
+
+
+        for(int[] offset: offsetArray){
+            int offsetY = y + offset[0];
+            int offsetX = x + offset[1];
+
+            if(!(offsetX < 0 || offsetX > map.getWidth() - 1) && !(offsetY < 0 || offsetY > map.getHeight() - 1) && map.getOrganism(offsetX, offsetY) == null){
+                return new int[]{offsetX, offsetY};
             }
         }
-        return closestEmptyTile;
+        return new int[0];
     }
 
     /**

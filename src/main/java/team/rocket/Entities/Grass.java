@@ -1,6 +1,8 @@
 package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
+import team.rocket.util.RandomManager;
+
 import java.util.Random;
 
 /**
@@ -125,7 +127,7 @@ public class Grass extends AbstractPlant {
             return freeSpaces[0];
         }
         else{
-            return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
+            return freeSpaces[RandomManager.getRandom().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
     }
 
