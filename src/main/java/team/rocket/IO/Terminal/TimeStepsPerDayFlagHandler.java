@@ -1,4 +1,4 @@
-package team.rocket.Handlers.Terminal;
+package team.rocket.IO.Terminal;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

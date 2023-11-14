@@ -4,12 +4,12 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+import team.rocket.IO.Terminal.TerminalFlagRequest;
 import team.rocket.Map;
 
 public class GridSizeFlagHandler {
 
-	team.rocket.Handlers.Terminal.TerminalFlagRequest request;
+	team.rocket.IO.Terminal.TerminalFlagRequest request;
 	@Given("A TerminalFlagRequest is Created with a {int} by {int} grid and {string} command")
 	public void aTerminalFlagRequestIsCreatedWithAByGridAndCommand(int width, int height, String cmd) {
 		request = new TerminalFlagRequest(cmd, new Map(width, height));
@@ -17,7 +17,7 @@ public class GridSizeFlagHandler {
 
 	@When("The TerminalFlagRequest is handled by the GridSizeFlagHandler")
 	public void theTerminalFlagRequestIsHandledByTheGridSizeFlagHandler() {
-		team.rocket.Handlers.Terminal.GridSizeFlagHandler handler = new team.rocket.Handlers.Terminal.GridSizeFlagHandler();
+		team.rocket.IO.Terminal.GridSizeFlagHandler handler = new team.rocket.IO.Terminal.GridSizeFlagHandler();
 		handler.handleRequest(request);
 	}
 

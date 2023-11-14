@@ -14,6 +14,7 @@ import team.rocket.Entities.Grass;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Entities.Rabbit;
 import team.rocket.Map;
+import team.rocket.util.TimeManager;
 
 import java.time.Instant;
 
@@ -23,10 +24,6 @@ public class Simulation {
     team.rocket.Map map;
 
     static OrganismFactory factory = OrganismFactory.getInstance();
-    /**
-     * java time library Instant instance
-     */
-    Instant instant;
     /**
      * start time used for some tests
      */
@@ -95,14 +92,12 @@ public class Simulation {
 
     @And("The current time is recorded")
     public void theCurrentTimeIsRecorded() {
-        instant = Instant.now();
-        startTime = instant.toEpochMilli();
+        startTime = TimeManager.getCurrentTime();
     }
 
     @Then("The current time is greater than the expected offset")
     public void theCurrentTimeIsGreaterThanTheExpectedOffset() {
-        instant = Instant.now();
-        long currentTime = instant.toEpochMilli();
+        long currentTime = TimeManager.getCurrentTime();
        Assertions.assertTrue(currentTime > startTime
                 + (team.rocket.Simulation.DEFAULT_DAYS_PER_RUN
                 * team.rocket.Simulation.DEFAULT_TIME_STEPS_PER_DAY
