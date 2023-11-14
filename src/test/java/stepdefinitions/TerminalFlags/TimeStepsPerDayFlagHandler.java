@@ -4,8 +4,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
-import team.rocket.Handlers.Terminal.FlagHandler;
-import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+import team.rocket.IO.Terminal.FlagHandler;
+import team.rocket.IO.Terminal.TerminalFlagRequest;
 import team.rocket.Map;
 
 public class TimeStepsPerDayFlagHandler {
@@ -17,7 +17,7 @@ public class TimeStepsPerDayFlagHandler {
 
 	@When("The TerminalFlagRequest is handled by the TimeStepsPerDayFlagHandler")
 	public void theTerminalFlagRequestIsHandledByTheTimeStepsPerDayFlagHandler() {
-		FlagHandler handler = new team.rocket.Handlers.Terminal.TimeStepsPerDayFlagHandler();
+		FlagHandler handler = new team.rocket.IO.Terminal.TimeStepsPerDayFlagHandler();
 		handler.handleRequest(request);
 	}
 
