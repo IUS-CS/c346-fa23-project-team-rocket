@@ -3,8 +3,7 @@ package team.rocket.Entities;
 import team.rocket.Enums.Direction;
 import team.rocket.Map;
 
-import static java.lang.Byte.parseByte;
-import static java.lang.Byte.valueOf;
+import java.util.Random;
 
 /**
  *
@@ -15,13 +14,17 @@ public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
     private static int count = 0;
     private boolean hasMoved;
-    private int food;
+    private boolean hasBred;
+    private int hunger;
     private static int deathFood = 0;
-    private static int foodIncrement = 1;
+    private static int nutrition = 10;
     private static final int vision = 4;
 
     public Rabbit(){
         count++;
+        hasMoved = true;
+        hasBred = true;
+        hunger = 100; //100 is full, 0 is empty
     }
 
     /**
@@ -49,6 +52,29 @@ public class Rabbit extends AbstractAnimal{
         count = i;
     }
 
+    /**
+     * @return Rabbit nutrition
+     */
+    public int getNutrition(){
+        return nutrition;
+    }
+
+    /**
+     * decreases Rabbit's hunger meter
+     */
+    public void reduceHunger(){
+        hunger-=10;
+        if (hunger < 0){
+            hunger = 0;
+        }
+    }
+
+    /**
+     * @return Rabbit's current hunger
+     */
+    public int getHunger() {
+        return hunger;
+    }
 
     @Override
     public void reduceCount() {
@@ -79,73 +105,134 @@ public class Rabbit extends AbstractAnimal{
      */
     public Direction availableMovementSpace(AbstractOrganism[] neighbors){
         int i = 0; //tracks iterations of for loop
-
-        //Represents available directions in the order up, down, left, right
-        boolean[] availableDirections = {false,false,false,false};
+        int freeSpaceCount = 0; //stores number of free adjacent spaces
+        Direction[] freeSpaces = new Direction[4]; //stores available movement directions
 
         for(i = 0; i < 4; i++){
-            if(neighbors[i] == null){
-                availableDirections[i]=true;
+            if(neighbors[i] == null || neighbors[i].instancedToIcon() == 'G' || neighbors[i].instancedToIcon() == 'C'){
+                switch (i) { //identifies which direction is being evaluated
+                    case 0 -> {
+                        freeSpaces[freeSpaceCount] = Direction.UP; //stores open direction in freeSpaces
+                        freeSpaceCount++; //increments number of free spaces
+                    }
+                    case 1 -> {
+                        freeSpaces[freeSpaceCount] = Direction.DOWN;
+                        freeSpaceCount++;
+                    }
+                    case 2 -> {
+                        freeSpaces[freeSpaceCount] = Direction.LEFT;
+                        freeSpaceCount++;
+                    }
+                    case 3 -> {
+                        freeSpaces[freeSpaceCount] = Direction.RIGHT;
+                        freeSpaceCount++;
+                    }
+                }
             }
         }
 
-        return Direction.randomDirectionFromBooleanArray(availableDirections); //randomly picks and returns a free space
-
+        if(freeSpaceCount==0){ //returns null in case of no free spaces
+            return null;
+        }
+        if(freeSpaceCount==1){
+            return freeSpaces[0];
+        }
+        else{
+            return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
+        }
     }
 
     /**
      * Moves Rabbit in grid based on current position, available movement space, and past movement
-     * @param grid 2D array holding all Organisms in simulation
-     * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
+     * @param map map of simulation
      * @param y - y position of Rabbit in grid
      * @param x - x position of Rabbit in grid
      */
-    public void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x) {
+    public void move(Map map, int y, int x) {
         if (hasMoved) {
             return;
         }
 
+        int newX = x;
+        int newY = y;
+
+        AbstractOrganism[] neighbors = findNeighbors(map, y, x);
+
         Direction direction = this.availableMovementSpace(neighbors);
 
-        if (direction != null &&
-                y-1 >=0 &&
-                y+1 <= grid.length &&
-                x-1 >= 0 &&
-                x+1 <= grid[y].length
-        ) {
-            hasMoved = true;
-        } else { return; }
+        if (direction == null) {
+            return;
+        }
 
-        switch(direction){
-            case UP -> {
-                grid[y][x] = null;
-                grid[y-1][x] = this;
-            }
-            case DOWN -> {
-                grid[y][x] = null;
-                grid[y+1][x] = this;
-            }
-            case LEFT -> {
-                grid[y][x] = null;
-                grid[y][x-1] = this;
-            }
-            case RIGHT -> {
-                grid[y][x] = null;
-                grid[y][x+1] = this;
-            }
-            default -> {
-                hasMoved = false;
+        if (direction == Direction.UP) {
+            newY--;
+        }
+
+        if (direction == Direction.DOWN) {
+            newY++;
+        }
+
+        if (direction == Direction.LEFT) {
+            newX--;
+        }
+
+        if (direction == Direction.RIGHT) {
+            newX++;
+        }
+        this.eat(map, newY, newX);
+        AbstractOrganism[][] griddy = map.getGrid();
+        griddy[newY][newX] = this;
+        griddy[y][x] = null;
+        map.setGrid(griddy);
+        hasMoved = true;
+    }
+
+    public boolean isStarving() {
+        return hunger < deathFood;
+    }
+
+    public void eat(Map map, int row, int column) {
+        if (map.getGrid()[row][column] != null) {
+            AbstractOrganism org = map.getGrid()[row][column];
+            if (org.instancedToIcon() == 'C' || org.instancedToIcon() == 'G') {
+                this.hunger += org.getNutrition();
+                org.reduceCount();
+                map.removeOrganism(row, column);
             }
         }
     }
 
-    public boolean isStarving() {
-        return food < deathFood;
-    }
+    public AbstractOrganism[] findNeighbors(Map map, int y, int x) {
+        AbstractOrganism[] neighbors = new AbstractOrganism[4];
+        if (y == 0) {
+            neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+            neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
+        } else {
+            neighbors[0] = map.getOrganism(y - 1, x);
+        }
 
-    public void eat(Map map, int row, int column) {
-        map.removeOrganism(row, column);
-        food += foodIncrement;
+        if (y == map.getHeight() - 1) {
+            neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[1].reduceCount();
+        } else {
+            neighbors[1] = map.getOrganism(y + 1, x);
+        }
+
+        if (x == 0) {
+            neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[2].reduceCount();
+        } else {
+            neighbors[2] = map.getOrganism(y, x - 1);
+        }
+
+        if (x == map.getWidth() - 1) {
+            neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[3].reduceCount();
+        } else {
+            neighbors[3] = map.getOrganism(y, x + 1);
+        }
+
+        return neighbors;
     }
 
     public static int getVision() {

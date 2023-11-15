@@ -16,3 +16,8 @@ Feature: Rabbit
         Given a new rabbit is born
         When the rabbit's movement is reset
         Then the rabbit can move
+
+    Scenario: A newborn rabbit's movement is reset
+        Given a new rabbit is born
+        When the rabbit's movement is reset
+        Then the rabbit can eat
