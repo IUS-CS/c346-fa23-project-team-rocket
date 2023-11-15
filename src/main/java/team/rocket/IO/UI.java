@@ -62,16 +62,40 @@ public class UI {
     }
 
     /**
-     * Outputs the current Grid with boundaries and letter representations for the animals
+     * Outputs the current Grid with boundaries and letter representations for the animals.
+     * Also outputs what day the simulation is on.
+     * Spins up a new thread every time it's run.
+     * @param currentDay the current day of the simulation
+     * @param map a map of the simulation
      */
     public static void outputGrid(int currentDay, Map map) {
         Thread t1 = new Thread(() -> {
 
-	    System.out.println("\n" + "Day " + currentDay);
-	    System.out.print(gridString(map));
+            printFormattedDayAndGrid(currentDay, map);
 
-	});
+        });
         t1.start();
+    }
+
+    /**
+     * Outputs the current Grid with boundaries and letter representations for the animals
+     * Also outputs what day the simulation is on.
+     * Prints using the main compute thread.
+     * @param currentDay the current day of the simulation
+     * @param map a map of the simulation
+     */
+    public static void outputGridViaMainThread(int currentDay, Map map){
+        printFormattedDayAndGrid(currentDay, map);
+    }
+
+    /**
+     * Prints out the Day and grid
+     * @param currentDay the current day of the simulation
+     * @param map a map of the simulation
+     */
+    private static void printFormattedDayAndGrid(int currentDay, Map map) {
+        System.out.println("\n" + "Day " + currentDay);
+        System.out.print(gridString(map));
     }
 
 
