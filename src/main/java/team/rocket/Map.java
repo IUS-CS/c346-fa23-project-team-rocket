@@ -1,7 +1,12 @@
 package team.rocket;
 
+import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import java.util.HashMap;
+import java.util.Optional;
+
+import team.rocket.Entities.Fox;
+import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
 
 /**
@@ -265,5 +270,26 @@ public class Map {
         if(grid[newRow][newCol]!=null) numberOfOrganisms--;
         grid[newRow][newCol] = grid[currentRow][currentCol];
         grid[currentRow][currentCol] = null;
+    }
+
+    /**
+     * Finds the location of the nearest target to the given animal within the animal's range of vision
+     *
+     * @param animal the animal that is looking for a target
+     * @return an array containing the row and column of the nearest target to the animal or null if it can't find a
+     * target
+     */
+    public Optional<int[]> locateNearestTarget(AbstractAnimal animal) {
+        Optional<int[]> location;
+
+        if (animal instanceof Rabbit) {
+            location = Optional.of(new int[] {0, 0});
+        } else if (animal instanceof Fox) {
+            location = Optional.of(new int[] {0, 0});
+        } else {
+            location = Optional.empty();
+        }
+
+        return location;
     }
 }
