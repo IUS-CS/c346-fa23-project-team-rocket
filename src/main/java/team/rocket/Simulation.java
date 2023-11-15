@@ -220,37 +220,15 @@ public class Simulation implements Runnable {
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal ) { // Check if the object is an instance of AbstractAnimal
-                    AbstractOrganism[] neighbors = new AbstractOrganism[4];
-                    if (i == 0) {
-                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
-                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
-                    } else {
-                        neighbors[0] = map.getOrganism(i - 1, j);
-                    }
-
-                    if (i == map.getHeight() - 1) {
-                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[1].reduceCount();
-                    } else {
-                        neighbors[1] = map.getOrganism(i + 1, j);
-                    }
-
-                    if (j == 0) {
-                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[2].reduceCount();
-                    } else {
-                        neighbors[2] = map.getOrganism(i, j - 1);
-                    }
-
-                    if (j == map.getWidth() - 1) {
-                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[3].reduceCount();
-                    } else {
-                        neighbors[3] = map.getOrganism(i, j + 1);
-                    }
-
-                    moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
+                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
+                    animal.move(map, i, j);
+                }
+            }
+        }
+        for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
+            for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
+                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
+                    animal.resetMove();
                 }
             }
         }
