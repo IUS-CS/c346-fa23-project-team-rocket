@@ -277,7 +277,7 @@ public class Map {
      * target
      */
     public Optional<int[]> locateNearestTarget(AbstractAnimal animal, int row, int column) {
-        Optional<int[]> location;
+        Optional<int[]> location = Optional.empty();
 
         Queue<int[]> queue = new LinkedList<int[]>();
         boolean targetFound = false;
@@ -322,12 +322,47 @@ public class Map {
                 location = Optional.empty();
             }
         } else if (animal instanceof Fox) { // Checks a fox's whole range of vision
-            location = Optional.empty();
+            for (int checkingRange = 1; checkingRange <= Fox.getVision(); checkingRange++) { // Checks a rabbit's whole range of vision
+                /*
+                    The following for loop adds locations to the queue in the following pattern (using a checking range
+                    of 3 and a starting animal of a rabbit for example):
+
+                    Before:           i = 0:            i = 1:            i = 2:
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                    . . . . . . .     . . . . . . .     . . X . . . .     . . X . X . .
+                    . . . . . . .     . . . . . . .     . . . . . X .     . X . . . X .
+                    . . . R . . .     X . . R . . X     X . . R . . X     X . . R . . X
+                    . . . . . . .     . . . . . . .     . X . . . . .     . X . . . X .
+                    . . . . . . .     . . . . . . .     . . . . X . .     . . X . X . .
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                 */
+                for (int i = 0; i < checkingRange; i++) {
+                    queue.add(new int[] {row + i, column + (checkingRange - i)});
+                    queue.add(new int[] {row + (checkingRange - i), column - i});
+                    queue.add(new int[] {row - i, column - (checkingRange - i)});
+                    queue.add(new int[] {row - (checkingRange - i), column + i});
+                }
+
+                while ((coordinates = queue.poll()) != null) { // Checks the coordinates currently in the queue
+                    if (this.getOrganism(coordinates[0], coordinates[1]) instanceof Rabbit) {
+                        location = Optional.of(coordinates);
+                        targetFound = true;
+                        break;
+                    }
+                }
+
+                if (targetFound) {
+                    break;
+                }
+            }
+
+            if (!targetFound) {
+                location = Optional.empty();
+            }
         } else {
             location = Optional.empty();
         }
 
-        // return location;
-        return Optional.empty();
+        return location;
     }
 }
