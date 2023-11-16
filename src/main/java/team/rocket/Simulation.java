@@ -90,7 +90,7 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        if(printOutput) UI.outputGrid(0, map);
+        if(printOutput) UI.outputGridViaMainThread(0, map);
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             long startTime = TimeManager.getCurrentTime();
             int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
