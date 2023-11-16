@@ -1,12 +1,9 @@
 package team.rocket;
 
-import team.rocket.Entities.AbstractAnimal;
-import team.rocket.Entities.AbstractOrganism;
-import java.util.HashMap;
-import java.util.Optional;
+import team.rocket.Entities.*;
 
-import team.rocket.Entities.Fox;
-import team.rocket.Entities.Rabbit;
+import java.util.*;
+
 import team.rocket.Enums.Direction;
 
 /**
@@ -279,17 +276,58 @@ public class Map {
      * @return an array containing the row and column of the nearest target to the animal or null if it can't find a
      * target
      */
-    public Optional<int[]> locateNearestTarget(AbstractAnimal animal) {
+    public Optional<int[]> locateNearestTarget(AbstractAnimal animal, int row, int column) {
         Optional<int[]> location;
 
+        Queue<int[]> queue = new LinkedList<int[]>();
+        boolean targetFound = false;
+        int[] coordinates;
+
         if (animal instanceof Rabbit) {
-            location = Optional.of(new int[] {0, 0});
-        } else if (animal instanceof Fox) {
-            location = Optional.of(new int[] {0, 0});
+            for (int checkingRange = 1; checkingRange <= Rabbit.getVision(); checkingRange++) { // Checks a rabbit's whole range of vision
+                /*
+                    The following for loop adds locations to the queue in the following pattern (using a checking range
+                    of 3 and a starting animal of a rabbit for example):
+
+                    Before:           i = 0:            i = 1:            i = 2:
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                    . . . . . . .     . . . . . . .     . . X . . . .     . . X . X . .
+                    . . . . . . .     . . . . . . .     . . . . . X .     . X . . . X .
+                    . . . R . . .     X . . R . . X     X . . R . . X     X . . R . . X
+                    . . . . . . .     . . . . . . .     . X . . . . .     . X . . . X .
+                    . . . . . . .     . . . . . . .     . . . . X . .     . . X . X . .
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                 */
+                for (int i = 0; i < checkingRange; i++) {
+                    queue.add(new int[] {row + i, column + (checkingRange - i)});
+                    queue.add(new int[] {row + (checkingRange - i), column - i});
+                    queue.add(new int[] {row - i, column - (checkingRange - i)});
+                    queue.add(new int[] {row - (checkingRange - i), column + i});
+                }
+
+                while ((coordinates = queue.poll()) != null) { // Checks the coordinates currently in the queue
+                    if (this.getOrganism(coordinates[0], coordinates[1]) instanceof Grass) {
+                        location = Optional.of(coordinates);
+                        targetFound = true;
+                        break;
+                    }
+                }
+
+                if (targetFound) {
+                    break;
+                }
+            }
+
+            if (!targetFound) {
+                location = Optional.empty();
+            }
+        } else if (animal instanceof Fox) { // Checks a fox's whole range of vision
+            location = Optional.empty();
         } else {
             location = Optional.empty();
         }
 
-        return location;
+        // return location;
+        return Optional.empty();
     }
 }

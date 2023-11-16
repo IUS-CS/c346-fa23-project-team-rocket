@@ -58,4 +58,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     public static int getVision() {
         return vision;
     }
+
+    public int instancedGetVision() {
+        return vision;
+    }
 }

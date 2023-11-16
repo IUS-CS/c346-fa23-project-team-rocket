@@ -174,4 +174,8 @@ public class Fox extends AbstractAnimal{
     public static int getVision() {
         return vision;
     }
+
+    public int instancedGetVision() {
+        return vision;
+    }
 }
