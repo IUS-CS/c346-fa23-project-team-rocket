@@ -47,3 +47,19 @@ Test driven development was something that was emphasized during the project and
 Although the documentation at times was very tedious, the documentation that we developed proved to be very helpful as something to refer back to. The documentation proved to be helpful in nearly every aspect of the project, whether that was implementing a new feature, discussing meeting topics, or planning future sprints. Keeping documentation for nearly eveyrthing helped in the long term for the project.
 
 ## Ryan
+
+### Tools 
+
+During this project, I had the chance to work with a variety of tools, some I was already familiar with and some that were totally new to me. IntelliJ and git were two tools we used that I am already familiar with through both school and work, but it was good to gain more experience with both. Cucumber was the testing framework we used. I found it a little difficult to work with as tests became more complex, but it was still good to learn something new.
+
+### Development 
+
+My development work focused on organisms and their associated classes and methods. This work involved a lot of object-oriented programming that highlighted the importance of clearly defining features and communicating with the team during development. With so many classes connected to each other, it became very easy for a change in one organism to impact the whole ecosystem. Documentation was also very helpful as development proceeded as it allowed for quick understanding of other team members’ work as well as pieces of code that I had written but hadn’t looked at in a while.
+
+### Testing 
+
+The project was a good experience with test-driven development. It was very helpful to think about what a feature was supposed to do and create tests for it as part of the development process. Requiring unit testing for every feature also helped keep our project working well and ensured that tests were in place to alert us if a new change caused a previous feature to break, which did happen a few times as I made modifications to the organism classes.
+
+### Documentation 
+
+Writing good documentation was very helpful throughout the project. Although it seemed annoying at first, writing documentation turned out to be very easy, and its benefits far outweighed the little bit of extra time it took to write. Having good documentation helped with every aspect of the project whether it was exploring a feature that someone else had worked on or trying to understand a method I had written a couple weeks ago.
