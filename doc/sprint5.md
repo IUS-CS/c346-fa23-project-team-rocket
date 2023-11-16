@@ -22,7 +22,7 @@ This sprint, we completed:
 * Added animal eating
 
 Here are screenshots of what we did:
-
+[Direction Improvements](/doc/s5pics/EnumImprovements_S5.png)
 
 ## Retro
 
