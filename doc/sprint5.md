@@ -20,9 +20,13 @@ This sprint, we completed:
 * Worked on documentation
 * Finished adding documentation on integration testing
 * Added animal eating
+* Additional minor functionality changes throughout the program
 
 Here are screenshots of what we did:
-[Direction Improvements](/doc/s5pics/EnumImprovements_S5.png)
+![Direction Improvements](/doc/s5pics/EnumImprovements_S5.png)
+![Nutrition changes](/doc/s5pics/Nutrition_S5.png)
+![Map Changes](/doc/s5pics/numberOfOrganisms_S5.png)
+![Profiler picture](/doc/s5pics/profiler_S5.png)
 
 ## Retro
 
