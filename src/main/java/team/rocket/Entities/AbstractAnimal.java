@@ -1,6 +1,7 @@
 package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
+import team.rocket.Map;
 
 /**
  * @since 0.1.0
@@ -12,6 +13,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     private boolean hasMoved;
 
     private static int vision;
+
+    private int hunger;
 
     /**
      * @return Animal's icon as a character
@@ -48,12 +51,16 @@ public abstract class AbstractAnimal extends AbstractOrganism {
 
     /**
      * Moves Animal in grid based on current position, available movement space, and past movement
-     * @param grid 2D array holding all Organisms in simulation
-     * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
+     * @param map map of simulation
      * @param y - y position of Rabbit in grid
      * @param x - x position of Rabbit in grid
      */
-    public abstract void move(AbstractAnimal[][] grid, AbstractAnimal[] neighbors, int y, int x);
+    public abstract void move(Map map, int y, int x);
+
+    /**
+     * @return nutrition
+     */
+    public abstract int getNutrition();
 
     public static int getVision() {
         return vision;

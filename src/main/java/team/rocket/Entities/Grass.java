@@ -53,7 +53,7 @@ public class Grass extends AbstractPlant {
     /**
      * @return Grass nutrition
      */
-    public static int getNutrition(){
+    public int getNutrition(){
         return nutrition;
     }
 
