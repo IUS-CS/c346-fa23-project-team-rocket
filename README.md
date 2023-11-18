@@ -113,6 +113,10 @@ The programs tests can be run by using the following command:
 ./gradlew cucumber
 ```
 
+## Tutorial
+
+For a more extensive walkthrough on how to use the program see [tutorial.md](doc/tutorial.md).
+
 ## Program Structure
 
 For information about the program structure see [architecture.md](doc/architecture.md).
