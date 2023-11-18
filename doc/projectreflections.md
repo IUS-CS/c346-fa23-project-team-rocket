@@ -28,6 +28,39 @@ I've worked with various tools and techniques throughout this project, which has
 
 ## Dale
 
+### Tools
+
+I've worked with several tools over the course of this project that I'm already familiar with including git, GitHub, 
+and IntelliJ. I've learned more about GitHub, however, than I previously knew about it. I've become familiar with 
+GitHub actions, projects, and issues. These are all invaluable tools that help with the software development process, 
+especially in a team-based setting.
+
+I've also become familiar with some new tools that I've never used before. Cucumber is an intuitive code testing tool 
+that allows people with little programming knowledge to write tests in Gherkin which developers can then implement in 
+the language of their choice. Learning how to write effective tests in Cucumber has broadened my understanding of the 
+process of testing code.
+
+One last thing that I'd like to say about my experience with tools in this project is that I've discovered that I don't 
+particularly like coding in Java. I find the requirement of using classes for every piece of code to be extremely 
+cumbersome. For my future projects, I'd like to try using different languages, preferably ones with less strict 
+object-orientation if they are even object-oriented at all.
+
+### Development
+
+I've learned several new concepts related to software development that have improved my understanding of common 
+development paradigms. I've learned about and used common design patterns including factories and singletons. I've also 
+practiced software engineering principles including SOLID principles and agile principles. These have been instrumental 
+to my development as a software engineer.
+
+### Documentation
+
+While I've never minded writing documentation as much as others, the sheer amount of documentation for this project is 
+on another level compared to what I'm used to. I actually have discovered that I like this much focus on documentation 
+though. Requiring developers to not only write documentation for everything but to also write high-quality 
+documentation makes it much easier to return to a piece of code after having left it untouched for a long time. I've 
+also found myself trying to write highly readable code instead of hacking something together for a temporary solution. 
+This helps the entire team work together on various pieces of the project throughout the duration of the project.
+
 ## Jonathan
 
 ### Tools 
