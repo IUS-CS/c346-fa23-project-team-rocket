@@ -5,14 +5,17 @@ import java.lang.Runnable;
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.OrganismFactory;
-import team.rocket.Entities.Rabbit;
 import team.rocket.Enums.Direction;
-import java.util.Random;
+import team.rocket.IO.UI;
+import team.rocket.util.RandomManager;
+import team.rocket.util.TimeManager;
+
+import java.util.Arrays;
 /*
-import team.rocket.Handlers.Terminal.FlagHandler;
-import team.rocket.Handlers.Terminal.GridSizeFlagHandler;
-import team.rocket.Handlers.Terminal.InitialOrganismCountFlagHandler;
-import team.rocket.Handlers.Terminal.TerminalFlagRequest;
+import team.rocket.IO.Terminal.FlagHandler;
+import team.rocket.IO.Terminal.GridSizeFlagHandler;
+import team.rocket.IO.Terminal.InitialOrganismCountFlagHandler;
+import team.rocket.IO.Terminal.TerminalFlagRequest;
  */
 
 /**
@@ -20,7 +23,7 @@ import team.rocket.Handlers.Terminal.TerminalFlagRequest;
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @author Dale Morris, Jon Roberts
- * @version 0.5.0
+ * @version 0.6.0
  * @since 0.1.0
  */
 public class Simulation implements Runnable {
@@ -38,6 +41,19 @@ public class Simulation implements Runnable {
     private int breedChance = 25; //the % chance that two animals will breed
 
     private boolean printOutput = true;
+
+
+    //Holds all of the useful one-off offsets
+    private static final int[][] offsetArray = {
+            {1, 1},
+            {1, 0},
+            {1, -1},
+            {0, 1},
+            {0, -1},
+            {-1, 1},
+            {-1, 0},
+            {-1, -1}
+    };
 
     /**
      * Returns a new team.rocket.Simulation object with the given constraints.
@@ -74,25 +90,37 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        if(printOutput) UI.outputGrid(0, map);
-        breed();        //this make sure that the animals attempt to breed before they move away from each other when the simulation first starts
+        if(printOutput) UI.outputGridViaMainThread(0, map);
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
+            long startTime = TimeManager.getCurrentTime();
+            int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
+
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
+                moveAnimal();
+            } // End of current day
+
+            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
+
+            breed();
+
+            if (mapIsFull) {
+                return;
+            }
+            //print out map
+            if(printOutput) UI.outputGrid(currentDay, map);
+
+            long currentTime = TimeManager.getCurrentTime();
+            //Only sleep if computation time didn't take long enough
+            if(currentTime < startTime + millisecondsPerDay){
                 try {
-                    Thread.sleep(millisecondsPerTimeStep);
+                    Thread.sleep(startTime + millisecondsPerDay-currentTime);
+
                 } catch (InterruptedException e) {
                     System.out.println("There was an unexpected issue with the simulation.");
                     return;
                 }
-                moveAnimal();
-            } // End of current day
-            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
-
-            breed();
-            if (mapIsFull) {
-                return;
             }
-           if(printOutput) UI.outputGrid(currentDay, map);
+
         } // End of simulation
         currentDay--; //For loop increments past the stopping date, this fixes that error
         //Decrements ensure that if the simulations step is checked that it isn't on day 11 or timestep 11 since those haven't occurred
@@ -103,54 +131,72 @@ public class Simulation implements Runnable {
      * There is a chance that the animals breed based on the breedChance variable
      */
     private void breed() {
-        int rabbitsBred = 0;
-        int expectedBreeds = (int) Math.pow(2, currentDay - 1);
+        int maxDistance = 4; // Maximum distance from parent for new animal to spawn
+        int maxBreedsPerDay = 3; // Maximum number of breeds allowed per day
+        int breedsToday = 0; // Counter for the number of breeds today
         Map oldMap = map; // A copy of the current map
         boolean hasBred; // Indicates if the animal in the current grid space has bred yet
+        int rabbitsBred = 0;
 
-        Random random = new Random();
+        // Reset the breed counter at the start of each day
+        if (currentTimeStep == 1) {
+            breedsToday = 0;
+        }
+
         int randomValue;
 
         /* Looks for an organism to breed */
         for (int i = 0; i < oldMap.getHeight(); i++) { // Iterates through each row of a copy of the grid
             hasBred = false;
             for (int j = 0; j < oldMap.getWidth(); j++) { // Iterates through each column of a copy of the grid
-                if (map.getOrganism(i, j) != null) { // Found an animal
-
+                if (map.getOrganism(i, j) != null && breedsToday < maxBreedsPerDay) { // Found an animal and check breeding limit
                     // Check if there is an organism on the tile next to them (left, right, up, or down)
                     if ((i > 0 && map.getOrganism(i - 1, j) != null) || (i < map.getHeight() - 1 && map.getOrganism(i + 1, j) != null) ||
                             (j > 0 && map.getOrganism(i, j - 1) != null) || (j < map.getWidth() - 1 && map.getOrganism(i, j + 1) != null)) {
 
                         // Generate a random value between 0 and 99
-                        randomValue = random.nextInt(100);
+                        randomValue = RandomManager.getRandom().nextInt(100);
 
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
                             // Breed the animals in the closest available tile
-                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
+                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j, maxDistance);
                             if (closestEmptyTile != null) {
                                 map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
                                 rabbitsBred++;
                                 hasBred = true;
+                                breedsToday++; // Increment the counter for breeds today
                             }
                         }
                     }
-                }
 
-                if (map.isFull()) {
-                    mapIsFull = true;
-                    if (printOutput) {
-                        UI.outputGrid(currentDay, map);
-                        System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    if (breedsToday >= maxBreedsPerDay) {
+                        // Exit the loop if the maximum number of breeds for the day is reached
+                        return;
                     }
-                    return;
+
+                    if (map.isFull()) {
+                        mapIsFull = true;
+                        if (printOutput) {
+                            UI.outputGrid(currentDay, map);
+                            System.out.println("The program has ended prematurely because there is no more space for animals.");
+                        }
+                        return;
+                    }
                 }
             }
         } // End of grid iteration
     }
 
-    // Finds the closest empty tile to the specified coordinates
-    private int[] findClosestEmptyTile(Map map, int y, int x) {
+    /**
+     * finds the closest empty tile to position y, x in the grid
+     * only searchs within 1 tile orthogonally and diagonally
+     * @param map the map to search
+     * @param y the center y position
+     * @param x the center x position
+     * @return an array with the y position then the x position
+     */
+    private int[] findClosestEmptyTile(Map map, int y, int x, int maxDistance) {
         int[] closestEmptyTile = null;
         int minDistance = Integer.MAX_VALUE;
 
@@ -158,14 +204,14 @@ public class Simulation implements Runnable {
             for (int j = 0; j < map.getWidth(); j++) {
                 if (map.getOrganism(i, j) == null) {
                     int distance = Math.abs(i - y) + Math.abs(j - x);
-                    if (distance < minDistance) {
+                    if (distance < minDistance && distance <= maxDistance) {
                         minDistance = distance;
                         closestEmptyTile = new int[]{i, j};
                     }
                 }
             }
         }
-        return closestEmptyTile;
+        return closestEmptyTile; // instead of return new int[0];
     }
 
     /**
@@ -174,37 +220,15 @@ public class Simulation implements Runnable {
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal ) { // Check if the object is an instance of AbstractAnimal
-                    AbstractOrganism[] neighbors = new AbstractOrganism[4];
-                    if (i == 0) {
-                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
-                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
-                    } else {
-                        neighbors[0] = map.getOrganism(i - 1, j);
-                    }
-
-                    if (i == map.getHeight() - 1) {
-                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[1].reduceCount();
-                    } else {
-                        neighbors[1] = map.getOrganism(i + 1, j);
-                    }
-
-                    if (j == 0) {
-                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[2].reduceCount();
-                    } else {
-                        neighbors[2] = map.getOrganism(i, j - 1);
-                    }
-
-                    if (j == map.getWidth() - 1) {
-                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[3].reduceCount();
-                    } else {
-                        neighbors[3] = map.getOrganism(i, j + 1);
-                    }
-
-                    moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
+                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
+                    animal.move(map, i, j);
+                }
+            }
+        }
+        for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
+            for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
+                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
+                    animal.resetMove();
                 }
             }
         }

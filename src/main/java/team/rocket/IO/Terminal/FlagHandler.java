@@ -1,6 +1,4 @@
-package team.rocket.Handlers.Terminal;
-
-import java.util.logging.Handler;
+package team.rocket.IO.Terminal;
 
 /**
  * Largely based on <a href="https://www.oodesign.com/chain-of-responsibility-pattern">OODesign Chain of Responsibility</a>.

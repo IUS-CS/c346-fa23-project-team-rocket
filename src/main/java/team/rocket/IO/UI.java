@@ -1,7 +1,9 @@
-package team.rocket;
+package team.rocket.IO;
 
 import team.rocket.Entities.*;
-import team.rocket.Handlers.Terminal.*;
+import team.rocket.IO.Terminal.*;
+import team.rocket.Map;
+import team.rocket.Simulation;
 
 import java.lang.Thread;
 import java.util.Scanner;
@@ -10,16 +12,17 @@ import java.util.Scanner;
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
  *
  *  * @author Dale Morris, Jon Roberts
- *  * @version 0.4.0
+ *  * @version 0.6.0
  *  * @since 0.1.0
  */
 public class UI {
 
-    public static void main(String[] args) {
+    private static Thread uiThread;
+
+    public static void main(String[] args) throws InterruptedException {
         //Prepares the factories for construction
         setupOrganismFactory();
 
-        Scanner input = new Scanner(System.in);
         Simulation simulation;
         //If args length == 1 make a map from terminal flags and create simulation that way
         if(args.length == 1){
@@ -59,39 +62,76 @@ public class UI {
     }
 
     /**
-     * Outputs the current Grid with boundaries and letter representations for the animals
+     * Outputs the current Grid with boundaries and letter representations for the animals.
+     * Also outputs what day the simulation is on.
+     * Spins up a new thread every time it's run.
+     * @param currentDay the current day of the simulation
+     * @param map a map of the simulation
      */
     public static void outputGrid(int currentDay, Map map) {
-        System.out.println("Day " + currentDay);
+        Thread t1 = new Thread(() -> {
 
-        // Print upper edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
+            printFormattedDayAndGrid(currentDay, map);
+
+        });
+        t1.start();
+    }
+
+    /**
+     * Outputs the current Grid with boundaries and letter representations for the animals
+     * Also outputs what day the simulation is on.
+     * Prints using the main compute thread.
+     * @param currentDay the current day of the simulation
+     * @param map a map of the simulation
+     */
+    public static void outputGridViaMainThread(int currentDay, Map map){
+        printFormattedDayAndGrid(currentDay, map);
+    }
+
+    /**
+     * Prints out the Day and grid
+     * @param currentDay the current day of the simulation
+     * @param map a map of the simulation
+     */
+    private static void printFormattedDayAndGrid(int currentDay, Map map) {
+        System.out.println("\n" + "Day " + currentDay);
+        System.out.print(gridString(map));
+    }
+
+
+    /**
+     * Constructs a string from the map with some formatting
+     * @param map the map to be turned into a string
+     * @return the newly made and formatted string
+     */
+    private static String gridString(Map map){
+        // constructs a var representing upper edge and prints it
+        String verticalBorder = "-" +
+                "--".repeat(Math.max(0, map.getWidth() + 1));
+
+        StringBuilder grid = new StringBuilder(verticalBorder + "\n");
+
 
         for (int i = 0; i < map.getHeight(); i++) {
-            System.out.print("| "); // Print left edge
+            grid.append("| ");
             for (int j = 0; j < map.getWidth(); j++) {
+                String row = "";
                 if (map.getOrganism(i, j) != null) {
-                    System.out.print(map.getOrganism(i, j).instancedToIcon() + " "); // Prints an icon where an entity is present
+                    row += (map.getOrganism(i, j).instancedToIcon() + " "); //appends to row
                 } else {
-                    System.out.print("  "); // Print an empty space if there's no animal
+                    row += ("  "); // append an empty space if there's no animal
                 }
+                grid.append(row);
             }
-            System.out.println("|"); // Print right edge
+            grid.append("|\n"); // Print right edge
         }
 
         // Print lower edge
-        System.out.print("-");
-        for (int i = 1; i < map.getWidth() + 2; i++) {
-            System.out.print("--");
-        }
-        System.out.println();
+        grid.append(verticalBorder).append("\n");
+        return String.valueOf(grid);
     }
-
-    static private void setupOrganismFactory(){
+  
+    private static void setupOrganismFactory(){
         OrganismFactory organismFactory = OrganismFactory.getInstance();
         //Register organisms so that they can be created
         organismFactory.registerOrganism("Rabbit", new Rabbit());
