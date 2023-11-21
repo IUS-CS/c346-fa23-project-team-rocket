@@ -19,6 +19,7 @@ understanding of our interconnected ecosystems. It's currently on version **0.6.
   * [Running](#running)
   * [Terminal Flags](#terminal-flags)
 * [Testing](#testing)
+* [Tutorial](#tutorial)
 * [Program Structure](#program-structure)
 * [License](#license)
 
