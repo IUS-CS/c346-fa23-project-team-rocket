@@ -5,7 +5,7 @@ import team.rocket.Map;
 
 /**
  * @since 0.1.0
- * @version 0.4.0
+ * @version 0.6.0
  */
 public abstract class AbstractAnimal extends AbstractOrganism {
     private static char icon;
@@ -62,6 +62,10 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      */
     public abstract int getNutrition();
 
+    /**
+     * Gets the vision of the organism, representing how far it can 'see'
+     * @return the vision value of the organism
+     */
     public static int getVision() {
         return vision;
     }

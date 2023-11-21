@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @since 0.4.0
- * @version 0.4.0
+ * @version 0.6.0
  */
 public class Fox extends AbstractAnimal {
     private static final char icon = 'F';
@@ -18,6 +18,9 @@ public class Fox extends AbstractAnimal {
     private int nutrition = 0;
     private static final int vision = 5;
 
+    /**
+     * The constructor method for creating a new Fox object, <b>please avoid</b> using this and use the Organism Factory instead.
+     */
     public Fox(){
         count++;
         hasMoved = true;
@@ -199,10 +202,20 @@ public class Fox extends AbstractAnimal {
         hasMoved = true;
     }
 
+    /**
+     * Gets the vision value of the Fox, representing how far it can 'see'
+     * @return the int representing vision distance
+     */
     public static int getVision() {
         return vision;
     }
 
+    /**
+     * eats the organism positioned at {row, column}
+     * @param map the map of the simulation
+     * @param row the row of the organism to be eaten
+     * @param column the column of the organism to be eaten
+     */
     public void eat(Map map, int row, int column) {
         if (map.getGrid()[row][column] != null) {
             AbstractOrganism org = map.getGrid()[row][column];

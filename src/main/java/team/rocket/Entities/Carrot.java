@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @since 0.5.0
- * @version 0.5.0
+ * @version 0.6.0
  */
 public class Carrot extends AbstractPlant {
     private static char icon = 'C';
@@ -16,7 +16,8 @@ public class Carrot extends AbstractPlant {
     private boolean hasGrown;
 
     /**
-     * Creates new Carrot, not ready to grow
+     * The constructor method for creating a new Carrot object, <b>please avoid</b> using this and use the Organism Factory instead.
+     * The carrot is not ready to grow.
      */
     public Carrot(){
         count++;

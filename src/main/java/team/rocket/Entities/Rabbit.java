@@ -8,7 +8,7 @@ import java.util.Random;
 /**
  *
  * @since 0.1.0
- * @version 0.4.0
+ * @version 0.6.0
  */
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';
@@ -20,6 +20,9 @@ public class Rabbit extends AbstractAnimal{
     private static int nutrition = 10;
     private static final int vision = 4;
 
+    /**
+     * The constructor method for creating a new Rabbit object, <b>please avoid</b> using this and use the Organism Factory instead.
+     */
     public Rabbit(){
         count++;
         hasMoved = true;

@@ -7,9 +7,21 @@ import team.rocket.util.RandomManager;
  * @version 0.6.0
  */
 public enum Direction {
+        /**
+         * Enum value representing the direction up, representing a positional offset of {0, -1} within a 2d array.
+         */
         UP,
+        /**
+         * Enum value representing the direction down, representing a positional offset of {0, 1} within a 2d array.
+         */
         DOWN,
+        /**
+         * Enum value representing the direction left, representing a positional offset of {-1, 0} within a 2d array.
+         */
         LEFT,
+        /**
+         *Enum value representing the direction right, representing a positional offset of {1, 0} within a 2d array.
+         */
         RIGHT;
 
         /**
