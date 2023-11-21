@@ -74,6 +74,7 @@ The only current way of configuring the simulation is through terminal arguments
 ```shell
 java -jar /path/to/animal-simulation-project-?.?.?.jar "--rabbit_count 20 --fox_count 15 --carrot_count 5 -- --grid_height 15 --grid_width 25 --days_amount 12 --steps_per_day"
 ```
+If you have more then one version of the jar file installed, simply replace the '?' with the ones matching the version you wish to run.
 
 We currently have 5 main different types of flags you can use to configure the simulation, although one of those types comes with 4 different subtypes.
 
