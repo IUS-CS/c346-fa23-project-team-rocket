@@ -28,9 +28,18 @@ import team.rocket.IO.Terminal.TerminalFlagRequest;
  */
 public class Simulation implements Runnable {
     private Map map; // Grid that organisms can exist in
-    public static final int DEFAULT_DAYS_PER_RUN = 10; // The default number of days in each run
-    public static final int DEFAULT_TIME_STEPS_PER_DAY = 10; // The default number of time steps in each day
-    public static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100; // The default number of real-world milliseconds in each time step
+    /**
+     * The default number of days in each run
+     */
+    public static final int DEFAULT_DAYS_PER_RUN = 10;
+    /**
+     * The default number of time steps in each day
+     */
+    public static final int DEFAULT_TIME_STEPS_PER_DAY = 10;
+    /**
+     * The default number of real-world milliseconds in each time step
+     */
+    public static final int DEFAULT_MILLISECONDS_PER_TIME_STEP = 100;
     private int currentDay; // The current day of the simulation
     private int currentTimeStep; // The current time step within the current day of the simulation
     private int daysPerRun; // The number of days that make up each run of the simulation
@@ -268,26 +277,50 @@ public class Simulation implements Runnable {
         }
     }
 
+    /**
+     * Sets the days per run value
+     * @param daysPerRun the new number of days per run
+     */
     public void setDaysPerRun(int daysPerRun) {
         this.daysPerRun = daysPerRun;
     }
 
+    /**
+     * Sets the timesteps per day
+     * @param timeStepsPerDay the new number of timesteps per day
+     */
     public void setTimeStepsPerDay(int timeStepsPerDay) {
         this.timeStepsPerDay = timeStepsPerDay;
     }
 
+    /**
+     * Set the milliseconds per timestep
+     * @param millisecondsPerTimeStep the new duration of milliseconds per timestep
+     */
     public void setMillisecondsPerTimeStep(int millisecondsPerTimeStep) {
         this.millisecondsPerTimeStep = millisecondsPerTimeStep;
     }
 
+    /**
+     * Returns the current day of the simulation
+     * @return the current day of the simulation
+     */
     public int getCurrentDay() {
         return currentDay;
     }
 
+    /**
+     * gets the current timestep
+     * @return the current timestep
+     */
     public int getCurrentTimeStep() {
         return currentTimeStep;
     }
 
+    /**
+     * Getter for the simulation map
+     * @return the sim. map
+     */
     public Map getMap(){return map; }
 
     /**

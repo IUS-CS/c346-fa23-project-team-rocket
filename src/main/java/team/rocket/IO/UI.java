@@ -19,6 +19,11 @@ public class UI {
 
     private static Thread uiThread;
 
+    /**
+     * The main UI method that's called to start the program
+     * @param args The passed in arguments from the terminal
+     * @throws InterruptedException may throw if the program is interrupted
+     */
     public static void main(String[] args) throws InterruptedException {
         //Prepares the factories for construction
         setupOrganismFactory();

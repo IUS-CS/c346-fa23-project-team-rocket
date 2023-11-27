@@ -227,6 +227,13 @@ public class Fox extends AbstractAnimal {
         }
     }
 
+    /**
+     * Gets the neighbors of an organisms position
+     * @param map the map to check
+     * @param y the y position to check
+     * @param x the x position to check
+     * @return an array of AbstractOrganisms that represents the neighbors in the order {up, down, left, right}
+     */
     public AbstractOrganism[] findNeighbors(Map map, int y, int x) {
         AbstractOrganism[] neighbors = new AbstractOrganism[4];
         if (y == 0) {

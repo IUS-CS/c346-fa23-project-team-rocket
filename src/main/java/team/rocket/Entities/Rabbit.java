@@ -190,10 +190,20 @@ public class Rabbit extends AbstractAnimal{
         hasMoved = true;
     }
 
+    /**
+     * Is the rabbit starving?
+     * @return true if hunger less than deathFood value
+     */
     public boolean isStarving() {
         return hunger < deathFood;
     }
 
+    /**
+     * Gets the rabbit to eat the carrot or grass at position (column, row)
+     * @param map the map to check
+     * @param row the row of the organism
+     * @param column the column of the organism
+     */
     public void eat(Map map, int row, int column) {
         if (map.getGrid()[row][column] != null) {
             AbstractOrganism org = map.getGrid()[row][column];
@@ -205,6 +215,13 @@ public class Rabbit extends AbstractAnimal{
         }
     }
 
+    /**
+     * Finds the neighbors of the Rabbit
+     * @param map the map to check
+     * @param y the y position to check for neighbors
+     * @param x the x position to check for neighbors
+     * @return an array of abstractorganisms representing directions {up, down, left, right}
+     */
     public AbstractOrganism[] findNeighbors(Map map, int y, int x) {
         AbstractOrganism[] neighbors = new AbstractOrganism[4];
         if (y == 0) {
@@ -238,6 +255,10 @@ public class Rabbit extends AbstractAnimal{
         return neighbors;
     }
 
+    /**
+     * return the vision value
+     * @return vision integer
+     */
     public static int getVision() {
         return vision;
     }
