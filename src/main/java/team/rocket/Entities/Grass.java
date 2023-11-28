@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Grass extends AbstractPlant {
     private static char icon = 'G';
-    private static int nutrition = 10;
+    private static int nutrition = 15;
     private static int count;
     private boolean hasGrown;
 
