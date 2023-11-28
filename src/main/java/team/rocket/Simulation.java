@@ -224,6 +224,7 @@ public class Simulation implements Runnable {
                     if (animal.isStarving()) {
                         map.removeOrganism(i, j);
                         animal.reduceCount();
+                        break;
                     }
                     animal.move(map, i, j);
                 }
