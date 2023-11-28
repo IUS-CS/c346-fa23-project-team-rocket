@@ -19,6 +19,7 @@ understanding of our interconnected ecosystems. It's currently on version **0.6.
   * [Running](#running)
   * [Terminal Flags](#terminal-flags)
 * [Testing](#testing)
+* [Tutorial](#tutorial)
 * [Program Structure](#program-structure)
 * [License](#license)
 
@@ -112,6 +113,10 @@ The programs tests can be run by using the following command:
 ```sh
 ./gradlew cucumber
 ```
+
+## Tutorial
+
+For a more extensive walkthrough on how to use the program see [tutorial.md](doc/tutorial.md).
 
 ## Program Structure
 
