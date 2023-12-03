@@ -279,7 +279,7 @@ public class Map {
     public Optional<int[]> locateNearestTarget(AbstractAnimal animal, int row, int column) {
         Optional<int[]> location = Optional.empty();
 
-        Queue<int[]> queue = new LinkedList<int[]>();
+        Queue<int[]> queue = new LinkedList<>();
         boolean targetFound = false;
         int[] coordinates;
 
@@ -298,11 +298,36 @@ public class Map {
                     . . . . . . .     . . . . . . .     . . . . X . .     . . X . X . .
                     . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
                  */
+                int checkingRow;
+                int checkingColumn;
                 for (int i = 0; i < checkingRange; i++) {
-                    queue.add(new int[] {row + i, column + (checkingRange - i)});
-                    queue.add(new int[] {row + (checkingRange - i), column - i});
-                    queue.add(new int[] {row - i, column - (checkingRange - i)});
-                    queue.add(new int[] {row - (checkingRange - i), column + i});
+                    checkingRow = row + i;
+                    checkingColumn = column + (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row + (checkingRange - i);
+                    checkingColumn = column - i;
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - i;
+                    checkingColumn = column - (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - (checkingRange - i);
+                    checkingColumn = column + i;
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
                 }
 
                 while ((coordinates = queue.poll()) != null) { // Checks the coordinates currently in the queue
@@ -336,11 +361,36 @@ public class Map {
                     . . . . . . .     . . . . . . .     . . . . X . .     . . X . X . .
                     . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
                  */
+                int checkingRow;
+                int checkingColumn;
                 for (int i = 0; i < checkingRange; i++) {
-                    queue.add(new int[] {row + i, column + (checkingRange - i)});
-                    queue.add(new int[] {row + (checkingRange - i), column - i});
-                    queue.add(new int[] {row - i, column - (checkingRange - i)});
-                    queue.add(new int[] {row - (checkingRange - i), column + i});
+                    checkingRow = row + i;
+                    checkingColumn = column + (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row + (checkingRange - i);
+                    checkingColumn = column - i;
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - i;
+                    checkingColumn = column - (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - (checkingRange - i);
+                    checkingColumn = column + i;
+                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
                 }
 
                 while ((coordinates = queue.poll()) != null) { // Checks the coordinates currently in the queue
