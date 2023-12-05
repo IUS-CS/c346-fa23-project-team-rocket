@@ -1,7 +1,7 @@
 package team.rocket.Entities;
 
 /**
- * An abstract class to define characteristics and behaviors for multiple types of organisms
+ * An abstract class to define characteristics and behaviors for multiple types of organisms.
  *
  * @version 0.6.0
  * @since 0.1.0
@@ -12,7 +12,7 @@ public abstract class AbstractOrganism {
     private static int nutrition; // The hunger value that this type of organism rewards when eaten
 
     /**
-     * Returns the icon representation for this type of organism
+     * Returns the icon representation for this type of organism.
      *
      * @return  this type of organism's icon as a character
      */
@@ -21,7 +21,7 @@ public abstract class AbstractOrganism {
     }
 
     /**
-     * Gets the icon from an instance
+     * Gets the icon from an instance.
      *
      * @return  the icon of the organism
      */
@@ -37,7 +37,7 @@ public abstract class AbstractOrganism {
     }
 
     /**
-     * Sets the count of organisms
+     * Sets the count of organisms.
      *
      * @param i the number count is being set too
      */
@@ -45,18 +45,20 @@ public abstract class AbstractOrganism {
 
     /**
      * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the
-     * total number of organisms
+     * total number of organisms.
      */
     public abstract void reduceCount();
 
     /**
-     * Takes the instance of an object and creates a brand new one and returns that new object
+     * Takes the instance of an object and creates a brand new one and returns that new object.
      *
      * @return  a fresh new not-copied abstract organism
      */
     public abstract AbstractOrganism getNewObjectFromExistingObject();
 
     /**
+     * Returns the hunger that this type of organism rewards when eaten
+     *
      * @return nutrition
      */
     public abstract int getNutrition();

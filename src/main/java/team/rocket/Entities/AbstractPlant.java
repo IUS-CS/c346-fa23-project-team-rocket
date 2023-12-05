@@ -1,7 +1,7 @@
 package team.rocket.Entities;
 
 /**
- * An abstract class to define characteristics and behaviors for multiple types of plants
+ * An abstract class to define characteristics and behaviors for multiple types of plants.
  *
  * @version 0.6.0
  * @since 0.3.0
@@ -13,7 +13,7 @@ public abstract class AbstractPlant extends AbstractOrganism {
     private static int nutrition; // The hunger value that this type of plant rewards when eaten
 
     /**
-     * Returns an icon representation of this type of plant
+     * Returns an icon representation of this type of plant.
      *
      * @return  this type of plant's icon as a character
      */
@@ -22,7 +22,7 @@ public abstract class AbstractPlant extends AbstractOrganism {
     }
 
     /**
-     * Gets the icon from an instance
+     * Gets the icon from an instance.
      *
      * @return  the icon of the organism
      */
@@ -31,7 +31,7 @@ public abstract class AbstractPlant extends AbstractOrganism {
     }
 
     /**
-     * Returns the total number of existing plants
+     * Returns the total number of existing plants.
      *
      * @return  current plant count
      */
@@ -40,7 +40,7 @@ public abstract class AbstractPlant extends AbstractOrganism {
     }
 
     /**
-     * Sets the count of plants
+     * Sets the count of plants.
      *
      * @param i the number count is being set too
      */
@@ -48,31 +48,31 @@ public abstract class AbstractPlant extends AbstractOrganism {
 
     /**
      * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the
-     * total number of organisms
+     * total number of organisms.
      */
     public abstract void reduceCount();
 
     /**
-     * Takes the instance of an object and creates a brand new one and returns that new object
+     * Takes the instance of an object and creates a brand new one and returns that new object.
      *
      * @return  a fresh new not-copied AbstractOrganism
      */
     public abstract AbstractOrganism getNewObjectFromExistingObject();
 
     /**
-     * Resets hasGrown to false, meant to be used to reset growth each day
+     * Resets hasGrown to false, meant to be used to reset growth each day.
      */
     public void resetGrown() {
         this.hasGrown = false;
     }
 
     /**
-     * Creates new plant
+     * Creates a new plant.
      */
     public abstract void grow(AbstractOrganism[][] grid, AbstractOrganism[] neighbors, int y, int x);
 
     /**
-     * Returns this plant's nutrition
+     * Returns this plant's nutrition.
      *
      * @return  nutrition
      */

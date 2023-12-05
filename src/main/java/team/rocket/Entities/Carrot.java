@@ -6,7 +6,7 @@ import team.rocket.util.RandomManager;
 import java.util.Random;
 
 /**
- * A carrot is a plant that provides a moderate amount of nutrition to rabbits
+ * A carrot is a plant that provides a moderate amount of nutrition to rabbits.
  *
  * @version 0.6.0
  * @since 0.5.0
@@ -18,7 +18,7 @@ public class Carrot extends AbstractPlant {
     private boolean hasGrown; // True is this carrot has grown today, false otherwise
 
     /**
-     * Creates a new carrot, not ready to grow
+     * Creates a new carrot, not ready to grow.
      */
     public Carrot() {
         count++;
@@ -26,23 +26,25 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Returns a boolean indication if this carrot has grown this cycle
+     * Returns a boolean indication if this carrot has grown this cycle.
      *
-     * @return true if this carrot has grown this cycle, false otherwise
+     * @return  true if this carrot has grown this cycle, false otherwise
      */
     public boolean growthStatus() {
         return hasGrown;
     }
 
     /**
-     * @return Carrot's icon as a character
+     * Returns the icon for a carrot
+     *
+     * @return  carrot's icon as a character.
      */
     public static char toIcon() {
         return icon;
     }
 
     /**
-     * Gets the icon from an instance
+     * Gets the icon from an instance.
      *
      * @return the icon of the organism
      */
@@ -51,7 +53,7 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Returns the total number of existing carrots
+     * Returns the total number of existing carrots.
      *
      * @return  current carrot count
      */
@@ -60,7 +62,7 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Returns the nutrition of this carrot
+     * Returns the nutrition of this carrot.
      *
      * @return  carrot nutrition
      */
@@ -69,9 +71,9 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Sets the count of Carrot
+     * Sets the count of Carrot.
      *
-     * @param i the number count is being set too
+     * @param i the number count is being set to
      */
     public void setCount(int i) {
         count = i;
@@ -79,14 +81,14 @@ public class Carrot extends AbstractPlant {
 
     /**
      * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the
-     * total number of organisms
+     * total number of organisms.
      */
     public void reduceCount() {
         count--;
     }
 
     /**
-     * Takes the instance of an object and creates a brand new one and returns that new object
+     * Takes the instance of an object and creates a brand new one and returns that new object.
      *
      * @return a fresh new not-copied AbstractOrganism
      */
@@ -95,14 +97,14 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Resets hasGrown to false, meant to be used to reset growth each day
+     * Resets hasGrown to false, meant to be used to reset growth each day.
      */
     public void resetGrown() {
         hasGrown = false;
     }
 
     /**
-     * Takes array of a rabbit's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of a rabbit's neighbors, randomly chooses an available space, and returns corresponding direction.
      *
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return          randomly determined direction based on available spaces
@@ -147,7 +149,7 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Creates a new carrot in free adjacent slot
+     * Creates a new carrot in free adjacent slot.
      *
      * @param grid      2D array holding all Organisms in simulation
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively

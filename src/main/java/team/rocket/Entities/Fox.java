@@ -6,7 +6,7 @@ import team.rocket.Map;
 import java.util.Random;
 
 /**
- * A fox is a predator that hunts rabbits
+ * A fox is an animal that eats rabbits.
  *
  * @version 0.6.0
  * @since 0.4.0
@@ -28,7 +28,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Gets the icon from an instance
+     * Gets the icon from an instance.
      *
      * @return  the icon of the organism
      */
@@ -38,7 +38,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Returns the icon representation of a fox
+     * Returns the icon representation of a fox.
      *
      * @return  the icon representation of a fox
      */
@@ -47,7 +47,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Returns the total number of existing foxes
+     * Returns the total number of existing foxes.
      *
      * @return  current fox count
      */
@@ -56,7 +56,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Returns this fox's hunger value
+     * Returns this fox's hunger value.
      *
      * @return fox's current hunger
      */
@@ -65,7 +65,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Returns the nutrition of a fox
+     * Returns the nutrition of a fox.
      *
      * @return fox nutrition
      */
@@ -74,14 +74,14 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Decreases this fox's hunger meter
+     * Decreases this fox's hunger meter.
      */
     public void reduceHunger() {
         hunger -= 10;
     }
 
     /**
-     * Returns whether this fox is starving
+     * Returns whether this fox is starving.
      *
      * @return  true if this fox is starving, false otherwise
      */
@@ -90,7 +90,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Sets the total number of existing foxes
+     * Sets the total number of existing foxes.
      *
      * @param i the number count is being set too
      */
@@ -100,7 +100,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Decrements the count of foxes
+     * Decrements the count of foxes.
      */
     @Override
     public void reduceCount() {
@@ -108,7 +108,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Returns a new fox using an existing fox
+     * Returns a new fox using an existing fox.
      *
      * @return  a new fox
      */
@@ -118,21 +118,21 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Creates a new fox
+     * Creates a new fox.
      */
     public void breed() {
 
     } //not yet implemented
 
     /**
-     * Resets hasMoved to false, meant to be used to reset movement each day
+     * Resets hasMoved to false, meant to be used to reset movement each day.
      */
     public void resetMove() {
         hasMoved = false;
     }
 
     /**
-     * Reproduces and creates a new fox
+     * Reproduces and creates a new fox.
      */
     @Override
     public void reproduce() {
@@ -140,14 +140,14 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Resets hasBred to false, meant to be used to reset breeding each day
+     * Resets hasBred to false, meant to be used to reset breeding each day.
      */
     public void resetBreeding() {
         hasBred = false;
     }
 
     /**
-     * Takes array of a fox's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of a fox's neighbors, randomly chooses an available space, and returns corresponding direction.
      *
      * @param neighbors array of organisms in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return          randomly determined direction based on available spaces
@@ -192,7 +192,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Moves fox in grid based on current position, available movement space, and past movement
+     * Moves fox in grid based on current position, available movement space, and past movement.
      *
      * @param map   map of simulation
      * @param y     y position of Fox in grid
@@ -248,7 +248,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Causes this fox to eat the organism in the given row and column of the given map
+     * Causes this fox to eat the organism in the given row and column of the given map.
      *
      * @param map       the map that this fox is in
      * @param row       the row of the organism that this fox will eat
@@ -266,7 +266,7 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Finds the contents of the four squares up, down, left, and right from this fox in the given map
+     * Finds the contents of the four squares up, down, left, and right from this fox in the given map.
      *
      * @param map   the map that this fox is in
      * @param y     the y value of this fox
