@@ -13,7 +13,7 @@ import team.rocket.util.TimeManager;
 import java.util.Arrays;
 
 /**
- * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
+ * Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
  * @version 0.6.0
@@ -45,7 +45,7 @@ public class Simulation implements Runnable {
     };
 
     /**
-     * Returns a new team.rocket.Simulation object with the given constraints.
+     * Returns a new Simulation object with the given constraints.
      *
      * @param mapWidth  the number of columns of the simulated grid
      * @param mapHeight the number of rows of the simulated grid
@@ -56,8 +56,7 @@ public class Simulation implements Runnable {
 
 
     /**
-     * Returns a new team.rocket.Simulation object with default constraints.
-     * Contains one rabbit in the corner by default
+     * Returns a new Simulation object with default constraints. Contains one rabbit in the corner by default.
      */
     public Simulation() {
         map = new Map();
@@ -118,8 +117,8 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Simulates breeding among the animals and creates a new entity when breeding occurs
-     * There is a chance that the animals breed based on the breedChance variable
+     * Simulates breeding among the animals and creates a new entity when breeding occurs. There is a chance that the
+     * animals breed based on the breedChance variable.
      */
     private void breed() {
         int maxDistance = 4; // Maximum distance from parent for new animal to spawn
@@ -180,8 +179,8 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Finds the closest empty tile to position y, x in the grid
-     * only searches within 1 tile orthogonally and diagonally
+     * Finds the closest empty tile to position y, x in the grid. Only searches within 1 tile orthogonally and
+     * diagonally.
      *
      * @param map   the map to search
      * @param y     the center y position
@@ -207,7 +206,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Handles animal movement as the days progress
+     * Handles animal movement as the days progress.
      */
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
@@ -233,7 +232,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Determines the movement positions of animals up or down and left or right
+     * Determines the movement positions of animals up or down and left or right.
      *
      * @param animal    the animal being moved
      * @param neighbors the surrounding animals
@@ -267,7 +266,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Sets the number of days in each run of the simulation to the given number
+     * Sets the number of days in each run of the simulation to the given number.
      *
      * @param daysPerRun    the desired number of days in each run of the simulation
      */
@@ -276,7 +275,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Sets the number of time steps in each day to the given number
+     * Sets the number of time steps in each day to the given number.
      *
      * @param timeStepsPerDay   the desired number of time steps in each day
      */
@@ -285,7 +284,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Sets the time in milliseconds that each time step lasts to the given number
+     * Sets the time in milliseconds that each time step lasts to the given number.
      *
      * @param millisecondsPerTimeStep the desired number of milliseconds in each time step
      */
@@ -294,7 +293,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Returns the current day of the simulation
+     * Returns the current day of the simulation.
      *
      * @return the current day of the simulation
      */
@@ -303,7 +302,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Returns the current time step of the simulation
+     * Returns the current time step of the simulation.
      *
      * @return the current time step of the simulation
      */
@@ -312,7 +311,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Returns the map of the simulation
+     * Returns the map of the simulation.
      *
      * @return the map of the simulation
      */
@@ -321,7 +320,7 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Sets whether the simulation should print it's output
+     * Sets whether the simulation should print it's output.
      *
      * @param printOutput   if true it will send the signals to the UI, otherwise it won't
      */
