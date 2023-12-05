@@ -65,8 +65,8 @@ public class Simulation implements Runnable {
     public Simulation() {
         map = new Map();
         //adds two rabbits to the top left corner when the simulation starts running
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"),0,1 );
+        //map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
+        //map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"),0,1 );
     }
 
     /**
@@ -133,8 +133,13 @@ public class Simulation implements Runnable {
 
         /* Looks for an organism to breed */
         for (int i = 0; i < oldMap.getHeight(); i++) { // Iterates through each row of a copy of the grid
-            hasBred = false;
             for (int j = 0; j < oldMap.getWidth(); j++) { // Iterates through each column of a copy of the grid
+                // Skip organisms on the boundary
+                if (i == 0 || j == 0 || i == oldMap.getHeight() - 1 || j == oldMap.getWidth() - 1) {
+                    continue;
+                }
+
+                hasBred = false;
                 if (map.getOrganism(i, j) != null) { // Found an animal
 
                     // Check if there is an organism on the tile next to them (left, right, up, or down)
@@ -180,15 +185,15 @@ public class Simulation implements Runnable {
      * @return an array with the y position then the x position
      */
     private int[] findClosestEmptyTile(Map map, int y, int x) {
-        for(int[] offset: offsetArray){
+        for (int[] offset : offsetArray) {
             int offsetY = y + offset[0];
             int offsetX = x + offset[1];
 
-            if(!(offsetX < 0 || offsetX >= map.getWidth() - 1) && !(offsetY < 0 || offsetY >= map.getHeight() - 1) && map.getOrganism(offsetX, offsetY) == null){
-                return new int[]{offsetX, offsetY};
+            // Ensure the tile is within the map but not on the boundary
+            if (offsetX > 0 && offsetX < map.getWidth() - 1 && offsetY > 0 && offsetY < map.getHeight() - 1 && map.getOrganism(offsetY, offsetX) == null) {
+                return new int[]{offsetY, offsetX}; // Correct the order of offsetY and offsetX if necessary
             }
         }
-
         return new int[0];
     }
 
