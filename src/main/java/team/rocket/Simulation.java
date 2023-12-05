@@ -184,7 +184,7 @@ public class Simulation implements Runnable {
             int offsetY = y + offset[0];
             int offsetX = x + offset[1];
 
-            if(!(offsetX < 0 || offsetX > map.getWidth() - 1) && !(offsetY < 0 || offsetY > map.getHeight() - 1) && map.getOrganism(offsetX, offsetY) == null){
+            if(!(offsetX < 0 || offsetX >= map.getWidth() - 1) && !(offsetY < 0 || offsetY >= map.getHeight() - 1) && map.getOrganism(offsetX, offsetY) == null){
                 return new int[]{offsetX, offsetY};
             }
         }
