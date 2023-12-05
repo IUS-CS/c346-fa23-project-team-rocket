@@ -1,8 +1,8 @@
 package team.rocket.Entities;
 
 /**
+ * @version 0.6.0
  * @since 0.3.0
- * @version 0.4.0
  */
 public abstract class AbstractPlant extends AbstractOrganism{
     private static char icon;
@@ -10,22 +10,28 @@ public abstract class AbstractPlant extends AbstractOrganism{
     private boolean hasGrown;
     private static int nutrition;
 
-
     /**
-     * @return Plant's icon as a character
+     * Returns an icon representation of this type of plant
+     *
+     * @return  Plant's icon as a character
      */
-    public static char toIcon(){
+    public static char toIcon() {
         return icon;
     }
 
     /**
-     * gets the icon from an instance
-     * @return the icon of the organism
+     * Gets the icon from an instance
+     *
+     * @return  the icon of the organism
      */
-    public char instancedToIcon(){return icon;}
+    public char instancedToIcon() {
+        return icon;
+    }
 
     /**
-     * @return current Plant count
+     * Returns the total number of plants
+     *
+     * @return  current Plant count
      */
     public static int getCount(){
         return count;
@@ -33,6 +39,7 @@ public abstract class AbstractPlant extends AbstractOrganism{
 
     /**
      * Sets the count of Plants
+     *
      * @param i the number count is being set too
      */
     public abstract void setCount(int i);
@@ -44,25 +51,27 @@ public abstract class AbstractPlant extends AbstractOrganism{
 
     /**
      * Takes the instance of an object and creates a brand new one and returns that new object
-     * @return a fresh new not-copied AbstractOrganism
+     *
+     * @return  a fresh new not-copied AbstractOrganism
      */
     public abstract AbstractOrganism getNewObjectFromExistingObject();
 
     /**
      * Resets hasGrown to false, meant to be used to reset growth each day
      */
-    public void resetGrown(){
+    public void resetGrown() {
         this.hasGrown = false;
     }
 
     /**
      * Creates new Organism
      */
-    public abstract void grow(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x);
+    public abstract void grow(AbstractOrganism[][] grid, AbstractOrganism[] neighbors, int y, int x);
 
     /**
-     * @return nutrition
+     * Returns this plant's nutrition
+     *
+     * @return  nutrition
      */
     public abstract int getNutrition();
-
 }
