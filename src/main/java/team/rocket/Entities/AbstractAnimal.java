@@ -17,6 +17,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     private int hunger; // The hunger value for this animal
 
     /**
+     * Returns the icon representation of this type of animal
      *
      * @return Animal's icon as a character
      */
@@ -25,7 +26,9 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     }
 
     /**
-     * @return current Animal count
+     * Returns the total number of existing animals
+     *
+     * @return  the current Animal count
      */
     public static int getCount(){
         return count;
@@ -44,35 +47,48 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     public abstract void reproduce();
 
     /**
-     * @return true if hunger is <= zero
+     * Returns true if this animal is starving, false otherwise
+     *
+     * @return  true if hunger is <= zero, false otherwise
      */
     public abstract boolean isStarving();
 
     /**
-     * @return Animal's current hunger
+     * Returns this animal's hunger
+     *
+     * @return  Animal's current hunger
      */
     public abstract int getHunger();
 
     /**
      * Takes array of an Animal's neighbors, randomly chooses an available space, and returns corresponding direction
+     *
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
-     * @return randomly determined direction based on available spaces
+     * @return          randomly determined direction based on available spaces
      */
     public abstract Direction availableMovementSpace(AbstractOrganism[] neighbors);
 
     /**
      * Moves Animal in grid based on current position, available movement space, and past movement
-     * @param map map of simulation
-     * @param y - y position of Rabbit in grid
-     * @param x - x position of Rabbit in grid
+     *
+     * @param map   map of simulation
+     * @param y     y position of Rabbit in grid
+     * @param x     x position of Rabbit in grid
      */
     public abstract void move(Map map, int y, int x);
 
     /**
-     * @return nutrition
+     * Returns this animal's nutrition
+     *
+     * @return  nutrition
      */
     public abstract int getNutrition();
 
+    /**
+     * Returns the vision for this type of animal
+     *
+     * @return  this type of animal's vision
+     */
     public static int getVision() {
         return vision;
     }
