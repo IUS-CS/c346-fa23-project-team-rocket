@@ -10,15 +10,15 @@ import java.util.Random;
  * @version 0.5.0
  */
 public class Carrot extends AbstractPlant {
-    private static char icon = 'C';
-    private static int nutrition = 25;
-    private static int count;
-    private boolean hasGrown;
+    private static char icon = 'C'; // The icon representation of a carrot
+    private static int nutrition = 25; // The hunger value that a carrot rewards when eaten
+    private static int count; // The total number of existing carrots
+    private boolean hasGrown; // True is this carrot has grown today, false otherwise
 
     /**
-     * Creates new Carrot, not ready to grow
+     * Creates a new carrot, not ready to grow
      */
-    public Carrot(){
+    public Carrot() {
         count++;
         hasGrown = true;
     }

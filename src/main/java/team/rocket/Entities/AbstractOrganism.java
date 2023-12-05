@@ -5,9 +5,9 @@ package team.rocket.Entities;
  * @since 0.1.0
  */
 public abstract class AbstractOrganism {
-    private static char icon;
-    private static int count;
-    private static int nutrition;
+    private static char icon; // The icon representation of this type of organism
+    private static int count; // The total number of existing organisms
+    private static int nutrition; // The hunger value that this type of organism rewards when eaten
 
     /**
      * Returns the icon representation for this type of organism

@@ -4,11 +4,11 @@ package team.rocket.Entities;
  * @version 0.6.0
  * @since 0.3.0
  */
-public abstract class AbstractPlant extends AbstractOrganism{
-    private static char icon;
-    private static int count;
-    private boolean hasGrown;
-    private static int nutrition;
+public abstract class AbstractPlant extends AbstractOrganism {
+    private static char icon; // The icon representation of this type of plant
+    private static int count; // The total number of existing plants
+    private boolean hasGrown; // True if this organism has grown today, false otherwise
+    private static int nutrition; // The hunger value that this type of plant rewards when eaten
 
     /**
      * Returns an icon representation of this type of plant

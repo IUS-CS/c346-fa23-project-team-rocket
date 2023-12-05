@@ -6,8 +6,8 @@ import team.rocket.Map;
 import java.util.Random;
 
 /**
- * @since 0.4.0
  * @version 0.4.0
+ * @since 0.4.0
  */
 public class Fox extends AbstractAnimal {
     private static final char icon = 'F';
