@@ -6,17 +6,19 @@ import team.rocket.Map;
 import java.util.Random;
 
 /**
- * @version 0.4.0
+ * A fox is a predator that hunts rabbits
+ *
+ * @version 0.6.0
  * @since 0.4.0
  */
 public class Fox extends AbstractAnimal {
-    private static final char icon = 'F';
-    private static int count = 0;
-    private boolean hasMoved;
-    private boolean hasBred;
-    private int hunger;
-    private int nutrition = 0;
-    private static final int vision = 5;
+    private static final char icon = 'F'; // The icon representation of a fox
+    private static int count = 0; // The total number of existing foxes
+    private boolean hasMoved; // True if this fox has moved this time step, false otherwise
+    private boolean hasBred; // True if this fox has bred today, false otherwise
+    private int hunger; // The hunger value of this fox
+    private int nutrition = 0; // The hunger value that a fox rewards when eaten
+    private static final int vision = 5; // The number of tiles away that a fox can see
 
     public Fox(){
         count++;

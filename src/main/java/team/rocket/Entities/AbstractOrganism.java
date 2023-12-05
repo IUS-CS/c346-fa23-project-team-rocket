@@ -1,6 +1,8 @@
 package team.rocket.Entities;
 
 /**
+ * An abstract class to define characteristics and behaviors for multiple types of organisms
+ *
  * @version 0.6.0
  * @since 0.1.0
  */

@@ -6,14 +6,16 @@ import team.rocket.util.RandomManager;
 import java.util.Random;
 
 /**
+ * A patch of grass is a plant that provides a small amount of food to a rabbit
+ *
+ * @version 0.6.0
  * @since 0.3.0
- * @version 0.4.0
  */
 public class Grass extends AbstractPlant {
-    private static char icon = 'G';
-    private static int nutrition = 15;
-    private static int count;
-    private boolean hasGrown;
+    private static char icon = 'G'; // The icon representation of grass
+    private static int nutrition = 15; // The hunger value that grass rewards when eaten
+    private static int count; // The total number of existing patches of grass
+    private boolean hasGrown; // True if this patch of grass has grown today, false otherwise
 
     /**
      * Creates new grass, not ready to grow

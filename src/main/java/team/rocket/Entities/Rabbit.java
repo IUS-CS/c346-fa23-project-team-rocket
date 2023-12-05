@@ -6,9 +6,10 @@ import team.rocket.Map;
 import java.util.Random;
 
 /**
+ * A rabbit is an animal that provides food to foxes and eats plants
  *
+ * @version 0.6.0
  * @since 0.1.0
- * @version 0.4.0
  */
 public class Rabbit extends AbstractAnimal{
     private static final char icon = 'R';

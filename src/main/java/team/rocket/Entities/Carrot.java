@@ -6,8 +6,10 @@ import team.rocket.util.RandomManager;
 import java.util.Random;
 
 /**
+ * A carrot is a plant that provides a moderate amount of nutrition to rabbits
+ *
+ * @version 0.6.0
  * @since 0.5.0
- * @version 0.5.0
  */
 public class Carrot extends AbstractPlant {
     private static char icon = 'C'; // The icon representation of a carrot

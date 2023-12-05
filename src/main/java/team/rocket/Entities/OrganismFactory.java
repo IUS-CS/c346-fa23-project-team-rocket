@@ -3,10 +3,11 @@ package team.rocket.Entities;
 import java.util.HashMap;
 
 /**
- * Imitating <a href="https://www.oodesign.com/singleton-pattern">Singleton</a>
- * Creates new objects of organisms after they've been registered
+ * Imitating <a href="https://www.oodesign.com/singleton-pattern">Singleton</a>. Creates new objects of organisms after
+ * they've been registered.
+ *
+ * @version 0.6.0
  * @since 0.3.0
- * @version 0.3.0
  */
 public class OrganismFactory {
 	private static OrganismFactory singleton;
