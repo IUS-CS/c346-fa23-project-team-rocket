@@ -9,6 +9,7 @@ import team.rocket.Enums.Direction;
 import team.rocket.IO.UI;
 import team.rocket.util.RandomManager;
 import team.rocket.util.TimeManager;
+import java.util.*;
 
 import java.util.Arrays;
 
@@ -197,37 +198,34 @@ public class Simulation implements Runnable {
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal ) { // Check if the object is an instance of AbstractAnimal
-                    AbstractOrganism[] neighbors = new AbstractOrganism[4];
-                    if (i == 0) {
-                        neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
-                        neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
-                    } else {
-                        neighbors[0] = map.getOrganism(i - 1, j);
-                    }
+                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
+                    AbstractAnimal animal = (AbstractAnimal) map.getOrganism(i, j);
+                    Optional<int[]> targetLocation = map.locateNearestTarget(animal, i, j);
 
-                    if (i == map.getHeight() - 1) {
-                        neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[1].reduceCount();
-                    } else {
-                        neighbors[1] = map.getOrganism(i + 1, j);
-                    }
+                    if (targetLocation.isPresent()) {
+                        int[] target = targetLocation.get();
+                        int targetRow = target[0];
+                        int targetColumn = target[1];
 
-                    if (j == 0) {
-                        neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[2].reduceCount();
-                    } else {
-                        neighbors[2] = map.getOrganism(i, j - 1);
-                    }
+                        // Determine the direction to move
+                        int newRow = i, newColumn = j;
+                        if (i < targetRow && i < map.getHeight() - 1) {
+                            newRow++; // Move down
+                        } else if (i > targetRow && i > 0) {
+                            newRow--; // Move up
+                        }
 
-                    if (j == map.getWidth() - 1) {
-                        neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
-                        neighbors[3].reduceCount();
-                    } else {
-                        neighbors[3] = map.getOrganism(i, j + 1);
-                    }
+                        if (j < targetColumn && j < map.getWidth() - 1) {
+                            newColumn++; // Move right
+                        } else if (j > targetColumn && j > 0) {
+                            newColumn--; // Move left
+                        }
 
-                    moveDirection((AbstractAnimal) map.getOrganism(i, j), neighbors, i, j);
+                        // Move the animal to the new location
+                        if (newRow != i || newColumn != j) { // Check if there is a change in position
+                            map.moveOrganism(i, j, newRow, newColumn);
+                        }
+                    }
                 }
             }
         }

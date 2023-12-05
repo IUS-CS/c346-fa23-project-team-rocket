@@ -303,29 +303,29 @@ public class Map {
                 for (int i = 0; i < checkingRange; i++) {
                     checkingRow = row + i;
                     checkingColumn = column + (checkingRange - i);
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
                     checkingRow = row + (checkingRange - i);
                     checkingColumn = column - i;
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
                     checkingRow = row - i;
                     checkingColumn = column - (checkingRange - i);
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn <=this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
                     checkingRow = row - (checkingRange - i);
                     checkingColumn = column + i;
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
                 }
@@ -366,29 +366,29 @@ public class Map {
                 for (int i = 0; i < checkingRange; i++) {
                     checkingRow = row + i;
                     checkingColumn = column + (checkingRange - i);
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
                             (checkingColumn >= 0 && checkingColumn <= this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
                     checkingRow = row + (checkingRange - i);
                     checkingColumn = column - i;
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
                     checkingRow = row - i;
                     checkingColumn = column - (checkingRange - i);
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
                     checkingRow = row - (checkingRange - i);
                     checkingColumn = column + i;
-                    if ((checkingRow >= 0 && checkingRow <= this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
                 }
