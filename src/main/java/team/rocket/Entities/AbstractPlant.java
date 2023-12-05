@@ -45,7 +45,8 @@ public abstract class AbstractPlant extends AbstractOrganism{
     public abstract void setCount(int i);
 
     /**
-     * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the total number of Organisms
+     * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the
+     * total number of organisms
      */
     public abstract void reduceCount();
 
