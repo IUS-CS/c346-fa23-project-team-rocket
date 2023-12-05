@@ -64,9 +64,10 @@ public class Fox extends AbstractAnimal {
      */
     public void reduceHunger(){
         hunger-=10;
-        if (hunger < 0){
-            hunger = 0;
-        }
+    }
+
+    public boolean isStarving() {
+        return hunger <= 0;
     }
 
     @Override
@@ -191,6 +192,7 @@ public class Fox extends AbstractAnimal {
         if (direction == Direction.RIGHT) {
             newX++;
         }
+        this.reduceHunger();
         this.eat(map, newY, newX);
         AbstractOrganism[][] griddy = map.getGrid();
         griddy[newY][newX] = this;

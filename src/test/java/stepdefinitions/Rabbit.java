@@ -84,6 +84,6 @@ public class Rabbit {
         x = 2;
         rabbit.move(map,y,x);
         assertNull(grid[2][2]);
-        assertEquals(95, rabbit.getHunger());
+        assertEquals(85, rabbit.getHunger());
     }
 }

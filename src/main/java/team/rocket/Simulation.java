@@ -221,6 +221,11 @@ public class Simulation implements Runnable {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
                 if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
+                    if (animal.isStarving()) {
+                        map.removeOrganism(i, j);
+                        animal.reduceCount();
+                        break;
+                    }
                     animal.move(map, i, j);
                 }
             }

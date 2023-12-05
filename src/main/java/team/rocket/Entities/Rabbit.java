@@ -17,7 +17,7 @@ public class Rabbit extends AbstractAnimal{
     private boolean hasBred;
     private int hunger;
     private static int deathFood = 0;
-    private static int nutrition = 10;
+    private static int nutrition = 20;
     private static final int vision = 4;
 
     public Rabbit(){
@@ -64,9 +64,6 @@ public class Rabbit extends AbstractAnimal{
      */
     public void reduceHunger(){
         hunger-=10;
-        if (hunger < 0){
-            hunger = 0;
-        }
     }
 
     /**
@@ -179,6 +176,7 @@ public class Rabbit extends AbstractAnimal{
         if (direction == Direction.RIGHT) {
             newX++;
         }
+        this.reduceHunger();
         this.eat(map, newY, newX);
         AbstractOrganism[][] griddy = map.getGrid();
         griddy[newY][newX] = this;
@@ -188,7 +186,7 @@ public class Rabbit extends AbstractAnimal{
     }
 
     public boolean isStarving() {
-        return hunger < deathFood;
+        return hunger <= deathFood;
     }
 
     public void eat(Map map, int row, int column) {
