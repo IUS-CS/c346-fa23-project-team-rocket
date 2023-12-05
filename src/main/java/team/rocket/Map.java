@@ -318,7 +318,7 @@ public class Map {
                     checkingRow = row - i;
                     checkingColumn = column - (checkingRange - i);
                     if ((checkingRow >= 0 && checkingRow < this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <=this.width)) {
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
@@ -367,7 +367,7 @@ public class Map {
                     checkingRow = row + i;
                     checkingColumn = column + (checkingRange - i);
                     if ((checkingRow >= 0 && checkingRow < this.height) &&
-                            (checkingColumn >= 0 && checkingColumn <= this.width)) {
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
                         queue.add(new int[] {checkingRow, checkingColumn});
                     }
 
