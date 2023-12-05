@@ -51,7 +51,7 @@ public class Carrot extends AbstractPlant {
     }
 
     /**
-     * Returns the current number of existing carrots
+     * Returns the total number of existing carrots
      *
      * @return  current carrot count
      */

@@ -31,7 +31,7 @@ public abstract class AbstractPlant extends AbstractOrganism {
     }
 
     /**
-     * Returns the total number of plants
+     * Returns the total number of existing plants
      *
      * @return  current plant count
      */

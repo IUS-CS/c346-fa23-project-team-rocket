@@ -49,7 +49,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     /**
      * Returns true if this animal is starving, false otherwise
      *
-     * @return  true if hunger <= 0, false otherwise
+     * @return  true if this animal is starving, false otherwise
      */
     public abstract boolean isStarving();
 

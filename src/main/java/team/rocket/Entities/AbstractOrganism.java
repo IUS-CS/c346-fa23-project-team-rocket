@@ -28,7 +28,7 @@ public abstract class AbstractOrganism {
     abstract public char instancedToIcon();
 
     /**
-     * Returns the total number of organisms
+     * Returns the total number of existing organisms
      *
      * @return  current organism count
      */
