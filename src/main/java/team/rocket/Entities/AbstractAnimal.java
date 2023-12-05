@@ -21,7 +21,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      *
      * @return Animal's icon as a character
      */
-    public static char toIcon(){
+    public static char toIcon() {
         return icon;
     }
 
@@ -30,14 +30,14 @@ public abstract class AbstractAnimal extends AbstractOrganism {
      *
      * @return  the current Animal count
      */
-    public static int getCount(){
+    public static int getCount() {
         return count;
     }
 
     /**
      * Resets hasMoved to false, meant to be used to reset movement each day
      */
-    public void resetMove(){
+    public void resetMove() {
         this.hasMoved = false;
     }
 
