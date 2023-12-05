@@ -13,7 +13,7 @@ public abstract class AbstractPlant extends AbstractOrganism{
     /**
      * Returns an icon representation of this type of plant
      *
-     * @return  Plant's icon as a character
+     * @return  this type of plant's icon as a character
      */
     public static char toIcon() {
         return icon;
@@ -31,14 +31,14 @@ public abstract class AbstractPlant extends AbstractOrganism{
     /**
      * Returns the total number of plants
      *
-     * @return  current Plant count
+     * @return  current plant count
      */
     public static int getCount(){
         return count;
     }
 
     /**
-     * Sets the count of Plants
+     * Sets the count of plants
      *
      * @param i the number count is being set too
      */
@@ -64,7 +64,7 @@ public abstract class AbstractPlant extends AbstractOrganism{
     }
 
     /**
-     * Creates new Organism
+     * Creates new plant
      */
     public abstract void grow(AbstractOrganism[][] grid, AbstractOrganism[] neighbors, int y, int x);
 

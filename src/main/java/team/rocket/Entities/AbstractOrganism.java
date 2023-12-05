@@ -12,7 +12,7 @@ public abstract class AbstractOrganism {
     /**
      * Returns the icon representation for this type of organism
      *
-     * @return  Organism's icon as a character
+     * @return  this type of organism's icon as a character
      */
     public static char toIcon() {
         return icon;
@@ -28,28 +28,28 @@ public abstract class AbstractOrganism {
     /**
      * Returns the total number of organisms
      *
-     * @return  current Organism count
+     * @return  current organism count
      */
     public static int getCount() {
         return count;
     }
 
     /**
-     * Sets the count of animals
+     * Sets the count of organisms
      *
      * @param i the number count is being set too
      */
     public abstract void setCount(int i);
 
     /**
-     * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the total number of Organisms
+     * Needed for very specific instance with OrganismEnum so that the instance in the enum doesn't count towards the total number of organisms
      */
     public abstract void reduceCount();
 
     /**
      * Takes the instance of an object and creates a brand new one and returns that new object
      *
-     * @return  a fresh new not-copied AbstractOrganism
+     * @return  a fresh new not-copied abstract organism
      */
     public abstract AbstractOrganism getNewObjectFromExistingObject();
 

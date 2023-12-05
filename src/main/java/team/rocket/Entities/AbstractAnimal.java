@@ -19,7 +19,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     /**
      * Returns the icon representation of this type of animal
      *
-     * @return Animal's icon as a character
+     * @return  this type of animal's icon as a character
      */
     public static char toIcon() {
         return icon;
@@ -28,7 +28,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     /**
      * Returns the total number of existing animals
      *
-     * @return  the current Animal count
+     * @return  the current animal count
      */
     public static int getCount() {
         return count;
@@ -42,26 +42,26 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     }
 
     /**
-     * Creates new Animal
+     * Creates a new animal
      */
     public abstract void reproduce();
 
     /**
      * Returns true if this animal is starving, false otherwise
      *
-     * @return  true if hunger is <= zero, false otherwise
+     * @return  true if hunger <= 0, false otherwise
      */
     public abstract boolean isStarving();
 
     /**
      * Returns this animal's hunger
      *
-     * @return  Animal's current hunger
+     * @return  this animal's current hunger
      */
     public abstract int getHunger();
 
     /**
-     * Takes array of an Animal's neighbors, randomly chooses an available space, and returns corresponding direction
+     * Takes array of an animal's neighbors, randomly chooses an available space, and returns corresponding direction
      *
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return          randomly determined direction based on available spaces
@@ -69,7 +69,7 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     public abstract Direction availableMovementSpace(AbstractOrganism[] neighbors);
 
     /**
-     * Moves Animal in grid based on current position, available movement space, and past movement
+     * Moves this animal in grid based on current position, available movement space, and past movement
      *
      * @param map   map of simulation
      * @param y     y position of Rabbit in grid
