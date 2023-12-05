@@ -4,19 +4,20 @@ import team.rocket.Enums.Direction;
 import team.rocket.Map;
 
 /**
+ * An abstract class to define characteristics and behavior for multiple animals
+ *
+ * @version 0.6.0
  * @since 0.1.0
- * @version 0.4.0
  */
 public abstract class AbstractAnimal extends AbstractOrganism {
-    private static char icon;
-    private static int count;
-    private boolean hasMoved;
-
-    private static int vision;
-
-    private int hunger;
+    private static char icon; // The icon representation of this type of animal
+    private static int count; // The number of animals
+    private boolean hasMoved; // True if this animal has moved, false otherwise
+    private static int vision; // The number of tiles away that an animal can see
+    private int hunger; // The hunger value for this animal
 
     /**
+     *
      * @return Animal's icon as a character
      */
     public static char toIcon(){
