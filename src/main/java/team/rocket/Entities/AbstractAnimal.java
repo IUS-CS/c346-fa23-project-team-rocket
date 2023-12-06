@@ -85,9 +85,8 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     public abstract int getNutrition();
 
     /**
-     * Returns the vision for this type of animal.
-     *
-     * @return  this type of animal's vision
+     * Gets the vision of the organism, representing how far it can 'see'
+     * @return the vision value of the organism
      */
     public static int getVision() {
         return vision;

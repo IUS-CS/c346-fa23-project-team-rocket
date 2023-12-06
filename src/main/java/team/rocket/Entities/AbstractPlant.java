@@ -67,7 +67,11 @@ public abstract class AbstractPlant extends AbstractOrganism {
     }
 
     /**
-     * Creates a new plant.
+     * Creates new Organism
+     * @param grid the map of the abstractOrganisms for the simulation
+     * @param neighbors the nearby orthogonal abstractOrganisms or null in a 4-length array representing directions [up, down, left, right] respectively
+     * @param x the x position to try and create a new organism
+     * @param y the y position to try and create a new organism
      */
     public abstract void grow(AbstractOrganism[][] grid, AbstractOrganism[] neighbors, int y, int x);
 

@@ -18,7 +18,8 @@ public class Grass extends AbstractPlant {
     private boolean hasGrown; // True if this patch of grass has grown today, false otherwise
 
     /**
-     * Creates new grass, not ready to grow.
+     * The constructor method for creating a new Grass object, <b>please avoid</b> using this and use the Organism Factory instead.
+     * The grass is not ready to grow.
      */
     public Grass() {
         count++;

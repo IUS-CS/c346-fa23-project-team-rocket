@@ -22,9 +22,16 @@ public class Map {
     private AbstractOrganism[][] grid; // The 2D array containing all the organisms on the map
     private int width; // The width of the map
     private int height; // The height of the map
-    private long numberOfOrganisms; // The total number of organisms in this map
-    public static final int DEFAULT_WIDTH = 5; // The default value for the width of the map
-    public static final int DEFAULT_HEIGHT = 5; // The default value for the height of the map
+    /**
+     *  The default value for the width of the grid
+     */
+    public static final int DEFAULT_WIDTH = 5;
+    /**
+     *  The default value for the height of the grid
+     */
+    public static final int DEFAULT_HEIGHT = 5;
+
+    private long numberOfOrganisms;
 
     /**
      * A constructor for the map class that sets the grid to an empty grid of default size and sets the
