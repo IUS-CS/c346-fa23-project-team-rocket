@@ -10,7 +10,10 @@ import java.util.Random;
  *
  * @version 0.6.0
  * @since 0.4.0
+ * @version 0.6.0
  */
+
+
 public class Fox extends AbstractAnimal {
     private static final char icon = 'F'; // The icon representation of a fox
     private static int count = 0; // The total number of existing foxes
@@ -24,6 +27,7 @@ public class Fox extends AbstractAnimal {
      * A default constructor for foxes.
      */
     public Fox() {
+
         count++;
         hasMoved = true;
         hasBred = true;
@@ -241,20 +245,18 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
-     * Returns the vision of a fox
-     *
-     * @return  the vision of a fox
+     * Gets the vision value of the Fox, representing how far it can 'see'
+     * @return the int representing vision distance
      */
     public static int getVision() {
         return vision;
     }
 
     /**
-     * Causes this fox to eat the organism in the given row and column of the given map.
-     *
-     * @param map       the map that this fox is in
-     * @param row       the row of the organism that this fox will eat
-     * @param column    the column of the organism that this fox will eat
+     * eats the organism positioned at {row, column}
+     * @param map the map of the simulation
+     * @param row the row of the organism to be eaten
+     * @param column the column of the organism to be eaten
      */
     public void eat(Map map, int row, int column) {
         if (map.getGrid()[row][column] != null) {

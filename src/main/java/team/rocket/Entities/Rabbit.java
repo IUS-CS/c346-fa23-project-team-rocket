@@ -22,7 +22,7 @@ public class Rabbit extends AbstractAnimal{
     private static final int vision = 4; // The number of tiles away a rabbit can see
 
     /**
-     * A default constructor for rabbits.
+     * The constructor method for creating a new Rabbit object, <b>please avoid</b> using this and use the Organism Factory instead.
      */
     public Rabbit() {
         count++;

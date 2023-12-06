@@ -18,7 +18,8 @@ public class Carrot extends AbstractPlant {
     private boolean hasGrown; // True is this carrot has grown today, false otherwise
 
     /**
-     * Creates a new carrot, not ready to grow.
+     * The constructor method for creating a new Carrot object, <b>please avoid</b> using this and use the Organism Factory instead.
+     * The carrot is not ready to grow.
      */
     public Carrot() {
         count++;
