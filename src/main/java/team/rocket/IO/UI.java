@@ -1,24 +1,19 @@
 package team.rocket.IO;
 
+import java.lang.Thread;
+
 import team.rocket.Entities.*;
 import team.rocket.IO.Terminal.*;
 import team.rocket.Map;
 import team.rocket.Simulation;
 
-import java.lang.Thread;
-import java.util.Scanner;
-
 /**
  * UI is the standard entry point for using the simulation. It allows users to type in input to modify the simulation.
  *
- *  * @author Dale Morris, Jon Roberts
- *  * @version 0.6.0
- *  * @since 0.1.0
+ * @version 0.6.0
+ * @since 0.1.0
  */
 public class UI {
-
-    private static Thread uiThread;
-
     public static void main(String[] args) throws InterruptedException {
         //Prepares the factories for construction
         setupOrganismFactory();
@@ -47,13 +42,11 @@ public class UI {
             simulation.setDaysPerRun(tFR.getNumOfDays());
             // Set the simulations # of Time steps per day
             simulation.setTimeStepsPerDay(tFR.getStepsPerDay());
-
         } else {
             simulation = new Simulation();
             simulation.setDaysPerRun(Simulation.DEFAULT_DAYS_PER_RUN);
             simulation.setTimeStepsPerDay(Simulation.DEFAULT_TIME_STEPS_PER_DAY);
         }
-
 
         simulation.setMillisecondsPerTimeStep(Simulation.DEFAULT_MILLISECONDS_PER_TIME_STEP);
 
@@ -62,36 +55,35 @@ public class UI {
     }
 
     /**
-     * Outputs the current Grid with boundaries and letter representations for the animals.
-     * Also outputs what day the simulation is on.
-     * Spins up a new thread every time it's run.
-     * @param currentDay the current day of the simulation
-     * @param map a map of the simulation
+     * Outputs the current Grid with boundaries and letter representations for the animals. Also outputs what day the
+     * simulation is on. Spins up a new thread every time it's run.
+     *
+     * @param currentDay    the current day of the simulation
+     * @param map           a map of the simulation
      */
     public static void outputGrid(int currentDay, Map map) {
         Thread t1 = new Thread(() -> {
-
             printFormattedDayAndGrid(currentDay, map);
-
         });
         t1.start();
     }
 
     /**
-     * Outputs the current Grid with boundaries and letter representations for the animals
-     * Also outputs what day the simulation is on.
-     * Prints using the main compute thread.
-     * @param currentDay the current day of the simulation
-     * @param map a map of the simulation
+     * Outputs the current Grid with boundaries and letter representations for the animals. Also outputs what day the
+     * simulation is on. Prints using the main compute thread.
+     *
+     * @param currentDay    the current day of the simulation
+     * @param map           a map of the simulation
      */
-    public static void outputGridViaMainThread(int currentDay, Map map){
+    public static void outputGridViaMainThread(int currentDay, Map map) {
         printFormattedDayAndGrid(currentDay, map);
     }
 
     /**
-     * Prints out the Day and grid
-     * @param currentDay the current day of the simulation
-     * @param map a map of the simulation
+     * Prints out the day and grid.
+     *
+     * @param currentDay    the current day of the simulation
+     * @param map           a map of the simulation
      */
     private static void printFormattedDayAndGrid(int currentDay, Map map) {
         System.out.println("\n" + "Day " + currentDay);
@@ -100,11 +92,12 @@ public class UI {
 
 
     /**
-     * Constructs a string from the map with some formatting
-     * @param map the map to be turned into a string
-     * @return the newly made and formatted string
+     * Constructs a string from the map with some formatting.
+     *
+     * @param map   the map to be turned into a string
+     * @return      the newly made and formatted string
      */
-    private static String gridString(Map map){
+    private static String gridString(Map map) {
         // constructs a var representing upper edge and prints it
         String verticalBorder = "-" +
                 "--".repeat(Math.max(0, map.getWidth() + 1));
@@ -130,8 +123,11 @@ public class UI {
         grid.append(verticalBorder).append("\n");
         return String.valueOf(grid);
     }
-  
-    private static void setupOrganismFactory(){
+
+    /**
+     * Registers all organisms with the organism factory.
+     */
+    private static void setupOrganismFactory() {
         OrganismFactory organismFactory = OrganismFactory.getInstance();
         //Register organisms so that they can be created
         organismFactory.registerOrganism("Rabbit", new Rabbit());

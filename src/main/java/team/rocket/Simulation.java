@@ -32,9 +32,9 @@ public class Simulation implements Runnable {
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
     private boolean mapIsFull = false;
     private int breedChance = 100; //the % chance that two animals will breed
-    private boolean printOutput = true;
+    private boolean printOutput = true; // True if the map is to be printed, false otherwise
 
-    private static final int[][] offsetArray = { //Holds all of the useful one-off offsets
+    private static final int[][] offsetArray = { // Holds all the useful one-off offsets
             {1, 1},
             {1, 0},
             {1, -1},
@@ -114,7 +114,7 @@ public class Simulation implements Runnable {
 
         } // End of simulation
         currentDay--; //For loop increments past the stopping date, this fixes that error
-        //Decrements ensure that if the simulations step is checked that it isn't on day 11 or timestep 11 since those haven't occurred
+        //Decrements ensure that if the simulations step is checked that it isn't on day 11 or time step 11 since those haven't occurred
     }
 
     /**
@@ -244,7 +244,6 @@ public class Simulation implements Runnable {
                     }
                 }
             }
-            //                  ;)
         }
 
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
