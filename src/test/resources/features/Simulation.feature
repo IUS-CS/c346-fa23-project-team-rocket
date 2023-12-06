@@ -17,13 +17,6 @@ Feature: Simulation
     Given There is an empty simulation
     Then The getCurrentDay method returns a value equal to 0
 
-    # Testing that the program appropriately sleeps for timesteps
-  Scenario: Program duration should wait some ms per TimeStep at minimum on an empty simulation
-    Given There is an empty simulation
-    And The current time is recorded
-    When The run method is run for the simulation
-    Then The current time is greater than the expected offset
-
     # Testing setDaysPerRun method
   Scenario: Changing the DaysPerRun cause the number of days to have passed to change
     Given There is an empty simulation

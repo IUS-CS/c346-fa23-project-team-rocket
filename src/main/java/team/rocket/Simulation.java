@@ -1,6 +1,7 @@
 package team.rocket;
 
 import java.lang.Runnable;
+import java.util.Optional;
 
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
@@ -11,18 +12,11 @@ import team.rocket.util.RandomManager;
 import team.rocket.util.TimeManager;
 
 import java.util.Arrays;
-/*
-import team.rocket.IO.Terminal.FlagHandler;
-import team.rocket.IO.Terminal.GridSizeFlagHandler;
-import team.rocket.IO.Terminal.InitialOrganismCountFlagHandler;
-import team.rocket.IO.Terminal.TerminalFlagRequest;
- */
 
 /**
- * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
+ * Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
  *
- * @author Dale Morris, Jon Roberts
  * @version 0.6.0
  * @since 0.1.0
  */
@@ -45,15 +39,11 @@ public class Simulation implements Runnable {
     private int daysPerRun; // The number of days that make up each run of the simulation
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
-    // private FlagHandler flagHandler = new GridSizeFlagHandler();
     private boolean mapIsFull = false;
-    private int breedChance = 25; //the % chance that two animals will breed
-
+    private int breedChance = 100; //the % chance that two animals will breed
     private boolean printOutput = true;
 
-
-    //Holds all of the useful one-off offsets
-    private static final int[][] offsetArray = {
+    private static final int[][] offsetArray = { //Holds all of the useful one-off offsets
             {1, 1},
             {1, 0},
             {1, -1},
@@ -65,10 +55,10 @@ public class Simulation implements Runnable {
     };
 
     /**
-     * Returns a new team.rocket.Simulation object with the given constraints.
+     * Returns a new Simulation object with the given constraints.
      *
-     * @param mapWidth      the number of columns of the simulated grid
-     * @param mapHeight     the number of rows of the simulated grid
+     * @param mapWidth  the number of columns of the simulated grid
+     * @param mapHeight the number of rows of the simulated grid
      */
     public Simulation(int mapWidth, int mapHeight) {
         map = new Map(mapWidth, mapHeight);
@@ -76,53 +66,54 @@ public class Simulation implements Runnable {
 
 
     /**
-     * Returns a new team.rocket.Simulation object with default constraints.
-     * Contains one rabbit in the corner by default
+     * Returns a new Simulation object with default constraints. Contains one rabbit in the corner by default.
      */
     public Simulation() {
         map = new Map();
         //adds two rabbits to the top left corner when the simulation starts running
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"),0,1 );
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0, 0);
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0, 1);
     }
 
     /**
      * Creates a simulation from a map
+     *
      * @param m the map to create a simulation from
      */
-    public Simulation(Map m){
+    public Simulation(Map m) {
         map = m;
     }
 
     /**
-     * Simulates how the environment changes over time based on initial conditions and interactions among animals.
+     * Simulates how the environment changes over time based on initial conditions and interactions among organisms.
      */
     @Override
     public void run() {
-        if(printOutput) UI.outputGridViaMainThread(0, map);
+        if (printOutput) UI.outputGridViaMainThread(0, map);
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             long startTime = TimeManager.getCurrentTime();
-            int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
+            int millisecondsPerDay = millisecondsPerTimeStep * timeStepsPerDay;
 
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 moveAnimal();
-            } // End of current day
+            }
 
-            currentTimeStep--; //For loop increments past the stopping step, this fixes that error
+            currentTimeStep--; // For loop increments past the stopping step, this fixes that error
 
             breed();
 
             if (mapIsFull) {
                 return;
             }
-            //print out map
-            if(printOutput) UI.outputGrid(currentDay, map);
+
+            if (printOutput) {
+                UI.outputGrid(currentDay, map);
+            }
 
             long currentTime = TimeManager.getCurrentTime();
-            //Only sleep if computation time didn't take long enough
-            if(currentTime < startTime + millisecondsPerDay){
+            if (currentTime < startTime + millisecondsPerDay) { // Only sleep if computation time didn't take long enough
                 try {
-                    Thread.sleep(startTime + millisecondsPerDay-currentTime);
+                    Thread.sleep(startTime + millisecondsPerDay - currentTime);
 
                 } catch (InterruptedException e) {
                     System.out.println("There was an unexpected issue with the simulation.");
@@ -136,8 +127,8 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Simulates breeding among the animals and creates a new entity when breeding occurs
-     * There is a chance that the animals breed based on the breedChance variable
+     * Simulates breeding among the animals and creates a new entity when breeding occurs. There is a chance that the
+     * animals breed based on the breedChance variable.
      */
     private void breed() {
         int maxDistance = 4; // Maximum distance from parent for new animal to spawn
@@ -198,11 +189,12 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * finds the closest empty tile to position y, x in the grid
-     * only searchs within 1 tile orthogonally and diagonally
+     * Finds the closest empty tile to position y, x in the grid. Only searches within 1 tile orthogonally and
+     * diagonally.
+     *
      * @param map the map to search
-     * @param y the center y position
-     * @param x the center x position
+     * @param y   the center y position
+     * @param x   the center x position
      * @return an array with the y position then the x position
      */
     private int[] findClosestEmptyTile(Map map, int y, int x, int maxDistance) {
@@ -224,21 +216,46 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Handles animal movement as the days progress
+     * Handles animal movement as the days progress.
      */
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
-                    if (animal.isStarving()) {
-                        map.removeOrganism(i, j);
-                        animal.reduceCount();
-                        break;
+                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
+                    AbstractAnimal animal = (AbstractAnimal) map.getOrganism(i, j);
+                    Optional<int[]> targetLocation = map.locateNearestTarget(animal, i, j);
+
+                    if (targetLocation.isPresent()) {
+                        int[] target = targetLocation.get();
+                        int targetRow = target[0];
+                        int targetColumn = target[1];
+
+                        // Determine the direction to move
+                        int newRow = i, newColumn = j;
+                        if (i < targetRow && i < map.getHeight() - 1) {
+                            newRow++; // Move down
+                        } else if (i > targetRow && i > 0) {
+                            newRow--; // Move up
+                        }
+
+                        if (j < targetColumn && j < map.getWidth() - 1) {
+                            newColumn++; // Move right
+                        } else if (j > targetColumn && j > 0) {
+                            newColumn--; // Move left
+                        }
+
+                        // Move the animal to the new location
+                        if (newRow != i || newColumn != j) { // Check if there is a change in position
+                            map.moveOrganism(i, j, newRow, newColumn);
+                        }
+                    } else {
+                        animal.move(map, i, j);
                     }
-                    animal.move(map, i, j);
                 }
             }
+            //                  ;)
         }
+
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
                 if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
@@ -249,18 +266,18 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Determines the movement positions of animals up or dowm and left or right
+     * Determines the movement positions of animals up or down and left or right.
      *
-     * @param animal    The animal being moved
-     * @param neighbors The surrounding animals
+     * @param animal    the animal being moved
+     * @param neighbors the surrounding animals
      * @param y         the vertical movement of the grid
      * @param x         the horizontal movement of the grid
      */
     private void moveDirection(AbstractAnimal animal, AbstractOrganism[] neighbors, int y, int x) {
         Direction direction = animal.availableMovementSpace(neighbors);
 
-        if(direction!=null){
-            switch(direction) {
+        if (direction != null) {
+            switch (direction) {
                 case UP -> {
                     map.removeOrganism(y, x);
                     map.addOrganism(animal, y - 1, x);
@@ -283,24 +300,27 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * Sets the days per run value
-     * @param daysPerRun the new number of days per run
+     * Sets the number of days in each run of the simulation to the given number.
+     *
+     * @param daysPerRun    the desired number of days in each run of the simulation
      */
     public void setDaysPerRun(int daysPerRun) {
         this.daysPerRun = daysPerRun;
     }
 
     /**
-     * Sets the timesteps per day
-     * @param timeStepsPerDay the new number of timesteps per day
+     * Sets the number of time steps in each day to the given number.
+     *
+     * @param timeStepsPerDay   the desired number of time steps in each day
      */
     public void setTimeStepsPerDay(int timeStepsPerDay) {
         this.timeStepsPerDay = timeStepsPerDay;
     }
 
     /**
-     * Set the milliseconds per timestep
-     * @param millisecondsPerTimeStep the new duration of milliseconds per timestep
+     * Sets the time in milliseconds that each time step lasts to the given number.
+     *
+     * @param millisecondsPerTimeStep the desired number of milliseconds in each time step
      */
     public void setMillisecondsPerTimeStep(int millisecondsPerTimeStep) {
         this.millisecondsPerTimeStep = millisecondsPerTimeStep;
@@ -315,22 +335,29 @@ public class Simulation implements Runnable {
     }
 
     /**
-     * gets the current timestep
-     * @return the current timestep
+     * Returns the current time step of the simulation.
+     *
+     * @return the current time step of the simulation
      */
     public int getCurrentTimeStep() {
         return currentTimeStep;
     }
 
     /**
-     * Getter for the simulation map
-     * @return the sim. map
+
+     * Returns the map of the simulation.
+     *
+     * @return the map of the simulation
      */
-    public Map getMap(){return map; }
+    public Map getMap() {
+        return map;
+    }
+
 
     /**
-     * Sets whether the simulation should print it's output
-     * @param printOutput if true it will send the signals to the UI, otherwise it won't
+     * Sets whether the simulation should print it's output.
+     *
+     * @param printOutput   if true it will send the signals to the UI, otherwise it won't
      */
     public void setPrintOutput(boolean printOutput) {
         this.printOutput = printOutput;
