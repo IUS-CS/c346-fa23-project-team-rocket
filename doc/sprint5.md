@@ -56,18 +56,18 @@ As a team we will...
 
 ## Planning
 
-Points | Story
--------|--------
-0      | Change program version
-2      | Write sprint5.md
-3      | Update Move
-3      | Organism Dying
-3      | Update miscellaneous documentation
-1      | Finish projectreflections.md
-2      | Tune default values
-2      | Store API documentation in an API folder
-2      | Write a tutorial file
-0      | Create a project documents directory in /docs/
-2      | Move our google based documentation into project documents
-3      | Limit breeding based upon organism energy
+| Points | Story                                                      |
+|--------|------------------------------------------------------------|
+| 0      | Change program version                                     |
+| 2      | Write sprint5.md                                           |
+| 3      | Update Move                                                |
+| 3      | Organism Dying                                             |
+| 3      | Update miscellaneous documentation                         |
+| 1      | Finish projectreflections.md                               |
+| 2      | Tune default values                                        |
+| 2      | Store API documentation in an API folder                   |
+| 2      | Write a tutorial file                                      |
+| 0      | Create a project documents directory in /docs/             |
+| 2      | Move our google based documentation into project documents |
+| 3      | Limit breeding based upon organism energy                  |
 
