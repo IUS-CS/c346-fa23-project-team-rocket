@@ -251,4 +251,48 @@ public class Fox extends AbstractAnimal {
 
         return neighbors;
     }
+
+    public void eat(Map map, int row, int column) {
+        if (map.getGrid()[row][column] != null) {
+            AbstractOrganism org = map.getGrid()[row][column];
+            if (org.instancedToIcon() == 'R') {
+                this.hunger += org.getNutrition();
+                org.reduceCount();
+                map.removeOrganism(row, column);
+            }
+        }
+    }
+
+    public AbstractOrganism[] findNeighbors(Map map, int y, int x) {
+        AbstractOrganism[] neighbors = new AbstractOrganism[4];
+        if (y == 0) {
+            neighbors[0] = OrganismFactory.getInstance().createOrganism("Fox"); //Acting as walls
+            neighbors[0].reduceCount(); //Keeping the Fox count accurate
+        } else {
+            neighbors[0] = map.getOrganism(y - 1, x);
+        }
+
+        if (y == map.getHeight() - 1) {
+            neighbors[1] = OrganismFactory.getInstance().createOrganism("Fox");
+            neighbors[1].reduceCount();
+        } else {
+            neighbors[1] = map.getOrganism(y + 1, x);
+        }
+
+        if (x == 0) {
+            neighbors[2] = OrganismFactory.getInstance().createOrganism("Fox");
+            neighbors[2].reduceCount();
+        } else {
+            neighbors[2] = map.getOrganism(y, x - 1);
+        }
+
+        if (x == map.getWidth() - 1) {
+            neighbors[3] = OrganismFactory.getInstance().createOrganism("Fox");
+            neighbors[3].reduceCount();
+        } else {
+            neighbors[3] = map.getOrganism(y, x + 1);
+        }
+
+        return neighbors;
+    }
 }

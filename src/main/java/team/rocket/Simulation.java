@@ -11,8 +11,6 @@ import team.rocket.util.RandomManager;
 import team.rocket.util.TimeManager;
 import java.util.*;
 
-import java.util.Arrays;
-
 /**
  * team.rocket.Simulation is the class that controls the backend of the simulation. It contains a grid of animals. It also runs
  * multiple time steps and days worth of simulated time during which animals can breed.
@@ -129,12 +127,6 @@ public class Simulation implements Runnable {
         Map oldMap = map; // A copy of the current map
         boolean hasBred; // Indicates if the animal in the current grid space has bred yet
         int rabbitsBred = 0;
-
-        // Reset the breed counter at the start of each day
-        if (currentTimeStep == 1) {
-            breedsToday = 0;
-        }
-
         int randomValue;
 
         /* Looks for an organism to breed */
@@ -157,7 +149,7 @@ public class Simulation implements Runnable {
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
                             // Breed the animals in the closest available tile
-                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j, maxDistance);
+                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
                             if (closestEmptyTile != null) {
                                 map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
                                 rabbitsBred++;
@@ -200,10 +192,11 @@ public class Simulation implements Runnable {
 
             // Ensure the tile is within the map but not on the boundary
             if (offsetX > 0 && offsetX < map.getWidth() - 1 && offsetY > 0 && offsetY < map.getHeight() - 1 && map.getOrganism(offsetY, offsetX) == null) {
-                return new int[]{offsetY, offsetX}; // Correct the order of offsetY and offsetX if necessary
+                return new int[] {offsetY, offsetX}; // Correct the order of offsetY and offsetX if necessary
             }
         }
-        return closestEmptyTile; // instead of return new int[0];
+
+        return new int[0];
     }
 
     /**
