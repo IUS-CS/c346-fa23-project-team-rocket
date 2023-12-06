@@ -53,7 +53,7 @@ public class Carrot extends AbstractPlant {
     /**
      * @return Carrot nutrition
      */
-    public static int getNutrition(){
+    public int getNutrition(){
         return nutrition;
     }
 

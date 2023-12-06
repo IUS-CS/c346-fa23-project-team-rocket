@@ -36,8 +36,8 @@ public class Simulation implements Runnable {
 
     private boolean printOutput = true;
 
-     //Holds all of the useful one-off offsets
-     private static final int[][] offsetArray = {
+    //Holds all of the useful one-off offsets
+    private static final int[][] offsetArray = {
             {1, 1},
             {1, 0},
             {1, -1},
@@ -82,8 +82,7 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        if(printOutput) UI.outputGrid(0, map);
-        breed();        //this make sure that the animals attempt to breed before they move away from each other when the simulation first starts
+        if(printOutput) UI.outputGridViaMainThread(0, map);
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             long startTime = TimeManager.getCurrentTime();
             int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
@@ -124,10 +123,17 @@ public class Simulation implements Runnable {
      * There is a chance that the animals breed based on the breedChance variable
      */
     private void breed() {
-        int rabbitsBred = 0;
-        int expectedBreeds = (int) Math.pow(2, currentDay - 1);
+        int maxDistance = 4; // Maximum distance from parent for new animal to spawn
+        int maxBreedsPerDay = 3; // Maximum number of breeds allowed per day
+        int breedsToday = 0; // Counter for the number of breeds today
         Map oldMap = map; // A copy of the current map
         boolean hasBred; // Indicates if the animal in the current grid space has bred yet
+        int rabbitsBred = 0;
+
+        // Reset the breed counter at the start of each day
+        if (currentTimeStep == 1) {
+            breedsToday = 0;
+        }
 
         int randomValue;
 
@@ -141,7 +147,6 @@ public class Simulation implements Runnable {
 
                 hasBred = false;
                 if (map.getOrganism(i, j) != null) { // Found an animal
-
                     // Check if there is an organism on the tile next to them (left, right, up, or down)
                     if ((i > 0 && map.getOrganism(i - 1, j) != null) || (i < map.getHeight() - 1 && map.getOrganism(i + 1, j) != null) ||
                             (j > 0 && map.getOrganism(i, j - 1) != null) || (j < map.getWidth() - 1 && map.getOrganism(i, j + 1) != null)) {
@@ -152,29 +157,33 @@ public class Simulation implements Runnable {
                         // Check if the random value is less than the breed chance
                         if (randomValue < breedChance) {
                             // Breed the animals in the closest available tile
-                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j);
-                            if (!Arrays.equals(closestEmptyTile, new int[0])) {
+                            int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j, maxDistance);
+                            if (closestEmptyTile != null) {
                                 map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
                                 rabbitsBred++;
                                 hasBred = true;
+                                breedsToday++; // Increment the counter for breeds today
                             }
                         }
                     }
-                }
 
-                if (map.isFull()) {
-                    mapIsFull = true;
-                    if (printOutput) {
-                        UI.outputGrid(currentDay, map);
-                        System.out.println("The program has ended prematurely because there is no more space for animals.");
+                    if (breedsToday >= maxBreedsPerDay) {
+                        // Exit the loop if the maximum number of breeds for the day is reached
+                        return;
                     }
-                    return;
+
+                    if (map.isFull()) {
+                        mapIsFull = true;
+                        if (printOutput) {
+                            UI.outputGrid(currentDay, map);
+                            System.out.println("The program has ended prematurely because there is no more space for animals.");
+                        }
+                        return;
+                    }
                 }
             }
         } // End of grid iteration
     }
-
-    // Finds the closest empty tile to the specified coordinates
 
     /**
      * finds the closest empty tile to position y, x in the grid
@@ -194,7 +203,7 @@ public class Simulation implements Runnable {
                 return new int[]{offsetY, offsetX}; // Correct the order of offsetY and offsetX if necessary
             }
         }
-        return new int[0];
+        return closestEmptyTile; // instead of return new int[0];
     }
 
     /**
