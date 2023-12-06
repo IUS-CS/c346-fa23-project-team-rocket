@@ -31,7 +31,7 @@ public class Simulation implements Runnable {
     private int timeStepsPerDay; // The number of time steps that make up each day
     private int millisecondsPerTimeStep; // The number of real-world milliseconds that make up each time step
     private boolean mapIsFull = false;
-    private int breedChance = 25; //the % chance that two animals will breed
+    private int breedChance = 100; //the % chance that two animals will breed
     private boolean printOutput = true;
 
     private static final int[][] offsetArray = { //Holds all of the useful one-off offsets
