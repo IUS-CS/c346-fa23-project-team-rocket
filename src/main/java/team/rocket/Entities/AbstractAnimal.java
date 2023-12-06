@@ -43,6 +43,16 @@ public abstract class AbstractAnimal extends AbstractOrganism {
     public abstract void reproduce();
 
     /**
+     * @return true if hunger is <= zero
+     */
+    public abstract boolean isStarving();
+
+    /**
+     * @return Animal's current hunger
+     */
+    public abstract int getHunger();
+
+    /**
      * Takes array of an Animal's neighbors, randomly chooses an available space, and returns corresponding direction
      * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
      * @return randomly determined direction based on available spaces

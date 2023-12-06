@@ -7,7 +7,7 @@ ecosystems, including reproduction, death, hunger, and dynamic weather patterns.
 innovative, immersive, and hands-on experience in which users can customize parameters like population sizes, species 
 interactions, and weather patterns to simulate specific ecosystems and study the effects of different variables. The aim 
 of Life Simulator is to bring the wonders of the natural world to users' fingertips and contribute to a greater 
-understanding of our interconnected ecosystems. It's currently on version **0.6.0**.
+understanding of our interconnected ecosystems. It's currently on version **0.7.0**.
 
 <details>
 <summary>Table of Contents</summary>
@@ -19,6 +19,7 @@ understanding of our interconnected ecosystems. It's currently on version **0.6.
   * [Running](#running)
   * [Terminal Flags](#terminal-flags)
 * [Testing](#testing)
+* [Tutorial](#tutorial)
 * [Program Structure](#program-structure)
 * [License](#license)
 
@@ -55,7 +56,7 @@ git clone https://github.com/IUS-CS/c346-fa23-project-team-rocket
 After building the program, run the following command to run it:
 
 ```sh
-java -jar build/libs/animal-simulation-project-0.6.0.jar
+java -jar build/libs/animal-simulation-project-0.7.0.jar
 ```
 
 ### Terminal Flags
@@ -74,14 +75,16 @@ flags might look like:
 
 We have 5 different terminal flags currently:
 
-* --<organism-name>_count #
+* --*organism-name*_count #
 
 Example of Usage: --Rabbit_count 33
 This flag spawns an initial amount of rabbits in the simulation, the value is capped to 9999999. Negative values don't 
-work. It also only works with currently implemented animals, those being:
+work. It also only works with currently implemented organisms, those being:
 
 * Rabbit
 * Fox
+* Grass
+* Carrot
 
 
 * --grid_width #
@@ -112,6 +115,10 @@ The programs tests can be run by using the following command:
 ```sh
 ./gradlew cucumber
 ```
+
+## Tutorial
+
+For a more extensive walkthrough on how to use the program see [tutorial.md](doc/tutorial.md).
 
 ## Program Structure
 
