@@ -85,7 +85,7 @@ public class Rabbit extends AbstractAnimal{
      * decreases Rabbit's hunger meter
      */
     public void reduceHunger(){
-        hunger-=2;
+        hunger-=10;
     }
 
     /**

@@ -85,7 +85,7 @@ public class Fox extends AbstractAnimal {
      * decreases Fox's hunger meter
      */
     public void reduceHunger(){
-        hunger-=2;
+        hunger-=10;
     }
 
     public boolean isStarving() {
