@@ -15,28 +15,28 @@ import team.rocket.Simulation;
  */
 public class UI {
     public static void main(String[] args) throws InterruptedException {
-        //Prepares the factories for construction
+        // Prepares the factories for construction
         setupOrganismFactory();
 
         Simulation simulation;
-        //If args length == 1 make a map from terminal flags and create simulation that way
-        if(args.length == 1){
-            //Create a TerminalFlagRequest
+        // If args length == 1 make a map from terminal flags and create simulation that way
+        if (args.length == 1) {
+            // Create a TerminalFlagRequest
             TerminalFlagRequest tFR = new TerminalFlagRequest(args[0], new Map(3,3));
-            //Create a flag handler
+            // Create a flag handler
             FlagHandler mainHandler = new GridSizeFlagHandler();
             FlagHandler subHandlerOne = new InitialOrganismCountFlagHandler();
             FlagHandler subHandlerTwo = new DaysPerRunFlagHandler();
             FlagHandler subHandlerThree = new TimeStepsPerDayFlagHandler();
-            //set the handlers successor to the appropriate successor
+            // Set the handlers successor to the appropriate successor
             mainHandler.setSuccessor(subHandlerOne);
-            //set subHandlerOne's successor to the DaysPerRun Flag Handler
+            // Set subHandlerOne's successor to the DaysPerRun Flag Handler
             subHandlerOne.setSuccessor(subHandlerTwo);
-            //set subHandlerTwo's successor to the TimeStepsPerDay Flag Handler
+            // Set subHandlerTwo's successor to the TimeStepsPerDay Flag Handler
             subHandlerTwo.setSuccessor(subHandlerThree);
-            //Appropriately handle the request with the handlers, data will be passed back through the request
+            // Appropriately handle the request with the handlers, data will be passed back through the request
             mainHandler.handleRequest(tFR);
-            //Create a Simulation from the tFR map
+            // Create a Simulation from the tFR map
             simulation = new Simulation(tFR.getMap());
             // Set the simulations # of days
             simulation.setDaysPerRun(tFR.getNumOfDays());
