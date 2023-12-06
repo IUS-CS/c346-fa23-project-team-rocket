@@ -20,6 +20,9 @@ public class Fox extends AbstractAnimal {
     private int nutrition = 0; // The hunger value that a fox rewards when eaten
     private static final int vision = 5; // The number of tiles away that a fox can see
 
+    /**
+     * A default constructor for foxes.
+     */
     public Fox() {
         count++;
         hasMoved = true;

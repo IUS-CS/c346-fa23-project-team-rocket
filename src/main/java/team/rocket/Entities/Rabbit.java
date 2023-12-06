@@ -6,42 +6,52 @@ import team.rocket.Map;
 import java.util.Random;
 
 /**
- * A rabbit is an animal that provides food to foxes and eats plants
+ * A rabbit is an animal that provides food to foxes and eats plants.
  *
  * @version 0.6.0
  * @since 0.1.0
  */
 public class Rabbit extends AbstractAnimal{
-    private static final char icon = 'R';
-    private static int count = 0;
-    private boolean hasMoved;
-    private boolean hasBred;
-    private int hunger;
-    private static int deathFood = 0;
-    private static int nutrition = 20;
-    private static final int vision = 4;
+    private static final char icon = 'R'; // The icon representation of a rabbit
+    private static int count = 0; // The total number of existing rabbits
+    private boolean hasMoved; // True if this rabbit has moved this time step, false otherwise
+    private boolean hasBred; // True if this rabbit has bred today, false otherwise
+    private int hunger; // The hunger value of this rabbit
+    private static int deathFood = 0; // This rabbit will die if its hunger falls below this value
+    private static int nutrition = 20; // The hunger value that a rabbit rewards when eaten
+    private static final int vision = 4; // The number of tiles away a rabbit can see
 
-    public Rabbit(){
+    /**
+     * A default constructor for rabbits.
+     */
+    public Rabbit() {
         count++;
         hasMoved = true;
         hasBred = true;
-        hunger = 100; //100 is full, 0 is empty
+        hunger = 100; // 100 is full, 0 is empty
     }
 
     /**
-     * @return team.rocket.Entities.Rabbit's icon as a character
+     * Returns the icon representation of a rabbit.
+     *
+     * @return rabbit's icon as a character
      */
     public static char toIcon(){
         return icon;
     }
 
     /**
-     * gets the icon from an instance
+     * Gets the icon from an instance.
+     *
      * @return the icon of the organism
      */
-    public char instancedToIcon(){return icon;}
+    public char instancedToIcon() {
+        return icon;
+    }
 
     /**
+     * Returns the total number of existing rabbits.
+     *
      * @return current Rabbit count
      */
     public static int getCount(){
