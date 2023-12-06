@@ -183,13 +183,12 @@ public class Fox extends AbstractAnimal {
             }
         }
 
-        if(freeSpaceCount==0){ //returns null in case of no free spaces
+        if (freeSpaceCount == 0) { //returns null in case of no free spaces
             return null;
         }
-        if(freeSpaceCount==1){
+        if (freeSpaceCount == 1) {
             return freeSpaces[0];
-        }
-        else{
+        } else {
             return freeSpaces[new Random().nextInt(freeSpaceCount)]; //randomly picks and returns a free space
         }
     }
