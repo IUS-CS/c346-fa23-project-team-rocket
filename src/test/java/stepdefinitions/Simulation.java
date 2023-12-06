@@ -69,7 +69,7 @@ public class Simulation {
 
     @Then("The getCurrentDay method returns a value less than {int}")
     public void theTheGetCurrentDayMethodReturnsAValueLessThan(int dayComparison) {
-        Assertions.assertTrue(simulation.getCurrentDay() < dayComparison);
+        Assertions.assertEquals(1, simulation.getCurrentDay());
     }
 
     @Given("There is an empty simulation")
