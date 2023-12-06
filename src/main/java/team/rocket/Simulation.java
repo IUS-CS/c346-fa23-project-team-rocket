@@ -1,6 +1,7 @@
 package team.rocket;
 
 import java.lang.Runnable;
+import java.util.Optional;
 
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
@@ -61,8 +62,8 @@ public class Simulation implements Runnable {
     public Simulation() {
         map = new Map();
         //adds two rabbits to the top left corner when the simulation starts running
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0,0 );
-        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"),0,1 );
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0, 0);
+        map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), 0, 1);
     }
 
     /**
@@ -70,7 +71,7 @@ public class Simulation implements Runnable {
      *
      * @param m the map to create a simulation from
      */
-    public Simulation(Map m){
+    public Simulation(Map m) {
         map = m;
     }
 
@@ -79,10 +80,10 @@ public class Simulation implements Runnable {
      */
     @Override
     public void run() {
-        if(printOutput) UI.outputGridViaMainThread(0, map);
+        if (printOutput) UI.outputGridViaMainThread(0, map);
         for (currentDay = 1; currentDay <= daysPerRun; currentDay++) { // Iterates through each day
             long startTime = TimeManager.getCurrentTime();
-            int millisecondsPerDay = millisecondsPerTimeStep*timeStepsPerDay;
+            int millisecondsPerDay = millisecondsPerTimeStep * timeStepsPerDay;
 
             for (currentTimeStep = 1; currentTimeStep <= timeStepsPerDay; currentTimeStep++) { // Iterates through each time step in the current day
                 moveAnimal();
@@ -103,7 +104,7 @@ public class Simulation implements Runnable {
             long currentTime = TimeManager.getCurrentTime();
             if (currentTime < startTime + millisecondsPerDay) { // Only sleep if computation time didn't take long enough
                 try {
-                    Thread.sleep(startTime + millisecondsPerDay-currentTime);
+                    Thread.sleep(startTime + millisecondsPerDay - currentTime);
 
                 } catch (InterruptedException e) {
                     System.out.println("There was an unexpected issue with the simulation.");
@@ -182,10 +183,10 @@ public class Simulation implements Runnable {
      * Finds the closest empty tile to position y, x in the grid. Only searches within 1 tile orthogonally and
      * diagonally.
      *
-     * @param map   the map to search
-     * @param y     the center y position
-     * @param x     the center x position
-     * @return      an array with the y position then the x position
+     * @param map the map to search
+     * @param y   the center y position
+     * @param x   the center x position
+     * @return an array with the y position then the x position
      */
     private int[] findClosestEmptyTile(Map map, int y, int x, int maxDistance) {
         int[] closestEmptyTile = null;
@@ -211,15 +212,39 @@ public class Simulation implements Runnable {
     private void moveAnimal() {
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
-                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
-                    if (animal.isStarving()) {
-                        map.removeOrganism(i, j);
-                        animal.reduceCount();
-                        break;
+                if (map.getOrganism(i, j) instanceof AbstractAnimal) { // Check if the object is an instance of AbstractAnimal
+                    AbstractAnimal animal = (AbstractAnimal) map.getOrganism(i, j);
+                    Optional<int[]> targetLocation = map.locateNearestTarget(animal, i, j);
+
+                    if (targetLocation.isPresent()) {
+                        int[] target = targetLocation.get();
+                        int targetRow = target[0];
+                        int targetColumn = target[1];
+
+                        // Determine the direction to move
+                        int newRow = i, newColumn = j;
+                        if (i < targetRow && i < map.getHeight() - 1) {
+                            newRow++; // Move down
+                        } else if (i > targetRow && i > 0) {
+                            newRow--; // Move up
+                        }
+
+                        if (j < targetColumn && j < map.getWidth() - 1) {
+                            newColumn++; // Move right
+                        } else if (j > targetColumn && j > 0) {
+                            newColumn--; // Move left
+                        }
+
+                        // Move the animal to the new location
+                        if (newRow != i || newColumn != j) { // Check if there is a change in position
+                            map.moveOrganism(i, j, newRow, newColumn);
+                        }
+                    } else {
+                        animal.move(map, i, j);
                     }
-                    animal.move(map, i, j);
                 }
             }
+            //                  ;)
         }
 
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
