@@ -60,10 +60,32 @@ public class Fox extends AbstractAnimal {
     }
 
     /**
+     * Gets breeding status of organism
+     * @return hasBred
+     */
+    public boolean getBreeding(){
+        return hasBred;
+    }
+
+    /**
+     * Sets hasBred to true, meant to disable breeding after breed
+     */
+    public void breed(){
+        hasBred = true;
+    }
+
+    /**
+     * Resets hasBred to false, meant to be used to reset breeding each day
+     */
+    public void resetBreeding(){
+        hasBred = false;
+    }
+
+    /**
      * decreases Fox's hunger meter
      */
     public void reduceHunger(){
-        hunger-=10;
+        hunger-=2;
     }
 
     public boolean isStarving() {
@@ -86,10 +108,6 @@ public class Fox extends AbstractAnimal {
         return new Fox();
     }
 
-    /**
-     * Creates new Fox
-     */
-    public void breed(){} //not yet implemented
 
     /**
      * Resets hasMoved to false, meant to be used to reset movement each day
@@ -103,12 +121,6 @@ public class Fox extends AbstractAnimal {
 
     }
 
-    /**
-     * Resets hasBred to false, meant to be used to reset breeding each day
-     */
-    public void resetBreeding(){
-        hasBred = false;
-    }
 
     /**
      * Takes array of a team.rocket.Entities.Fox's neighbors, randomly chooses an available space, and returns corresponding direction

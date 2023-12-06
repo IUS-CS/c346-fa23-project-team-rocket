@@ -1,6 +1,7 @@
 package team.rocket.Entities;
 
 import team.rocket.Enums.Direction;
+import team.rocket.Map;
 import team.rocket.util.RandomManager;
 
 import java.util.Random;
@@ -133,15 +134,18 @@ public class Grass extends AbstractPlant {
 
     /**
      * Creates new Grass in free adjacent slot
-     * @param grid 2D array holding all Organisms in simulation
-     * @param neighbors array of animals in adjacent tiles, 0-3 representing UP, DOWN, LEFT, or RIGHT respectively
-     * @param y - y position of Grass in grid
-     * @param x - x position of Grass in grid
+     * @param map map of simulation
+     * @param y - y position of Rabbit in grid
+     * @param x - x position of Rabbit in grid
      */
-    public void grow(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x) {
+    public void grow(Map map, int y, int x) {
         if (hasGrown) {
             return;
         }
+        int newX = x;
+        int newY = y;
+
+        AbstractOrganism[] neighbors = findNeighbors(map, y, x);
 
         Direction direction = this.availableSpace(neighbors);
 
@@ -150,20 +154,80 @@ public class Grass extends AbstractPlant {
         }
 
         if (direction == Direction.UP) {
-            grid[y-1][x] = getNewObjectFromExistingObject();
+            newY--;
         }
 
         if (direction == Direction.DOWN) {
-            grid[y+1][x] = getNewObjectFromExistingObject();
+            newY++;
         }
 
         if (direction == Direction.LEFT) {
-            grid[y][x-1] = getNewObjectFromExistingObject();
+            newX--;
         }
 
         if (direction == Direction.RIGHT) {
-            grid[y][x+1] = getNewObjectFromExistingObject();
+            newX++;
         }
+
+        AbstractOrganism[][] griddy = map.getGrid();
+        griddy[newY][newX] = getNewObjectFromExistingObject();
+        map.setGrid(griddy);
         hasGrown = true;
     }
+
+    public AbstractOrganism[] findNeighbors(Map map, int y, int x) {
+        AbstractOrganism[] neighbors = new AbstractOrganism[4];
+        if (y == 0) {
+            neighbors[0] = OrganismFactory.getInstance().createOrganism("Rabbit"); //Acting as walls
+            neighbors[0].reduceCount(); //Keeping the Rabbit count accurate
+        } else {
+            neighbors[0] = map.getOrganism(y - 1, x);
+        }
+
+        if (y == map.getHeight() - 1) {
+            neighbors[1] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[1].reduceCount();
+        } else {
+            neighbors[1] = map.getOrganism(y + 1, x);
+        }
+
+        if (x == 0) {
+            neighbors[2] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[2].reduceCount();
+        } else {
+            neighbors[2] = map.getOrganism(y, x - 1);
+        }
+
+        if (x == map.getWidth() - 1) {
+            neighbors[3] = OrganismFactory.getInstance().createOrganism("Rabbit");
+            neighbors[3].reduceCount();
+        } else {
+            neighbors[3] = map.getOrganism(y, x + 1);
+        }
+
+        return neighbors;
+    }
+
+    /**
+     * Gets breeding status of organism
+     * @return hasBred
+     */
+    public boolean getBreeding(){
+        return hasGrown;
+    }
+
+    /**
+     * Sets hasBred to true, meant to disable breeding after breed
+     */
+    public void breed(){
+        hasGrown = true;
+    }
+
+    /**
+     * Resets hasBred to false, meant to be used to reset breeding each day
+     */
+    public void resetBreeding(){
+        hasGrown = false;
+    }
+
 }

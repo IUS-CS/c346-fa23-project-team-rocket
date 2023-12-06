@@ -4,6 +4,7 @@ import java.lang.Runnable;
 
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
+import team.rocket.Entities.AbstractPlant;
 import team.rocket.Entities.OrganismFactory;
 import team.rocket.Enums.Direction;
 import team.rocket.IO.UI;
@@ -132,28 +133,49 @@ public class Simulation implements Runnable {
      */
     private void breed() {
         int maxDistance = 4; // Maximum distance from parent for new animal to spawn
-        int maxBreedsPerDay = 3; // Maximum number of breeds allowed per day
-        int breedsToday = 0; // Counter for the number of breeds today
         Map oldMap = map; // A copy of the current map
-        boolean hasBred; // Indicates if the animal in the current grid space has bred yet
-        int rabbitsBred = 0;
 
-        // Reset the breed counter at the start of each day
-        if (currentTimeStep == 1) {
-            breedsToday = 0;
-        }
 
         int randomValue;
 
         /* Looks for an organism to breed */
         for (int i = 0; i < oldMap.getHeight(); i++) { // Iterates through each row of a copy of the grid
-            hasBred = false;
-            for (int j = 0; j < oldMap.getWidth(); j++) { // Iterates through each column of a copy of the grid
-                if (map.getOrganism(i, j) != null && breedsToday < maxBreedsPerDay) { // Found an animal and check breeding limit
-                    // Check if there is an organism on the tile next to them (left, right, up, or down)
-                    if ((i > 0 && map.getOrganism(i - 1, j) != null) || (i < map.getHeight() - 1 && map.getOrganism(i + 1, j) != null) ||
-                            (j > 0 && map.getOrganism(i, j - 1) != null) || (j < map.getWidth() - 1 && map.getOrganism(i, j + 1) != null)) {
 
+            for (int j = 0; j < oldMap.getWidth(); j++) { // Iterates through each column of a copy of the grid
+                if (map.getOrganism(i, j) != null && !map.getOrganism(i,j).getBreeding()) { // Found an animal and check breeding limit
+                    char species = map.getOrganism(i, j).instancedToIcon();
+                    // Check if there is an organism on the tile next to them (left, right, up, or down)
+                    boolean breedingPartner = false;
+                    if(i > 0 &&
+                            map.getOrganism(i - 1, j) != null &&
+                            !map.getOrganism(i - 1, j).getBreeding() &&
+                            (map.getOrganism(i - 1, j).instancedToIcon() == species)){
+                        breedingPartner = true;
+                        map.getOrganism(i - 1, j).breed();
+                    }
+                    else if(i < map.getHeight() - 1 &&
+                            map.getOrganism(i + 1, j) != null &&
+                            !map.getOrganism(i + 1, j).getBreeding() &&
+                            (map.getOrganism(i + 1, j).instancedToIcon() == species)){
+                        breedingPartner = true;
+                        map.getOrganism(i + 1, j).breed();
+                    }
+                    else if(j > 0 &&
+                            map.getOrganism(i, j - 1) != null &&
+                            !map.getOrganism(i, j - 1).getBreeding() &&
+                            (map.getOrganism(i, j - 1).instancedToIcon() == species)){
+                        breedingPartner = true;
+                        map.getOrganism(i, j - 1).breed();
+                    }
+                    else if(j < map.getWidth() - 1 &&
+                            map.getOrganism(i, j + 1) != null &&
+                            !map.getOrganism(i, j + 1).getBreeding() &&
+                            (map.getOrganism(i, j + 1).instancedToIcon() == species)){
+                        breedingPartner = true;
+                        map.getOrganism(i, j + 1).breed();
+                    }
+
+                    if(breedingPartner){
                         // Generate a random value between 0 and 99
                         randomValue = RandomManager.getRandom().nextInt(100);
 
@@ -162,18 +184,17 @@ public class Simulation implements Runnable {
                             // Breed the animals in the closest available tile
                             int[] closestEmptyTile = findClosestEmptyTile(oldMap, i, j, maxDistance);
                             if (closestEmptyTile != null) {
-                                map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
-                                rabbitsBred++;
-                                hasBred = true;
-                                breedsToday++; // Increment the counter for breeds today
+                                map.getOrganism(i,j).breed();
+                                if (species == 'R') {
+                                    map.addOrganism(OrganismFactory.getInstance().createOrganism("Rabbit"), closestEmptyTile[0], closestEmptyTile[1]);
+                                }
+                                if (species == 'F') {
+                                    map.addOrganism(OrganismFactory.getInstance().createOrganism("Fox"), closestEmptyTile[0], closestEmptyTile[1]);
+                                }
                             }
                         }
                     }
 
-                    if (breedsToday >= maxBreedsPerDay) {
-                        // Exit the loop if the maximum number of breeds for the day is reached
-                        return;
-                    }
 
                     if (map.isFull()) {
                         mapIsFull = true;
@@ -228,10 +249,18 @@ public class Simulation implements Runnable {
                     }
                     animal.move(map, i, j);
                 }
+                if (map.getOrganism(i, j) instanceof AbstractPlant plant) {
+                    if (RandomManager.getRandom().nextInt(100) < 10) {
+                        plant.grow(map, i, j);
+                    }
+                }
             }
         }
         for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
             for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
+                if(map.getOrganism(i,j) != null) {
+                    map.getOrganism(i, j).resetBreeding();
+                }
                 if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
                     animal.resetMove();
                 }

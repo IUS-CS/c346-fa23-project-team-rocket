@@ -60,10 +60,32 @@ public class Rabbit extends AbstractAnimal{
     }
 
     /**
+     * Gets breeding status of organism
+     * @return hasBred
+     */
+    public boolean getBreeding(){
+        return hasBred;
+    }
+
+    /**
+     * Sets hasBred to true, meant to disable breeding after breed
+     */
+    public void breed(){
+        hasBred = true;
+    }
+
+    /**
+     * Resets hasBred to false, meant to be used to reset breeding each day
+     */
+    public void resetBreeding(){
+        hasBred = false;
+    }
+
+    /**
      * decreases Rabbit's hunger meter
      */
     public void reduceHunger(){
-        hunger-=10;
+        hunger-=2;
     }
 
     /**
