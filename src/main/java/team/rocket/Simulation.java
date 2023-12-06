@@ -239,16 +239,22 @@ public class Simulation implements Runnable {
                         if (newRow != i || newColumn != j) { // Check if there is a change in position
                             map.moveOrganism(i, j, newRow, newColumn);
                         }
+                    } else {
+                        animal.move(map, i, j);
                     }
                 }
             }
             //                  ;)
         }
+
+        for (int i = 0; i < map.getHeight(); i++) { // Iterates through each row of the grid
+            for (int j = 0; j < map.getWidth(); j++) { // Iterates through each column of the grid
+                if (map.getOrganism(i, j) instanceof AbstractAnimal animal) { // Check if the object is an instance of AbstractAnimal
+                    animal.resetMove();
+                }
+            }
+        }
     }
-
-
-
-
 
     /**
      * Determines the movement positions of animals up or down and left or right.
