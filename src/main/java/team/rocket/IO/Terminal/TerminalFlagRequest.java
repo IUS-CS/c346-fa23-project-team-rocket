@@ -5,89 +5,88 @@ import team.rocket.Map;
 import team.rocket.Simulation;
 
 /**
- * A request to be used with the Terminal FlagHandlers
+ * A request to be used with the Terminal FlagHandlers.
+ *
+ * @version 0.6.0
  * @since 0.3.0
- * @version 0.5.0
  */
 public class TerminalFlagRequest {
-	/**
-	 * Contains a Map to be used in conjunction with Terminal Flags
-	 */
-	private Map map;
-	/**
-	 * The full terminal command in string form
-	 */
-	final private String terminalCommand;
-
-	/**
-	 * The number of Days to run the simulation, starts as the default
-	 */
-	private int numOfDays = Simulation.DEFAULT_DAYS_PER_RUN;
-
-	/**
-	 * The number of steps per day in the simulation, starts as the default
-	 */
-	private int stepsPerDay = Simulation.DEFAULT_TIME_STEPS_PER_DAY;
+	private Map map; // A map to be used in conjunction with Terminal Flags
+	final private String terminalCommand; // The full terminal command in string form
+	private int numOfDays = Simulation.DEFAULT_DAYS_PER_RUN; // The number of Days to run the simulation, starts as the default
+	private int stepsPerDay = Simulation.DEFAULT_TIME_STEPS_PER_DAY; // The number of steps per day in the simulation, starts as the default
 
 	/**
 	 * Constructs a TerminalFlagRequest
-	 * @param command The terminal Command
-	 * @param map The current map being used, typically blank
+	 *
+	 * @param command	the terminal command
+	 * @param map		the current map being used, typically blank
 	 */
-	public TerminalFlagRequest(String command, Map map){
+	public TerminalFlagRequest(String command, Map map) {
 		this.map = map;
 		this.terminalCommand = command;
 	}
 
 	/**
-	 * Gets the map object
-	 * @return the map
+	 * Gets the map object.
+	 *
+	 * @return	the map
 	 */
 	public Map getMap() {
-		return this.map;
+		return map;
 	}
 
 	/**
-	 * Allows the map to be set, can be used for passing information
-	 * @param map 2D array of Abstract organisms
+	 * Allows the map to be set. Can be used for passing information.
+	 *
+	 * @param map	2D array of Abstract organisms
 	 */
-	public void setMap(Map map){
+	public void setMap(Map map) {
 		this.map = map;
 	}
 
 	/**
-	 * Gets the terminalCommand string
-	 * @return the TerminalCommand string
+	 * Gets the terminalCommand string.
+	 *
+	 * @return 	the TerminalCommand string
 	 */
 	public String getTerminalCommand() {
-		return this.terminalCommand;
+		return terminalCommand;
 	}
 
 	/**
-	 * Gets the numOfDays integer
+	 * Gets the numOfDays integer.
+	 *
 	 * @return the numOfDays integer
 	 */
-	public int getNumOfDays(){
-		return this.numOfDays;
+	public int getNumOfDays() {
+		return numOfDays;
 	}
 
 	/**
-	 * Sets the numOfDays integer
-	 * @param num the new number of days
+	 * Sets the numOfDays integer.
+	 *
+	 * @param num	the new number of days
 	 */
-	public void setNumOfDays(int num){
-		this.numOfDays = num;
+	public void setNumOfDays(int num) {
+		numOfDays = num;
 	}
 
 	/**
-	 * gets the stepsPerDay integer
-	 * @return the stepsPerDay integer
+	 * Gets the stepsPerDay integer.
+	 *
+	 * @return 	the stepsPerDay integer
 	 */
-	public int getStepsPerDay() {return this.stepsPerDay; }
+	public int getStepsPerDay() {
+		return stepsPerDay;
+	}
 
 	/**
-	 * sets the stepsPerDay integer
-	 * @param num the new number of steps per day
+	 * Sets the stepsPerDay integer.
+	 *
+	 * @param num	the new number of steps per day
 	 */
-	public void setStepsPerDay(int num){this.stepsPerDay = num; }
+	public void setStepsPerDay(int num) {
+		stepsPerDay = num;
+	}
 }

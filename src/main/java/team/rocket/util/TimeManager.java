@@ -3,10 +3,10 @@ package team.rocket.util;
 import java.time.Instant;
 
 /**
- * Handles Getting the time and makes it require less instantiation.
+ * Handles getting the time and makes it require less instantiation.
  *
- * @since 0.6.0
  * @version 0.6.0
+ * @since 0.6.0
  */
 public class TimeManager {
 	static Instant instant; // Java time library Instant instance

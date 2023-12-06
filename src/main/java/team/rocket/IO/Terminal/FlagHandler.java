@@ -21,11 +21,12 @@ public abstract class FlagHandler {
 	}
 
 	/**
-	 *  Actually handles the request
-	 * @param tFRequest The request to be handled, It's specifically a TerminalFlagRequest
+	 * Actually handles the request.
+	 *
+	 * @param tFRequest	the request to be handled, specifically a TerminalFlagRequest
 	 */
-	public void handleRequest(TerminalFlagRequest tFRequest){
-		if(m_successor!=null){
+	public void handleRequest(TerminalFlagRequest tFRequest) {
+		if (m_successor!=null) {
 			m_successor.handleRequest(tFRequest);
 		}
 	}
