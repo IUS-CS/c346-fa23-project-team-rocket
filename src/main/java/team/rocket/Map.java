@@ -1,16 +1,16 @@
 package team.rocket;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.LinkedList;
 
-import team.rocket.Enums.Direction;
 import team.rocket.Entities.AbstractAnimal;
 import team.rocket.Entities.AbstractOrganism;
 import team.rocket.Entities.Fox;
 import team.rocket.Entities.Grass;
 import team.rocket.Entities.Rabbit;
+import team.rocket.Enums.Direction;
 
 /**
  * A Map contains the information about the arrangement of a set of simulated organisms.
@@ -48,8 +48,8 @@ public class Map {
      * A constructor for the Map class that sets the grid to an empty 2D array of AbstractOrganisms with a
      * given width and height.
      *
-     * @param width     The desired width (number of columns) of the grid
-     * @param height    The desired height (number of rows) of the grid
+     * @param width     the desired width (number of columns) of the grid
+     * @param height    the desired height (number of rows) of the grid
      */
     public Map(int width, int height) {
         if (width == 0 || height == 0) {
@@ -67,7 +67,7 @@ public class Map {
      * A constructor for the Map class that sets the grid to the given grid and sets the width and height
      * to the width and height of the grid.
      *
-     * @param grid  A 2D array of AbstractOrganisms for the map to set its grid to
+     * @param grid  a 2D array of AbstractOrganisms for the map to set its grid to
      */
     public Map(AbstractOrganism[][] grid) {
         this.grid = grid;
@@ -86,7 +86,7 @@ public class Map {
     /**
      * Returns the grid of this map.
      *
-     * @return  A 2D array containing the simulated AbstractOrganisms
+     * @return  a 2D array containing the simulated AbstractOrganisms
      */
     public AbstractOrganism[][] getGrid() {
         return grid;
@@ -95,7 +95,7 @@ public class Map {
     /**
      * Sets the grid of the map to the given grid and changes the width and height values if applicable.
      *
-     * @param grid  The desired grid of the map.
+     * @param grid  the desired grid of the map.
      */
     public void setGrid(AbstractOrganism[][] grid) {
         this.grid = grid;
@@ -224,7 +224,7 @@ public class Map {
      *
      * @param x the x coordinate of the position to be checked
      * @param y the y coordinate of the position to be checked
-     * @return a HashMap of with entries of the neighbors with directions as keys
+     * @return  a HashMap of with entries of the neighbors with directions as keys
      */
     public HashMap<Direction, Character> getNeighborsAsCharacter(int x, int y) {
         if (x < 0 || x >= width) {
@@ -271,7 +271,7 @@ public class Map {
     /**
      * Gets the number of entities held by the map.
      *
-     * @return a long representing the number of entities held by the map
+     * @return  a long representing the number of entities held by the map
      */
     public long getNumberOfOrganisms() {
         return numberOfOrganisms;
@@ -281,11 +281,11 @@ public class Map {
      * Moves an organism at (currentCol, currentRow) to (newCol, newRow) and removes the organism at that location if
      * one is there.
      *
-     * @param currentRow the current x position of the organism
-     * @param currentCol the current y position of the organism
-     * @param newRow the x destination of the organism
-     * @param newCol the y destination of the organism
-     * @throws UnsupportedOperationException when the value at (currentCol, currentRow) is null
+     * @param currentRow                        the current x position of the organism
+     * @param currentCol                        the current y position of the organism
+     * @param newRow                            the x destination of the organism
+     * @param newCol                            the y destination of the organism
+     * @throws UnsupportedOperationException    when the value at (currentCol, currentRow) is null
      */
     public void moveOrganism(int currentRow, int currentCol, int newRow, int newCol) {
         if (grid[currentRow][currentCol] == null) {

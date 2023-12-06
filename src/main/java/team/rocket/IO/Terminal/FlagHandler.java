@@ -1,19 +1,22 @@
 package team.rocket.IO.Terminal;
 
 /**
- * Largely based on <a href="https://www.oodesign.com/chain-of-responsibility-pattern">OODesign Chain of Responsibility</a>.
- * Intended to be used as a base for other terminal flag handlers.
+ * Largely based on
+ * <a href="https://www.oodesign.com/chain-of-responsibility-pattern">OODesign Chain of Responsibility</a>. Intended to
+ * be used as a base for other terminal flag handlers.
+ *
+ * @version 0.6.0
  * @since 0.3.0
- * @version 0.3.0
  */
 public abstract class FlagHandler {
 	/**
-	 * Successor handler which comes after current handler
+	 * Successor handler which comes after current handler.
 	 */
-	protected  FlagHandler m_successor;
+	protected FlagHandler m_successor;
 
 	/**
-	 * Sets the successor of the handler
+	 * Sets the successor of the handler.
+	 *
 	 * @param successor the FlagHandler successor to be set as the current Handlers successor
 	 */
 	public void setSuccessor(FlagHandler successor){
@@ -21,11 +24,12 @@ public abstract class FlagHandler {
 	}
 
 	/**
-	 *  Actually handles the request
-	 * @param tFRequest The request to be handled, It's specifically a TerminalFlagRequest
+	 * Actually handles the request.
+	 *
+	 * @param tFRequest	the request to be handled, specifically a TerminalFlagRequest
 	 */
-	public void handleRequest(TerminalFlagRequest tFRequest){
-		if(m_successor!=null){
+	public void handleRequest(TerminalFlagRequest tFRequest) {
+		if (m_successor!=null) {
 			m_successor.handleRequest(tFRequest);
 		}
 	}
