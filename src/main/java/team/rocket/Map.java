@@ -1,8 +1,16 @@
 package team.rocket;
 
-import team.rocket.Entities.AbstractOrganism;
 import java.util.HashMap;
+import java.util.Optional;
+import java.util.Queue;
+import java.util.LinkedList;
+
 import team.rocket.Enums.Direction;
+import team.rocket.Entities.AbstractAnimal;
+import team.rocket.Entities.AbstractOrganism;
+import team.rocket.Entities.Fox;
+import team.rocket.Entities.Grass;
+import team.rocket.Entities.Rabbit;
 
 /**
  * A Map contains the information about the arrangement of a set of simulated organisms.
@@ -282,5 +290,152 @@ public class Map {
 
         grid[newRow][newCol] = grid[currentRow][currentCol];
         grid[currentRow][currentCol] = null;
+    }
+
+    /**
+     * Finds the location of the nearest target to the given animal within the animal's range of vision
+     *
+     * @param animal    the animal that is looking for a target
+     * @return          an array containing the row and column of the nearest target to the animal or null if it can't
+     *                  find a target
+     */
+    public Optional<int[]> locateNearestTarget(AbstractAnimal animal, int row, int column) {
+        Optional<int[]> location = Optional.empty();
+
+        Queue<int[]> queue = new LinkedList<>();
+        boolean targetFound = false;
+        int[] coordinates;
+
+        if (animal instanceof Rabbit) {
+            for (int checkingRange = 1; checkingRange <= Rabbit.getVision(); checkingRange++) { // Checks a rabbit's whole range of vision
+                /*
+                    The following for loop adds locations to the queue in the following pattern (using a checking range
+                    of 3 and a starting animal of a rabbit for example):
+
+                    Before:           i = 0:            i = 1:            i = 2:
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                    . . . . . . .     . . . . . . .     . . X . . . .     . . X . X . .
+                    . . . . . . .     . . . . . . .     . . . . . X .     . X . . . X .
+                    . . . R . . .     X . . R . . X     X . . R . . X     X . . R . . X
+                    . . . . . . .     . . . . . . .     . X . . . . .     . X . . . X .
+                    . . . . . . .     . . . . . . .     . . . . X . .     . . X . X . .
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                 */
+                int checkingRow;
+                int checkingColumn;
+                for (int i = 0; i < checkingRange; i++) {
+                    checkingRow = row + i;
+                    checkingColumn = column + (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row + (checkingRange - i);
+                    checkingColumn = column - i;
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - i;
+                    checkingColumn = column - (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - (checkingRange - i);
+                    checkingColumn = column + i;
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+                }
+
+                while ((coordinates = queue.poll()) != null) { // Checks the coordinates currently in the queue
+                    if (this.getOrganism(coordinates[0], coordinates[1]) instanceof Grass) {
+                        location = Optional.of(coordinates);
+                        targetFound = true;
+                        break;
+                    }
+                }
+
+                if (targetFound) {
+                    break;
+                }
+            }
+
+            if (!targetFound) {
+                location = Optional.empty();
+            }
+        } else if (animal instanceof Fox) { // Checks a fox's whole range of vision
+            for (int checkingRange = 1; checkingRange <= Fox.getVision(); checkingRange++) { // Checks a rabbit's whole range of vision
+                /*
+                    The following for loop adds locations to the queue in the following pattern (using a checking range
+                    of 3 and a starting animal of a rabbit for example):
+
+                    Before:           i = 0:            i = 1:            i = 2:
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                    . . . . . . .     . . . . . . .     . . X . . . .     . . X . X . .
+                    . . . . . . .     . . . . . . .     . . . . . X .     . X . . . X .
+                    . . . R . . .     X . . R . . X     X . . R . . X     X . . R . . X
+                    . . . . . . .     . . . . . . .     . X . . . . .     . X . . . X .
+                    . . . . . . .     . . . . . . .     . . . . X . .     . . X . X . .
+                    . . . . . . .     . . . X . . .     . . . X . . .     . . . X . . .
+                 */
+                int checkingRow;
+                int checkingColumn;
+                for (int i = 0; i < checkingRange; i++) {
+                    checkingRow = row + i;
+                    checkingColumn = column + (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row + (checkingRange - i);
+                    checkingColumn = column - i;
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - i;
+                    checkingColumn = column - (checkingRange - i);
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+
+                    checkingRow = row - (checkingRange - i);
+                    checkingColumn = column + i;
+                    if ((checkingRow >= 0 && checkingRow < this.height) &&
+                            (checkingColumn >= 0 && checkingColumn < this.width)) {
+                        queue.add(new int[] {checkingRow, checkingColumn});
+                    }
+                }
+
+                while ((coordinates = queue.poll()) != null) { // Checks the coordinates currently in the queue
+                    if (this.getOrganism(coordinates[0], coordinates[1]) instanceof Rabbit) {
+                        location = Optional.of(coordinates);
+                        targetFound = true;
+                        break;
+                    }
+                }
+
+                if (targetFound) {
+                    break;
+                }
+            }
+
+            if (!targetFound) {
+                location = Optional.empty();
+            }
+        } else {
+            location = Optional.empty();
+        }
+
+        return location;
     }
 }
