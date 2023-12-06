@@ -25,15 +25,6 @@ public class Grass {
     @Then("The grass should be able to grow")
     public void theGrassShouldBeAbleToGrow(){Assertions.assertEquals(g.growthStatus(),false);}
 
-    @Then("A new grass should be grown")
-    public void aNewGrassShouldBeGrown(){
-        neighbors[1]=g;
-        neighbors[2]=g;
-        neighbors[3]=g;
-        y=3;
-        x=2;
-        g.grow(grid,neighbors,y,x);
-        Assertions.assertEquals(grid[2][2],g);
-        }
+
 
 }

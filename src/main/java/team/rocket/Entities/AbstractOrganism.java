@@ -52,4 +52,19 @@ public abstract class AbstractOrganism {
      */
     public abstract int getNutrition();
 
+    /**
+     * Gets breeding status of organism
+     * @return hasBred
+     */
+    public abstract boolean getBreeding();
+
+    /**
+     * Sets hasBred to true, meant to disable breeding after breed
+     */
+    public abstract void breed();
+
+    /**
+     * Resets hasBred to false, meant to be used to reset breeding each day
+     */
+    public abstract void resetBreeding();
 }

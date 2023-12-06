@@ -28,15 +28,6 @@ public class Carrot {
     @Then("The Carrot should have 25 nutrition")
     public void theCarrotShouldHave25Nutrition(){Assertions.assertEquals(c.getNutrition(),25);}
 
-    @Then("A new Carrot should be grown")
-    public void aNewCarrotShouldBeGrown(){
-        neighbors[1]=c;
-        neighbors[2]=c;
-        neighbors[3]=c;
-        y=3;
-        x=2;
-        c.grow(grid,neighbors,y,x);
-        Assertions.assertEquals(grid[2][2],c);
-        }
+
 
 }

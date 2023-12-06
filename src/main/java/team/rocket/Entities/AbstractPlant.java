@@ -1,5 +1,7 @@
 package team.rocket.Entities;
 
+import team.rocket.Map;
+
 /**
  * @since 0.3.0
  * @version 0.4.0
@@ -58,7 +60,7 @@ public abstract class AbstractPlant extends AbstractOrganism{
     /**
      * Creates new Organism
      */
-    public abstract void grow(AbstractOrganism grid[][], AbstractOrganism[] neighbors, int y, int x);
+    public abstract void grow(Map map, int y, int x);
 
     /**
      * @return nutrition
